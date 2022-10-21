@@ -7,7 +7,7 @@ KEPHIS website UX design
 ![views](static/img/1.png)
 
 ### Live link
-Visit the application on the [Link](20.231.15.166:108)
+Visit the application on the [20.231.15.166:108](http://20.231.15.166:108)
 ### Setup & Run Instructions
 - Create and activate a virtual environment
 - Install the dependencies listed in the requirements.txt

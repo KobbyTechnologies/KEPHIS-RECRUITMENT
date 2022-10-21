@@ -106,15 +106,25 @@ def profile_request(request):
         my_name = request.session['E_Mail']
 
         todays_date = datetime.datetime.now().strftime("%b. %d, %Y %A")
-        ctx = {"year": year, "country": country,
-               "county": county, "industry": ind,
-               "Quo": Quo, "Pro": Pro,
-               "Study": FStudy, "applicant": res,
-               "fullname": fullname, "Qualify": My_Qualifications,
-               "experience": My_Experience, "course": My_Course,
-               "membership": My_Membership, "hobby": My_Hobby,
-               "Referee": My_Referees, "today": todays_date,
-               "my_name": my_name}
+        ctx = {
+            "year": year,
+            "country": country,
+            "county": county,
+            "industry": ind,
+            "Quo": Quo,
+            "Pro": Pro,
+            "Study": FStudy,
+            "applicant": res,
+            "fullname": fullname,
+            "Qualify": My_Qualifications,
+            "experience": My_Experience,
+            "course": My_Course,
+            "membership": My_Membership,
+            "hobby": My_Hobby,
+            "Referee": My_Referees,
+            "today": todays_date,
+            "my_name": my_name
+        }
     except KeyError:
         messages.error(request, "Session has expired, Login Again")
         return redirect('login')
@@ -128,48 +138,45 @@ def login_request(request):
     session = requests.Session()
     session.auth = config.AUTHS
 
-    Access_Point = config.O_DATA.format("/QyApplicants")
-    username = ''
-    Portal_Password = ""
     if request.method == 'POST':
-
         try:
             email = request.POST.get('email').strip()
             password = request.POST.get('password')
-        except ValueError:
-            messages.error(request, "Invalid credentials, try again")
-            return redirect('login')
-        try:
-            response = session.get(Access_Point, timeout=10).json()
-            for applicant in response['value']:
-                if applicant['E_Mail'] == email:
-                    try:
-                        Portal_Password = base64.urlsafe_b64decode(
-                            applicant['Portal_Password'])
-                        request.session['No_'] = applicant['No_']
-                        request.session['E_Mail'] = applicant['E_Mail']
-                        applicant_no = request.session['No_']
-                        mail = request.session['E_Mail']
-                    except Exception as e:
-                        messages.error(request, e)
-                        return redirect('login')
-        except requests.exceptions.ConnectionError as e:
-            print(e)
 
-        cipher_suite = Fernet(config.ENCRYPT_KEY)
-        try:
-            decoded_text = cipher_suite.decrypt(
-                Portal_Password).decode("ascii")
+            Access_Point = config.O_DATA.format(
+                f"/QyApplicants?$filter=E_Mail%20eq%20%27{email}%27")
+            response = session.get(Access_Point, timeout=10)
+
+            if response.status_code != 200:
+                messages.error(
+                    request, f'Failed with status code: {response.status_code}')
+                return redirect('login')
+            cleanData = response.json()
+            for applicant in cleanData['value']:
+                Portal_Password = base64.urlsafe_b64decode(
+                    applicant['Portal_Password'])
+                request.session['No_'] = applicant['No_']
+                request.session['E_Mail'] = applicant['E_Mail']
+                # applicant_no = request.session['No_']
+                # mail = request.session['E_Mail']
+
+                cipher_suite = Fernet(config.ENCRYPT_KEY)
+                decoded_text = cipher_suite.decrypt(
+                    Portal_Password).decode("ascii")
+                if decoded_text == password:
+                    return redirect('dashboard')
+                messages.error(
+                    request, "Invalid Credentials")
+                return redirect('login')
+
+            messages.error(request, "Email does not exist")
+            return redirect('login')
         except Exception as e:
+            print(e)
             messages.error(request, e)
             return redirect('login')
-        if decoded_text == password:
-            return redirect('dashboard')
-        else:
-            messages.error(
-                request, "Invalid Credentials")
-            return redirect('login')
-    ctx = {"year": year, "username": username}
+
+    ctx = {"year": year}
     return render(request, 'login.html', ctx)
 
 

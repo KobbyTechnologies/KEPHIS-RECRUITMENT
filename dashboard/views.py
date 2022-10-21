@@ -53,7 +53,8 @@ def dashboard(request):
         ctx = {"today": todays_date, "year": year,
                "count": count, "counter": counter,
                "job": Job, "my_name": my_name}
-    except KeyError:
+    except KeyError as e:
+        print(e)
         messages.error(request, "Session has expired, Login Again")
         return redirect("login")
     return render(request, 'main/dashboard.html', ctx)

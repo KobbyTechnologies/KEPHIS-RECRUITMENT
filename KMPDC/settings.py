@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 
 from pathlib import Path
 import os
-import django_heroku
+# import django_heroku
 import dj_database_url
 from decouple import config, Csv
 import requests
@@ -175,14 +175,14 @@ WHITENOISE_MANIFEST_STRICT = False
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-django_heroku.settings(locals())
+# django_heroku.settings(locals())
 
 AUTHS = Session()
 
-WEB_SERVICE_PWD = 'Admin@123'
-BASE_URL = 'http://20.121.189.145:7047/KMPDC/WS/KMPDC/Codeunit/CuRecruitmentWebPortal'
-O_DATA = "http://20.121.189.145:7048/KMPDC/ODataV4/Company(%27KMPDC%27){}"
-AUTHS.auth = HTTPBasicAuth('EMAEBA', WEB_SERVICE_PWD)
+WEB_SERVICE_PWD = 'W3C0d3@llD@y'
+BASE_URL = 'http://20.231.15.166:7047/BC140/WS/CRONUS%20International%20Ltd./Codeunit/CuRecruitmentWebPortal'
+O_DATA = "http://20.231.15.166:7048/BC140/ODataV4/Company('CRONUS%20International%20Ltd.'){}"
+AUTHS.auth = HTTPBasicAuth('COKUNE', WEB_SERVICE_PWD)
 
 CLIENT = Client(BASE_URL, transport=Transport(session=AUTHS))
-AUTHS = HTTPBasicAuth('EMAEBA', WEB_SERVICE_PWD)
+AUTHS = HTTPBasicAuth('COKUNE', WEB_SERVICE_PWD)

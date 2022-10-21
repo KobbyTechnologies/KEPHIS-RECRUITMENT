@@ -1,13 +1,13 @@
-#   KMPDC Portal
+#   KEPHIS Portal
 ## Project Description
-KMPDC website UX design
+KEPHIS website UX design
 
 ##### By Enock Abere 
 
 ![views](static/img/1.png)
 
 ### Live link
-Visit the application on https://kmpdc.herokuapp.com/
+Visit the application on 20.231.15.166:108
 ### Setup & Run Instructions
 - Create and activate a virtual environment
 - Install the dependencies listed in the requirements.txt
@@ -25,7 +25,7 @@ To make advancements/modifications, follow these steps:
 - Create a Pull Request
 ### Technologies Used
 Technologies used to develop this application:
-- Python v3.9.5
+- Python  >= v3.9.5
 - Django 3.2.7
 - Bootstrap5
 - HTML

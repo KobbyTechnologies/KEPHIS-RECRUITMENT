@@ -447,6 +447,7 @@ def FnApplicantProfessionalMembership(request):
 
 def FnApplicantHobby(request):
     applicantNo = request.session['No_']
+    # print(request.session['No_'])
     lineNo = 0
     hobby = ""
     myAction = "insert"

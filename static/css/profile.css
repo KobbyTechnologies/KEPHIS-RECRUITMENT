@@ -2,7 +2,7 @@
 
 :root {
     --first-color: #02a552;
-    --secondery-color: #25CC88;
+    --secondery-color: #f79621;
     --shadow-color: #9d9fb3;
     --primary-font: 'Gelasio', serif;
     --normal-font: 'Titillium Web', sans-serif;
@@ -426,4 +426,72 @@
     .progress__bar__container ul .active::before {
         transform: rotate(90deg)
     }
+}
+
+
+.tile
+{
+  width:100%;
+  margin:auto;
+  color: #000!important;
+}
+#tile-1 .tab-pane
+{
+  padding:15px;
+}
+#tile-1 .nav-tabs
+{
+  position:relative;
+  border:none!important;
+  background-color:#fff;
+/*   box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 1px 5px 0 rgba(0,0,0,0.12), 0 3px 1px -2px rgba(0,0,0,0.2); */
+  border-radius:6px;
+}
+#tile-1 .nav-tabs li
+{
+  margin:0px!important;
+}
+#tile-1 .nav-tabs li a
+{
+  position:relative;
+  margin-right:0px!important;
+  padding: 10px 10px!important;
+  font-size:16px;
+  border:none!important;
+  color:#333;
+  height: 100%;
+}
+#tile-1 .nav-tabs a:hover
+{
+  background-color:#fff!important;
+  border:none;
+}
+#tile-1 .slider
+{
+  display:inline-block;
+  width:30px;
+  height:4px;
+  border-radius:3px;
+  background-color:var(--first-color);
+  position:absolute;
+  z-index:1;
+  bottom:0;
+  transition:all .4s linear;
+  
+}
+#tile-1 .nav-tabs .active
+{
+  background-color:transparent!important;
+  border:none!important;
+  color:var(--first-color)!important;
+}
+
+.tab-content {
+    padding: 0 1rem !important;
+    color: #000 !important;
+}
+
+.btn-info, .btn-primary {
+    background-color: var(--first-color) !important;
+    border-color: var(--first-color) !important;
 }

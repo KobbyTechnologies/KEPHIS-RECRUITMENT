@@ -180,8 +180,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTHS = Session()
 
 WEB_SERVICE_PWD = 'W3C0d3@llD@y'
-BASE_URL = 'http://20.231.15.166:7047/BC140/WS/CRONUS%20International%20Ltd./Codeunit/CuRecruitmentWebPortal'
 O_DATA = "http://20.231.15.166:7048/BC140/ODataV4/Company('CRONUS%20International%20Ltd.'){}"
+BASE_URL = 'http://20.231.15.166:7047/BC140/WS/CRONUS%20International%20Ltd./Codeunit/CuRecruitmentWebPortal'
 AUTHS.auth = HTTPBasicAuth('COKUNE', WEB_SERVICE_PWD)
 
 CLIENT = Client(BASE_URL, transport=Transport(session=AUTHS))

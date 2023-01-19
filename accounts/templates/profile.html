@@ -39,6 +39,8 @@
         {% endif %}
         {% endfor %}
         {% endif %}
+
+
         <div class="row">
             <div class="col-md-12">
                 <div class="my-3">
@@ -46,7 +48,1283 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="card jcard">
-                                    <div class="row">
+
+                                    <div class="tile" id="tile-1">
+
+                                        <!-- Nav tabs -->
+                                        <ul class="nav nav-tabs nav-justified" role="tablist">
+                                            <div class="slider"></div>
+                                            <li class="nav-item">
+                                                <a class="nav-link active" id="profile-tab" data-bs-toggle="tab" href="#profile"
+                                                    role="tab" aria-controls="profile" aria-selected="true"><i
+                                                        class="fas fa-id-card"></i> Personal Information</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" id="academic-tab" data-bs-toggle="tab" href="#academic"
+                                                    role="tab" aria-controls="academic" aria-selected="false"><i
+                                                        class="fas fa-graduation-cap"></i> Academic Qualification</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" id="work-tab" data-bs-toggle="tab" href="#work"
+                                                    role="tab" aria-controls="work" aria-selected="false"><i
+                                                        class="fas fa-briefcase"></i> Work Experience</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" id="course-tab" data-bs-toggle="tab" href="#course"
+                                                    role="tab" aria-controls="course" aria-selected="false"><i
+                                                        class="fas fa-chalkboard-teacher"></i> Professional Courses</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" id="member-tab" data-bs-toggle="tab" href="#member"
+                                                    role="tab" aria-controls="member" aria-selected="false"><i
+                                                        class="fas fa-user-tie"></i> Professional Membership</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" id="hobby-tab" data-bs-toggle="tab" href="#hobby"
+                                                    role="tab" aria-controls="hobby" aria-selected="false"><i
+                                                        class="fas fa-biking"></i> Hobbies</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" id="referee-tab" data-bs-toggle="tab" href="#referee"
+                                                    role="tab" aria-controls="referee" aria-selected="false"><i
+                                                        class="fas fa-user-tag"></i>Referees</a>
+                                            </li>
+                                            
+
+                                        </ul>
+
+                                        <!-- Tab panes -->
+                                        <div class="tab-content" id="nav-tabContent">
+                                            <!-- Personal information -->
+                                            <div class="tab-pane fade show active" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                                                <div class="container">
+                                                    <form class="row g-3">
+                                                        <div class="col-md-12">
+                                                            <label class="form-label">Name</label>
+                                                            <input type="text" class="form-control" placeholder="{{fullname}}" readonly>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <label class="form-label">ID Number</label>
+                                                            <input type="text"  class="form-control" placeholder="{{applicant.ID_Number}}" readonly>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <label class="form-label">Gender</label>
+                                                            <input type="text" class="form-control" placeholder="{{applicant.Gender}}" readonly>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <label class="form-label">Citizenship</label>
+                                                            <input type="text" class="form-control" placeholder="{{applicant.Citizenship}}"  readonly>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <label class="form-label">Marital Status</label>
+                                                            <input type="text" class="form-control" placeholder="{{applicant.Marital_Status}}" readonly>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <label class="form-label">Ethnic Origin</label>
+                                                            <input type="text" class="form-control" placeholder="{{applicant.Ethnic_Origin}}" readonly>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <label class="form-label">Disabled</label>
+                                                            <input type="text" class="form-control"
+                                                                placeholder="{{applicant.Disabled}}" readonly>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <label class="form-label">Disability Reg No.</label>
+                                                            <input type="text"  class="form-control" placeholder="{{applicant.Disability_Grade}}"  readonly>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <label class="form-label">Date Of Birth</label>
+                                                            <input type="text" class="form-control" placeholder="{{applicant.Date_Of_Birth}}" readonly>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <label class="form-label">Phone Number</label>
+                                                            <input type="text"
+                                                                class="form-control" placeholder="{{applicant.Cellular_Phone_Number}}" readonly>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <label class="form-label">EMail</label>
+                                                            <input type="text"
+                                                                class="form-control" placeholder="{{E_Mail.E_Mail}}" readonly>
+                                                        </div>
+                                                    </form>
+                                                    <div class="my-3">
+                                                        <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#EditPersonnal">
+                                                            Edit <i class="las la-edit"></i>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- Academic Qualification -->
+                                            <div class="tab-pane fade " id="academic" role="tabpanel" aria-labelledby="academic-tab">
+                                                <div class="d-flex justify-content-between">
+                                                    <h4>Academic Qualification</h4>
+                                                    <button type="button" class="btn btn-info" data-bs-toggle="modal"data-bs-target="#AddAcademic">
+                                                        Add Qualification <i class="las la-plus"></i>
+                                                    </button>
+                                                </div>
+                                                {% if Qualify %}
+                                                {% for res in Qualify %}
+                                                <hr class="border  border-3 opacity-100">
+                                                <div class="container">
+                                                    <div class="row g-1">
+                                                        <div class="col-md-12">
+                                                            <span><i> Institution:</i></span>
+                                                            <h5 class="mt-1">{{res.Institution_Name}}</h5>
+                                                            <hr>
+                                                            <div class="row">
+                                                                <div class="col-md-2">
+                                                                    <span><i> Start Date:</i></span>
+                                                                    <p class="mt-1"><b>{{res.Start_Date}}</b></p>
+                                                                </div>
+                                                                <div class="col-md-2">
+                                                                    <span><i> Completion Date:</i></span>
+                                                                    <p class="mt-1"><b>{{res.End_Date}}</b></p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <hr>
+                                                        <div class="col-md-12">
+                                                            <span><i> Qualification:</i></span>
+                                                            <h6 class="mt-1">{{res.Qualification_Name}}</h6>
+                                                        </div>
+                                                        <hr>
+                                                        <div class="col-md-4">
+                                                            <span><i> Education Type:</i></span>
+                                                            <p class="mt-1"><b>{{res.Education_Type}}</b></p>
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <span><i>Proficency Level:</i></span>
+                                                            <p class="mt-1">{{res.Proficiency_Level}}</p>
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <span><i> Grade:</i></span>
+                                                            <p class="mt-1"><b>{{res.Grade}}</b></p>
+                                                        </div>
+                                                        
+                                                        <div class="col-md-4">
+                                                            <span><i> Country:</i></span>
+                                                            <p class="mt-1"><b>{{res.Country}}</b></p>
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <span><i> Region:</i></span>
+                                                            <p class="mt-1"><b>{{res.Region}}</b></p>
+                                                        </div>
+                                                        <div class="col-md-12">
+                                                            <span>Description:</span>
+                                                            <p class="mt-1">{{res.Description}}</p>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                                {% endfor %}
+                                                {% endif %}
+                                            </div>
+                                            <!-- Work Experience -->
+                                            <div class="tab-pane fade " id="work" role="tabpanel" aria-labelledby="work-tab">
+                                                <div class="d-flex justify-content-between">
+                                                    <h4>Work Experience</h4>
+                                                    <button type="button" class="btn btn-info" data-bs-toggle="modal"data-bs-target="#AddExperience">
+                                                        Add Experience<i class="las la-plus"></i>
+                                                    </button>
+                                                </div>
+                                                {% if experience %}
+                                                {% for res in experience %}
+                                                <hr class="border  border-3 opacity-100">
+                                                <div class="container">
+                                                    <div class="row g-1">
+                                                        <div class="col-md-12">
+                                                            <div class="row">
+                                                                <div class="col-md-6">
+                                                                    <span><i> Job Title:</i></span>
+                                                                    <h5 class="my-1">{{res.Job_Title}}</h5>
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                    <span><i> Employer:</i></span>
+                                                                    <h6 class="mt-1">{{res.Employer}}</h6>
+                                                                </div>  
+                                                            </div>
+                                                        </div>
+                                                        <hr class="border  border-1 opacity-75">
+                                                        <div class="col-md-6">
+                                                            <div class="row">
+                                                                <div class="col-md-6">
+                                                                    <span><i> Start Date:</i></span>
+                                                                    <p class="mt-1"><b>{{res.Start_Date}}</b></p>
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                    <span><i> Completion Date:</i></span>
+                                                                    <p class="mt-1"><b>{{res.End_Date}}</b></p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <div class="row">
+                                                                <div class="col-md-6">
+                                                                    <span><i> Functional Area:</i></span>
+                                                                    <h6 class="mt-1">{{res.Functional_Area}}</h6>
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                    <span><i> Hierachy Level:</i></span>
+                                                                    <h6 class="mt-1">{{res.Hierarchy_Level}}</h6>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <span><i>Present Employer:</i></span>
+                                                            <p class="mt-1"><b>{{res.Present_Employment}}</b></p>
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <span><i>Employer Email Address:</i></span>
+                                                            <p class="mt-1">{{res.Employer_Email_Address}}</p>
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <span><i>Employer Postal Address:</i></span>
+                                                            <p class="mt-1">{{res.Employer_Postal_Address}}</p>
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <span><i> No. of Years worked:</i></span>
+                                                            <p class="mt-1"><b>{{res.No__of_Years}}</b></p>
+                                                        </div>
+                                                        
+                                                        <div class="col-md-4">
+                                                            <span><i> Country:</i></span>
+                                                            <p class="mt-1"><b>{{res.Country}}</b></p>
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <span><i> Location:</i></span>
+                                                            <p class="mt-1"><b>{{res.Location}}</b></p>
+                                                        </div>
+                                                        <div class="col-md-12">
+                                                            <span>Description:</span>
+                                                            <p class="mt-1">{{res.Description}}</p>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                                {% endfor %}
+                                                {% endif %}
+
+                                            </div>
+                                            <!-- Proffesional courses-->
+                                            <div class="tab-pane fade " id="course" role="tabpanel" aria-labelledby="course-tab">
+                                                <div class="d-flex justify-content-between">
+                                                    <h4>Professional Courses</h4>
+                                                    <button type="button" class="btn btn-info" data-bs-toggle="modal"data-bs-target="#AddCourses">
+                                                        Add Course <i class="las la-plus"></i>
+                                                    </button>
+                                                </div>
+                                                {% if course %}
+                                                {% for res in course %}
+                                                <hr>
+                                                <div class="container">
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <span><i> Qualification Name:</i></span>
+                                                            <p class="mt-1"><b>{{res.Qualification_Name}}</b></p>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <span><i> Section Level:</i></span>
+                                                            <p class="mt-1"><b>{{res.Section_Level}}</b></p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                {% endfor %}
+                                                {% endif %}
+
+                                            </div>
+                                            <!-- Prefessional Memberships -->
+                                            <div class="tab-pane fade " id="member" role="tabpanel" aria-labelledby="member-tab">
+                                                <div class="d-flex justify-content-between">
+                                                    <h4>Professional Memberships</h4>
+                                                    <button type="button" class="btn btn-info" data-bs-toggle="modal"data-bs-target="#AddMemberships">
+                                                        Add Membership <i class="las la-plus"></i>
+                                                    </button>
+                                                </div>
+                                                {% if membership %}
+                                                {% for res in membership %}
+                                                <hr>
+                                                <div class="container">
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <span><i> Qualification Name:</i></span>
+                                                            <p class="mt-1"><b>{{res.Professional_Body}}</b></p>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <span><i> Section Level:</i></span>
+                                                            <p class="mt-1"><b>{{res.MembershipNo}}</b></p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                {% endfor %}
+                                                {% endif %}
+
+                                            </div>
+                                            <!--Hobbies  -->
+                                            <div class="tab-pane fade " id="hobby" role="tabpanel" aria-labelledby="hobby-tab">
+                                                <div class="d-flex justify-content-between">
+                                                    <h4>Hobbies</h4>
+                                                    <button type="button" class="btn btn-info" data-bs-toggle="modal"data-bs-target="#AddHobby">
+                                                        Add Hobby <i class="las la-plus"></i>
+                                                    </button>
+                                                </div>
+                                                <hr>
+                                                <div class="container">
+                                                    <div class="row">
+                                                        {% if hobby %}
+                                                        {% for res in hobby %}
+                                                        <div class="col-md-3">
+                                                            <p><strong>{{res.Hobbies}}</strong></p>
+                                                        </div>
+                                                        {% endfor %}
+                                                        {% endif %}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- Referees -->
+                                            <div class="tab-pane fade " id="referee" role="tabpanel" aria-labelledby="referee-tab">
+                                                <div class="d-flex justify-content-between">
+                                                    <h5>Referees</h5>
+                                                    <button type="button" class="btn btn-info" data-bs-toggle="modal"data-bs-target="#AddReferee">
+                                                        Add Referee <i class="las la-plus"></i>
+                                                    </button>
+                                                </div>
+                                                {% if Referee %}
+                                                {% for res in Referee %}
+                                                <hr>
+                                                <div class="container">
+                                                    <div class="row">
+                                                        <div class="col-md-4">
+                                                            <span><i> Name:</i></span>
+                                                            <p class="mt-1"><b>{{res.Names}}</b></p>
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <span><i> Designation</i></span>
+                                                            <p class="mt-1"><b>{{res.Designation}}</b></p>
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <span><i> Company</i></span>
+                                                            <p class="mt-1"><b>{{res.Company}}</b></p>
+                                                        </div>
+                                                        
+                                                        <div class="col-md-4">
+                                                            <span><i> Address</i></span>
+                                                            <p class="mt-1"><b>{{res.Address}}</b></p>
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <span><i> Telepnone No.</i></span>
+                                                            <p class="mt-1"><b>{{res.Telephone_No}}</b></p>
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <span><i> Email</i></span>
+                                                            <p class="mt-1"><b>{{res.E_Mail}}</b></p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                {% endfor %}
+                                                {% endif %}
+
+                                            </div>
+                                            
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+</section>
+
+
+<!--**********************************
+     Forms to populater the data above
+ ***********************************-->
+
+
+<!-- Modals Personal Info Edit-->
+<div class="modal fade" id="EditPersonnal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Edit Personal Information</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form action="{% url 'FnApplicantDetails' %}" method="post" class="needs-validation" novalidate>
+                    {% csrf_token %}
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label class="form-label">First Name</label>
+                            <input type="text" class="form-control" name="firstName" required>
+                            <div class="invalid-feedback">
+                                Enter Your First Name.
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Middle Name</label>
+                            <input type="text" class="form-control" name="middleName" required>
+                            <div class="invalid-feedback">
+                                Enter Your Middle Name.
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Last Name</label>
+                            <input type="text" class="form-control" name="lastName" required>
+                            <div class="invalid-feedback">
+                                Enter Your Last Name.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label class="form-label">ID Number</label>
+                            <input type="text" class="form-control" name="idNumber" required>
+                            <div class="invalid-feedback">
+                                Enter Your ID Number.
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Gender</label>
+                            <select class="form-select" name="gender" required>
+                                <option selected disabled value="">Choose...</option>
+                                <option value="1">Male</option>
+                                <option value="2">Female</option>
+                            </select>
+                            <div class="invalid-feedback">
+                                Select Your Gender.
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Citizenship</label>
+                            <select class="form-select" id="country" name="citizenship" required>
+                                <option selected disabled value="">Choose...</option>
+                                {% for res in country %}
+                                <option value="{{res.Code}}">{{res.Name}}</option>
+                                {% endfor %}
+                            </select>
+                            <div class="invalid-feedback">
+                                Select Your Citizenship.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label class="form-label">County</label>
+                            <select class="form-select" id="county" name="countyCode" disabled>
+                                <option selected value="0">Choose...</option>
+                                {% for res in county %}
+                                <option value="{{res.CountyCode}}">{{res.Description}}</option>
+                                {% endfor %}
+                            </select>
+                            <div class="invalid-feedback">
+                                Select Your County.
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Marital Status</label>
+                            <select class="form-select" name="maritalStatus" required>
+                                <option selected disabled value="">Choose...</option>
+                                <option value="1">Single</option>
+                                <option value="2">Married</option>
+                                <option value="3">Separated</option>
+                                <option value="4">Divorced</option>
+                                <option value="5">Widow(er)</option>
+                                <option value="6">Other</option>
+                            </select>
+                            <div class="invalid-feedback">
+                                Select Your Marital Status.
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Ethnic Origin</label>
+                            <select class="form-select" name="ethnicOrigin" required>
+                                <option selected disabled value="">Choose...</option>
+                                <option value="0">African</option>
+                                <option value="1">Indian</option>
+                                <option value="2">White</option>
+                                <option value="3">Colored</option>
+                            </select>
+                            <div class="invalid-feedback">
+                                Select Your Ethnic Origin.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label class="form-label">Disabled</label>
+                            <select class="form-select" name="disabled" id="disabled" required>
+                                <option selected disabled value="">Choose...</option>
+                                <option value="0">No</option>
+                                <option value="1">Yes</option>
+                            </select>
+                            <div class="invalid-feedback">
+                                Select a Valid Option.
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Disability
+                                Reg No.</label>
+                            <input type="number" class="form-control" name="disabilityGrade" id="disability" disabled>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="" class="form-label">Date of Birth</label>
+                            <input type="date" name="dob" class="form-control" required>
+                            <div class="invalid-feedback">
+                                Please select a valid Date of Birth.
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label class="form-label">Phone Number</label>
+                            <input type="text" class="form-control" name="phoneNumber" required>
+                            <div class="invalid-feedback">
+                                Enter Your Phone Number.
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Postal Address</label>
+                            <input type="text" class="form-control" name="postalAddress">
+                            <div class="invalid-feedback">
+                                Enter Your FPostal Address
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Postal Code</label>
+                            <input type="text" class="form-control" name="postalCode">
+                            <div class="invalid-feedback">
+                                Enter Your Postal Code
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label class="form-label">Residential Address</label>
+                            <input type="text" class="form-control" name="residentialAddress">
+                            <div class="invalid-feedback">
+                                Enter Your Residential Address
+                            </div>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary my-3">Submit</button>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Modal -->
+
+<!-- Modal Academic Qualification -->
+<div class="modal fade" id="AddAcademic" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Add Academic Qualifications</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form method="post" id="AcademicForm">
+                    {% csrf_token %}
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label class="form-label">Start Date</label>
+                            <input type="date" name="startDate" id="Aca_startDate" class="form-control" required>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">End Date</label>
+                            <input type="date" name="endDate" id="Aca_endDate" class="form-control" required>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Education Type</label>
+                            <select class="form-select" name="educationType" id="Aca_educationType" required>
+                                <option selected value="0">Choose...</option>
+                                <option value="1">Primary</option>
+                                <option value="2">High School</option>
+                                <option value="3">College</option>
+                                <option value="4">University</option>
+                                <option value="5">Professional</option>
+                                <option value="6">Vocational</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label class="form-label">Education Level</label>
+                            <select class="form-select" name="educationLevel" id="Aca_educationLevel" required>
+                                <option selected value="0">Choose...</option>
+                                <option value="1">Certificate</option>
+                                <option value="2">Diploma</option>
+                                <option value="3">Higher/Post Graduate Diploma</option>
+                                <option value="4">Bachelors Degree</option>
+                                <option value="5">Masters Degree</option>
+                                <option value="6">Doctorate</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Field Of Study</label>
+                            <select class="form-select" name="fieldOfStudy" id="Aca_fieldOfStudy" required>
+                                <option selected disabled value="">Choose...</option>
+                                {% for res in Study %}
+                                <option value="{{res.Code}}">{{res.Description}}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Qualification</label>
+                            <select class="form-select" name="qualificationCode" id="AcademicQualificationCode"
+                                required>
+                                <option selected disabled value="">Choose...</option>
+                                {% for res in Quo %}
+                                <option value="{{res.Code}}">{{res.Description}}</option>
+                                {% endfor %}
+                                <option value="Other">OTHER QUALIFICATION</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label class="form-label">Institution Name</label>
+                            <input type="text" class="form-control" name="institutionName" id="Aca_institutionName"
+                                required>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Proficiency Level</label>
+                            <select class="form-select" name="proficiencyLevel" id="Aca_proficiencyLevel" required>
+                                <option selected disabled value="">Choose...</option>
+                                <option value="1">Not Rated</option>
+                                <option value="2">First Class</option>
+                                <option value="3">Second Class(Upper)</option>
+                                <option value="4">Second Class(Lower)</option>
+                                <option value="5">Second Class</option>
+                                <option value="6">Pass</option>
+                                <option value="7">Distinction</option>
+                                <option value="8">Credit</option>
+                                <option value="9">MBA</option>
+                                <option value="10">PhD</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Country</label>
+                            <select class="form-select" name="country" id="Aca_country" required>
+                                <option selected disabled value="">Choose...</option>
+                                {% for res in country %}
+                                <option value="{{res.Code}}">{{res.Name}}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label class="form-label">Region</label>
+                            <input type="text" class="form-control" name="region" id="Aca_region" required>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Highest Level</label>
+                            <select class="form-select" name="isHighestLevel" id="isHighestLevel" required>
+                                <option selected disabled value="">Choose...</option>
+                                <option value="False">No</option>
+                                <option value="True">Yes</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Grade</label>
+                            <input type="text" class="form-control" name="grade" id="Aca_grade">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label class="form-label">Other Qualification</label>
+                            <textarea class="form-control" name="otherQualification" id="otherAcademic" rows="3"
+                                disabled></textarea>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label class="form-label">Description</label>
+                            <textarea class="form-control" name="description" id="Aca_description" rows="3"></textarea>
+                        </div>
+                    </div>
+                    <p id="output" class="my-3" style="color:#e51e25;font-weight: bolder;"></p>
+                    <button type="submit" class="btn btn-primary my-3">Save</button>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <a href="{% url 'profile' %}" type="button" class="btn btn-success">Finish</a>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Modal -->
+
+<!-- Modal Experience -->
+<div class="modal fade" id="AddExperience" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Add Job Experience</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form method="POST" id="JobExperienceForm">
+                    {% csrf_token %}
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label class="form-label">Start Date</label>
+                            <input type="date" name="startDate" id="job_startDate" class="form-control" required>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">End Date</label>
+                            <input type="date" name="endDate" id="job_endDate" class="form-control" required>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Employer</label>
+                            <input type="text" class="form-control" name="employer" id="job_employer" required>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label class="form-label">Industry</label>
+                            <select class="form-select" name="industry" id="job_industry" required>
+                                <option selected disabled value="">Choose...</option>
+                                {% for res in industry %}
+                                <option value="{{res.Code}}">{{res.Description}}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Hierarchy Level</label>
+                            <select class="form-select" name="hierarchyLevel" id="job_hierarchyLevel" required>
+                                <option selected disabled value="">Choose...</option>
+                                <option value="1">Executive/Director</option>
+                                <option value="2">Senior-Level Manager</option>
+                                <option value="3">Middle-Level Manager</option>
+                                <option value="4">First-Level Manager</option>
+                                <option value="5">Supervisor</option>
+                                <option value="6">Consultant</option>
+                                <option value="7">Support Staff</option>
+                                <option value="8">Intern</option>
+                                <option value="9">Trainee/Attachee</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Functional Area</label>
+                            <input type="text" class="form-control" name="functionalArea" id="job_functionalArea"
+                                required>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label class="form-label">Job Title</label>
+                            <input type="text" class="form-control" name="jobTitle" id="job_jobTitle" required>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Present Employment</label>
+                            <select class="form-select" name="isPresentEmployment" id="isPresentEmployment" required>
+                                <option selected disabled value="">Choose...</option>
+                                <option value="False">No</option>
+                                <option value="True">Yes</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Country</label>
+                            <select class="form-select" id="job_country" name="country" required>
+                                <option selected disabled value="">Choose...</option>
+                                {% for res in country %}
+                                <option value="{{res.Code}}">{{res.Name}}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label class="form-label">Location</label>
+                            <input type="text" class="form-control" name="location" id="job_location">
+                            <div class="invalid-feedback">
+                                Enter Job Location
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Employer Email</label>
+                            <input type="email" class="form-control" name="employerEmail" id="job_employerEmail">
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Employer Postal Address</label>
+                            <input type="text" class="form-control" name="employerPostalAddress"
+                                id="job_employerPostalAddress">
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label class="form-label">Description</label>
+                            <textarea class="form-control" name="description" rows="3" id="job_description"></textarea>
+                        </div>
+                    </div>
+                    <p id="jobOutput" class="my-3" style="color:#e51e25;font-weight: bolder;"></p>
+                    <button type="submit" class="btn btn-primary my-3">Save</button>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <a href="{% url 'profile' %}" type="button" class="btn btn-success">Finish</a>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Modal -->
+
+<!-- Modal Professional Course -->
+<div class="modal fade" id="AddCourses" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Add Professional Courses</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form method="post" id="proQualificationForm">
+                    {% csrf_token %}
+                    <div class="row">
+
+                        <div class="col-md-6">
+                            <label class="form-label">Qualification</label>
+                            <select class="form-select" id="proQualificationCode" name="qualificationCode" required>
+                                <option selected disabled value="">Choose...</option>
+                                {% for res in Quo %}
+                                <option value="{{res.Code}}">{{res.Description}}</option>
+                                {% endfor %}
+                                <option value="Other">OTHER QUALIFICATION</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Section Level</label>
+                            <select class="form-select" name="sectionLevel" id="pro_sectionLevel">
+                                <option selected value="0">Choose...</option>
+                                <option value="1">Level 1</option>
+                                <option value="2">Level 2</option>
+                                <option value="3">Level 3</option>
+                                <option value="4">Level 4</option>
+                                <option value="5">Level 5</option>
+                                <option value="6">Level 6</option>
+                                <option value="7">Level 7</option>
+                                <option value="8">Level 8</option>
+                                <option value="9">Level 9</option>
+                                <option value="10">Level 10</option>
+                            </select>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label class="form-label">Other Qualification</label>
+                                <textarea class="form-control" name="otherQualification" id="proQulification" rows="3"
+                                    disabled></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <p id="proOutput" class="mt-3 mb-1" style="color:#e51e25;font-weight: bolder;"></p>
+                    <button type="submit" class="btn btn-primary my-3">Save</button>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <a href="{% url 'profile' %}" type="button" class="btn btn-success">Finish</a>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Modal -->
+
+<!-- Modal Professional Memberships -->
+<div class="modal fade" id="AddMemberships" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-md">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Add Professional Memberships</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form method="post" id="professionalBodyForm">
+                    {% csrf_token %}
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label class="form-label">Professional Body</label>
+                            <select class="form-select" name="professionalBody" id="ms_professionalBody" required>
+                                <option selected disabled value="">Choose...</option>
+                                {% for res in Pro %}
+                                <option value="{{res.Name}}">{{res.Description2}}</option>
+                                {% endfor %}
+                                <option value="Other">OTHER PROFESSIONAL BODY</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Membership No</label>
+                            <input type="text" class="form-control" name="membershipNo" id="ms_membershipNo" required>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label class="form-label">Other Professional Body</label>
+                                <textarea class="form-control" name="otherProfessionalBody" id="otherProfessionalBody"
+                                    rows="3" disabled></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <p id="msOutput" class="my-3" style="color:#e51e25;font-weight: bolder;"></p>
+
+                    <button type="submit" class="btn btn-primary my-3">Save</button>
+
+                </form>
+            </div>
+            <div class="modal-footer">
+                <a href="{% url 'profile' %}" type="button" class="btn btn-success">Finish</a>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Modal -->
+<!-- Modal Hobby -->
+<div class="modal fade" id="AddHobby" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-md">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Add Hobby</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form method="post" id="hobbyForm">
+                    {% csrf_token %}
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label class="form-label">Hobby</label>
+                            <textarea class="form-control" name="hobby" id="j_hobby" rows="3" required></textarea>
+                            <div class="invalid-feedback">
+                                Enter Your Membership No
+                            </div>
+                        </div>
+                    </div>
+                    <p id="hobbyOutput" class="my-3" style="color:#e51e25;font-weight: bolder;"></p>
+                    <button type="submit" class="btn btn-primary my-3">Save</button>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <a href="{% url 'profile' %}" type="button" class="btn btn-success">Finish</a>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Modal -->
+<!-- Modal Referee-->
+<div class="modal fade" id="AddReferee" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-md">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Add Referee</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form method="post" id="refForm">
+                    {% csrf_token %}
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label class="form-label">Full Name</label>
+                            <input type="text" class="form-control" name="names" id="j_names" required>
+                            <div class="invalid-feedback">
+                                Enter Referee Full Name
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Designation</label>
+                            <input type="text" class="form-control" name="designation" id="j_designation" required>
+                            <div class="invalid-feedback">
+                                Enter Referee Designation
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Company</label>
+                            <input type="text" class="form-control" name="company" id="j_company" required>
+                            <div class="invalid-feedback">
+                                Enter Referee Company
+                            </div>
+                        </div>
+                    
+                        <div class="col-md-6">
+                            <label class="form-label">Address</label>
+                            <input type="text" class="form-control" name="address" id="j_address" required>
+                            <div class="invalid-feedback">
+                                Enter Referee Address
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Telephone No</label>
+                            <input type="text" class="form-control" name="telephoneNo" id="j_telephoneNo" required>
+                            <div class="invalid-feedback">
+                                Enter Referee Telephone No
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Email</label>
+                            <input type="email" class="form-control" name="email" id="j_email" required>
+                            <div class="invalid-feedback">
+                                Enter Referee Email
+                            </div>
+                        </div>
+                    </div>
+                    <p id="innerefree" class="my-3" style="color:#e51e25;font-weight: bolder;"></p>
+                    <button type="submit" class="btn btn-primary my-3">Save</button>
+                </form>
+
+            </div>
+            <div class="modal-footer">
+                <a href="{% url 'profile' %}" type="button" class="btn btn-success">Finish</a>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Modal -->
+<script>
+    // Academic Qualification JS
+    $(document).ready(function () {
+        $('#AcademicQualificationCode').on('change', function () {
+            if (this.value == "Other") {
+                $('#otherAcademic').prop('disabled', false);
+            } else {
+                $('#otherAcademic').prop('disabled', true);
+            }
+        });
+    })
+    $(document).on('submit', '#AcademicForm', function (e) {
+        e.preventDefault();
+        $.ajax({
+            type: 'POST',
+            url: '{% url "FnApplicantAcademicQualification" %}',
+            data: {
+                startDate: $("#Aca_startDate").val(),
+                endDate: $("#Aca_endDate").val(),
+                educationType: $("#Aca_educationType").val(),
+                educationLevel: $("#Aca_educationLevel").val(),
+                fieldOfStudy: $("#Aca_fieldOfStudy").val(),
+                qualificationCode: $("#AcademicQualificationCode").val(),
+                institutionName: $("#Aca_institutionName").val(),
+                proficiencyLevel: $("#Aca_proficiencyLevel").val(),
+                country: $("#Aca_country").val(),
+                region: $("#Aca_region").val(),
+                isHighestLevel: $("#isHighestLevel").val(),
+                grade: $("#Aca_grade").val(),
+                otherQualification: $("#otherAcademic").val(),
+                description: $("#Aca_description").val(),
+                csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
+            },
+            success: function () {
+                $("#Aca_startDate").val("")
+                $("#Aca_endDate").val("")
+                $("#Aca_educationType").val("")
+                $("#Aca_educationLevel").val("")
+                $("#Aca_fieldOfStudy").val("")
+                $("#AcademicQualificationCode").val("")
+                $("#Aca_institutionName").val("")
+                $("#Aca_proficiencyLevel").val("")
+                $("#Aca_country").val("")
+                $("#Aca_region").val("")
+                $("#isHighestLevel").val("")
+                $("#Aca_grade").val("")
+                $("#otherAcademic").val("")
+                $("#Aca_description").val("")
+                $("p#output").append('Saved. Add More Academic Qualifications')
+            }
+        })
+    });
+    // **** End****
+    // Job Experience JS
+    $(document).on('submit', '#JobExperienceForm', function (e) {
+        e.preventDefault();
+        $.ajax({
+            type: 'POST',
+            url: '{% url "JobExperience" %}',
+            data: {
+                startDate: $("#job_startDate").val(),
+                endDate: $("#job_endDate").val(),
+                employer: $("#job_employer").val(),
+                industry: $("#job_industry").val(),
+                hierarchyLevel: $("#job_hierarchyLevel").val(),
+                functionalArea: $("#job_functionalArea").val(),
+                jobTitle: $("#job_jobTitle").val(),
+                isPresentEmployment: $("#isPresentEmployment").val(),
+                country: $("#job_country").val(),
+                location: $("#job_location").val(),
+                employerEmail: $("#job_employerEmail").val(),
+                employerPostalAddress: $("#job_employerPostalAddress").val(),
+                description: $("#job_description").val(),
+                csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
+            },
+            success: function () {
+                $("#job_startDate").val("")
+                $("#job_endDate").val("")
+                $("#job_employer").val("")
+                $("#job_industry").val("")
+                $("#job_hierarchyLevel").val("")
+                $("#job_functionalArea").val("")
+                $("#job_jobTitle").val("")
+                $("#isPresentEmployment").val("")
+                $("#job_country").val("")
+                $("#job_location").val("")
+                $("#job_employerEmail").val("")
+                $("#job_employerPostalAddress").val("")
+                $("#job_description").val("")
+                $("p#jobOutput").append('Saved. Add More Job Experience')
+            }
+        })
+    });
+    // **** End****
+    // Professional Qualification JS
+    $(document).ready(function () {
+        $('#proQualificationCode').on('change', function () {
+            if (this.value == "Other") {
+                $('#proQulification').prop('disabled', false);
+            } else {
+                $('#proQulification').prop('disabled', true);
+            }
+        });
+    })
+    $(document).on('submit', '#proQualificationForm', function (e) {
+        e.preventDefault();
+        $.ajax({
+            type: 'POST',
+            url: '{% url "FnApplicantProfessionalCourse" %}',
+            data: {
+                qualificationCode: $("#proQualificationCode").val(),
+                sectionLevel: $("#pro_sectionLevel").val(),
+                otherQualification: $("#proQulification").val(),
+                csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
+            },
+            success: function () {
+                $("#proQualificationCode").val("")
+                $("#pro_sectionLevel").val("")
+                $("#proQulification").val("")
+                $("p#proOutput").append('Saved. Add More Professional Qualification')
+            }
+        })
+    });
+    // **** End****
+    // ProfessionalMembership JS
+    $(document).ready(function () {
+        $('#ms_professionalBody').on('change', function () {
+            if (this.value == "Other") {
+                $('#otherProfessionalBody').prop('disabled', false);
+            } else {
+                $('#otherProfessionalBody').prop('disabled', true);
+            }
+        });
+    })
+    $(document).on('submit', '#professionalBodyForm', function (e) {
+        e.preventDefault();
+        $.ajax({
+            type: 'POST',
+            url: '{% url "FnApplicantProfessionalMembership" %}',
+            data: {
+                professionalBody: $("#ms_professionalBody").val(),
+                membershipNo: $("#ms_membershipNo").val(),
+                otherProfessionalBody: $("#otherProfessionalBody").val(),
+                csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
+            },
+            success: function () {
+                $("#ms_professionalBody").val("")
+                $("#ms_membershipNo").val("")
+                $("#otherProfessionalBody").val("")
+                $("p#msOutput").append('Saved. Add More Professional Bodies')
+            }
+        })
+    });
+    // **** End****
+    // Hobby JS
+
+    $(document).on('submit', '#hobbyForm', function (e) {
+        e.preventDefault();
+        $.ajax({
+            type: 'POST',
+            url: '{% url "FnApplicantHobby" %}',
+            data: {
+                hobby: $("#j_hobby").val(),
+                csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
+            },
+            success: function () {
+                $("#j_hobby").val("")
+                $("p#hobbyOutput").append('Saved. Add More Hobbies')
+            }
+        })
+    });
+    // **** End****
+    // Hobby JS
+
+    $(document).on('submit', '#refForm', function (e) {
+        e.preventDefault();
+        $.ajax({
+            type: 'POST',
+            url: '{% url "FnApplicantReferee" %}',
+            data: {
+                names: $("#j_names").val(),
+                designation: $("#j_designation").val(),
+                company: $("#j_company").val(),
+                address: $("#j_address").val(),
+                telephoneNo: $("#j_telephoneNo").val(),
+                email: $("#j_email").val(),
+                csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
+            },
+            success: function () {
+                $("#j_hobby").val("")
+                $("#j_designation").val("")
+                $("#j_company").val("")
+                $("#j_address").val("")
+                $("#j_telephoneNo").val("")
+                $("#j_email").val("")
+                $("p#innerefree").append('Saved. Add More Referees')
+            }
+        })
+    });
+    // **** End****
+    document.getElementById('country').addEventListener('change', function () {
+        if (this.value == "KE") {
+            document.getElementById('county').disabled = false;
+        } else {
+            document.getElementById('county').disabled = true;
+        }
+    });
+    document.getElementById('disabled').addEventListener('change', function () {
+        if (this.value == "1") {
+            document.getElementById('disability').disabled = false;
+        } else {
+            document.getElementById('disability').disabled = true;
+        }
+    });
+
+
+
+
+
+    $("#tile-1 .nav-tabs a").click(function () {
+        var position = $(this).parent().position();
+        var width = $(this).parent().width();
+        $("#tile-1 .slider").css({ "left": + position.left, "width": width });
+    });
+    var actWidth = $("#tile-1 .nav-tabs").find(".active").parent("li").width();
+    var actPosition = $("#tile-1 .nav-tabs .active").position();
+    $("#tile-1 .slider").css({ "left": + actPosition.left, "width": actWidth });
+
+</script>
+{% endblock %}
+
+
+<!-- <div class="row">
                                         <div class="col-md-12">
                                             <div class="j-data">
                                                 <div class="row my-3">
@@ -79,6 +1357,7 @@
                                                                             data-parent="#accordionExample">
                                                                             <div class="t-p">
                                                                                 <form class="row g-3">
+                                                                                   
                                                                                     <div class="col-md-6">
                                                                                         <label class="form-label">ID
                                                                                             Number</label>
@@ -770,876 +2049,4 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-</section>
-<!-- Modals Personal Info-->
-<!-- Modal -->
-<div class="modal fade" id="EditPersonnal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-    aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="staticBackdropLabel">Edit Personal Information</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form action="{% url 'FnApplicantDetails' %}" method="post" class="needs-validation" novalidate>
-                    {% csrf_token %}
-                    <div class="row">
-                        <div class="col-md-4">
-                            <label class="form-label">First Name</label>
-                            <input type="text" class="form-control" name="firstName" required>
-                            <div class="invalid-feedback">
-                                Enter Your First Name.
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <label class="form-label">Middle Name</label>
-                            <input type="text" class="form-control" name="middleName" required>
-                            <div class="invalid-feedback">
-                                Enter Your Middle Name.
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <label class="form-label">Last Name</label>
-                            <input type="text" class="form-control" name="lastName" required>
-                            <div class="invalid-feedback">
-                                Enter Your Last Name.
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-4">
-                            <label class="form-label">ID Number</label>
-                            <input type="text" class="form-control" name="idNumber" required>
-                            <div class="invalid-feedback">
-                                Enter Your ID Number.
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <label class="form-label">Gender</label>
-                            <select class="form-select" name="gender" required>
-                                <option selected disabled value="">Choose...</option>
-                                <option value="1">Male</option>
-                                <option value="2">Female</option>
-                            </select>
-                            <div class="invalid-feedback">
-                                Select Your Gender.
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <label class="form-label">Citizenship</label>
-                            <select class="form-select" id="country" name="citizenship" required>
-                                <option selected disabled value="">Choose...</option>
-                                {% for res in country %}
-                                <option value="{{res.Code}}">{{res.Name}}</option>
-                                {% endfor %}
-                            </select>
-                            <div class="invalid-feedback">
-                                Select Your Citizenship.
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-4">
-                            <label class="form-label">County</label>
-                            <select class="form-select" id="county" name="countyCode" disabled>
-                                <option selected value="0">Choose...</option>
-                                {% for res in county %}
-                                <option value="{{res.CountyCode}}">{{res.Description}}</option>
-                                {% endfor %}
-                            </select>
-                            <div class="invalid-feedback">
-                                Select Your County.
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <label class="form-label">Marital Status</label>
-                            <select class="form-select" name="maritalStatus" required>
-                                <option selected disabled value="">Choose...</option>
-                                <option value="1">Single</option>
-                                <option value="2">Married</option>
-                                <option value="3">Separated</option>
-                                <option value="4">Divorced</option>
-                                <option value="5">Widow(er)</option>
-                                <option value="6">Other</option>
-                            </select>
-                            <div class="invalid-feedback">
-                                Select Your Marital Status.
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <label class="form-label">Ethnic Origin</label>
-                            <select class="form-select" name="ethnicOrigin" required>
-                                <option selected disabled value="">Choose...</option>
-                                <option value="0">African</option>
-                                <option value="1">Indian</option>
-                                <option value="2">White</option>
-                                <option value="3">Colored</option>
-                            </select>
-                            <div class="invalid-feedback">
-                                Select Your Ethnic Origin.
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-4">
-                            <label class="form-label">Disabled</label>
-                            <select class="form-select" name="disabled" id="disabled" required>
-                                <option selected disabled value="">Choose...</option>
-                                <option value="0">No</option>
-                                <option value="1">Yes</option>
-                            </select>
-                            <div class="invalid-feedback">
-                                Select a Valid Option.
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <label class="form-label">Disability
-                                Reg No.</label>
-                            <input type="number" class="form-control" name="disabilityGrade" id="disability" disabled>
-                        </div>
-                        <div class="col-md-4">
-                            <label for="" class="form-label">Date of Birth</label>
-                            <input type="date" name="dob" class="form-control" required>
-                            <div class="invalid-feedback">
-                                Please select a valid Date of Birth.
-                            </div>
-                        </div>
-
-                    </div>
-                    <div class="row">
-                        <div class="col-md-4">
-                            <label class="form-label">Phone Number</label>
-                            <input type="text" class="form-control" name="phoneNumber" required>
-                            <div class="invalid-feedback">
-                                Enter Your Phone Number.
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <label class="form-label">Postal Address</label>
-                            <input type="text" class="form-control" name="postalAddress">
-                            <div class="invalid-feedback">
-                                Enter Your FPostal Address
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <label class="form-label">Postal Code</label>
-                            <input type="text" class="form-control" name="postalCode">
-                            <div class="invalid-feedback">
-                                Enter Your Postal Code
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-4">
-                            <label class="form-label">Residential Address</label>
-                            <input type="text" class="form-control" name="residentialAddress">
-                            <div class="invalid-feedback">
-                                Enter Your Residential Address
-                            </div>
-                        </div>
-                    </div>
-                    <button type="submit" class="btn btn-primary my-3">Submit</button>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- End Modal -->
-<!-- Modal Academic Qualification -->
-<div class="modal fade" id="AddAcademic" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-    aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="staticBackdropLabel">Add Academic Qualifications</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form method="post" id="AcademicForm">
-                    {% csrf_token %}
-                    <div class="row">
-                        <div class="col-md-4">
-                            <label class="form-label">Start Date</label>
-                            <input type="date" name="startDate" id="Aca_startDate" class="form-control" required>
-                        </div>
-                        <div class="col-md-4">
-                            <label class="form-label">End Date</label>
-                            <input type="date" name="endDate" id="Aca_endDate" class="form-control" required>
-                        </div>
-                        <div class="col-md-4">
-                            <label class="form-label">Education Type</label>
-                            <select class="form-select" name="educationType" id="Aca_educationType" required>
-                                <option selected value="0">Choose...</option>
-                                <option value="1">Primary</option>
-                                <option value="2">High School</option>
-                                <option value="3">College</option>
-                                <option value="4">University</option>
-                                <option value="5">Professional</option>
-                                <option value="6">Vocational</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-4">
-                            <label class="form-label">Education Level</label>
-                            <select class="form-select" name="educationLevel" id="Aca_educationLevel" required>
-                                <option selected value="0">Choose...</option>
-                                <option value="1">Certificate</option>
-                                <option value="2">Diploma</option>
-                                <option value="3">Higher/Post Graduate Diploma</option>
-                                <option value="4">Bachelors Degree</option>
-                                <option value="5">Masters Degree</option>
-                                <option value="6">Doctorate</option>
-                            </select>
-                        </div>
-                        <div class="col-md-4">
-                            <label class="form-label">Field Of Study</label>
-                            <select class="form-select" name="fieldOfStudy" id="Aca_fieldOfStudy" required>
-                                <option selected disabled value="">Choose...</option>
-                                {% for res in Study %}
-                                <option value="{{res.Code}}">{{res.Description}}</option>
-                                {% endfor %}
-                            </select>
-                        </div>
-                        <div class="col-md-4">
-                            <label class="form-label">Qualification</label>
-                            <select class="form-select" name="qualificationCode" id="AcademicQualificationCode"
-                                required>
-                                <option selected disabled value="">Choose...</option>
-                                {% for res in Quo %}
-                                <option value="{{res.Code}}">{{res.Description}}</option>
-                                {% endfor %}
-                                <option value="Other">OTHER QUALIFICATION</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-4">
-                            <label class="form-label">Institution Name</label>
-                            <input type="text" class="form-control" name="institutionName" id="Aca_institutionName"
-                                required>
-                        </div>
-                        <div class="col-md-4">
-                            <label class="form-label">Proficiency Level</label>
-                            <select class="form-select" name="proficiencyLevel" id="Aca_proficiencyLevel" required>
-                                <option selected disabled value="">Choose...</option>
-                                <option value="1">Not Rated</option>
-                                <option value="2">First Class</option>
-                                <option value="3">Second Class(Upper)</option>
-                                <option value="4">Second Class(Lower)</option>
-                                <option value="5">Second Class</option>
-                                <option value="6">Pass</option>
-                                <option value="7">Distinction</option>
-                                <option value="8">Credit</option>
-                                <option value="9">MBA</option>
-                                <option value="10">PhD</option>
-                            </select>
-                        </div>
-                        <div class="col-md-4">
-                            <label class="form-label">Country</label>
-                            <select class="form-select" name="country" id="Aca_country" required>
-                                <option selected disabled value="">Choose...</option>
-                                {% for res in country %}
-                                <option value="{{res.Code}}">{{res.Name}}</option>
-                                {% endfor %}
-                            </select>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-4">
-                            <label class="form-label">Region</label>
-                            <input type="text" class="form-control" name="region" id="Aca_region" required>
-                        </div>
-                        <div class="col-md-4">
-                            <label class="form-label">Highest Level</label>
-                            <select class="form-select" name="isHighestLevel" id="isHighestLevel" required>
-                                <option selected disabled value="">Choose...</option>
-                                <option value="False">No</option>
-                                <option value="True">Yes</option>
-                            </select>
-                        </div>
-                        <div class="col-md-4">
-                            <label class="form-label">Grade</label>
-                            <input type="text" class="form-control" name="grade" id="Aca_grade">
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <label class="form-label">Other Qualification</label>
-                            <textarea class="form-control" name="otherQualification" id="otherAcademic" rows="3"
-                                disabled></textarea>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <label class="form-label">Description</label>
-                            <textarea class="form-control" name="description" id="Aca_description" rows="3"></textarea>
-                        </div>
-                    </div>
-                    <p id="output" class="my-3" style="color:#e51e25;font-weight: bolder;"></p>
-                    <button type="submit" class="btn btn-primary my-3">Add</button>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <a href="{% url 'profile' %}" type="button" class="btn btn-success">Finish</a>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- End Modal -->
-
-<!-- Modal Experience -->
-<div class="modal fade" id="AddExperience" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-    aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="staticBackdropLabel">Add Job Experience</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form method="POST" id="JobExperienceForm">
-                    {% csrf_token %}
-                    <div class="row">
-                        <div class="col-md-4">
-                            <label class="form-label">Start Date</label>
-                            <input type="date" name="startDate" id="job_startDate" class="form-control" required>
-                        </div>
-                        <div class="col-md-4">
-                            <label class="form-label">End Date</label>
-                            <input type="date" name="endDate" id="job_endDate" class="form-control" required>
-                        </div>
-                        <div class="col-md-4">
-                            <label class="form-label">Employer</label>
-                            <input type="text" class="form-control" name="employer" id="job_employer" required>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-4">
-                            <label class="form-label">Industry</label>
-                            <select class="form-select" name="industry" id="job_industry" required>
-                                <option selected disabled value="">Choose...</option>
-                                {% for res in industry %}
-                                <option value="{{res.Code}}">{{res.Description}}</option>
-                                {% endfor %}
-                            </select>
-                        </div>
-                        <div class="col-md-4">
-                            <label class="form-label">Hierarchy Level</label>
-                            <select class="form-select" name="hierarchyLevel" id="job_hierarchyLevel" required>
-                                <option selected disabled value="">Choose...</option>
-                                <option value="1">Executive/Director</option>
-                                <option value="2">Senior-Level Manager</option>
-                                <option value="3">Middle-Level Manager</option>
-                                <option value="4">First-Level Manager</option>
-                                <option value="5">Supervisor</option>
-                                <option value="6">Consultant</option>
-                                <option value="7">Support Staff</option>
-                                <option value="8">Intern</option>
-                                <option value="9">Trainee/Attachee</option>
-                            </select>
-                        </div>
-                        <div class="col-md-4">
-                            <label class="form-label">Functional Area</label>
-                            <input type="text" class="form-control" name="functionalArea" id="job_functionalArea"
-                                required>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-4">
-                            <label class="form-label">Job Title</label>
-                            <input type="text" class="form-control" name="jobTitle" id="job_jobTitle" required>
-                        </div>
-                        <div class="col-md-4">
-                            <label class="form-label">Present Employment</label>
-                            <select class="form-select" name="isPresentEmployment" id="isPresentEmployment" required>
-                                <option selected disabled value="">Choose...</option>
-                                <option value="False">No</option>
-                                <option value="True">Yes</option>
-                            </select>
-                        </div>
-                        <div class="col-md-4">
-                            <label class="form-label">Country</label>
-                            <select class="form-select" id="job_country" name="country" required>
-                                <option selected disabled value="">Choose...</option>
-                                {% for res in country %}
-                                <option value="{{res.Code}}">{{res.Name}}</option>
-                                {% endfor %}
-                            </select>
-                        </div>
-
-                    </div>
-                    <div class="row">
-                        <div class="col-md-4">
-                            <label class="form-label">Location</label>
-                            <input type="text" class="form-control" name="location" id="job_location">
-                            <div class="invalid-feedback">
-                                Enter Job Location
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <label class="form-label">Employer Email</label>
-                            <input type="email" class="form-control" name="employerEmail" id="job_employerEmail">
-                        </div>
-                        <div class="col-md-4">
-                            <label class="form-label">Employer Postal Address</label>
-                            <input type="text" class="form-control" name="employerPostalAddress"
-                                id="job_employerPostalAddress">
-                        </div>
-
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <label class="form-label">Description</label>
-                            <textarea class="form-control" name="description" rows="3" id="job_description"></textarea>
-                        </div>
-                    </div>
-                    <p id="jobOutput" class="my-3" style="color:#e51e25;font-weight: bolder;"></p>
-                    <button type="submit" class="btn btn-primary my-3">Add</button>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <a href="{% url 'profile' %}" type="button" class="btn btn-success">Finish</a>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- End Modal -->
-
-<!-- Modal Professional Course -->
-<div class="modal fade" id="AddCourses" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-    aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="staticBackdropLabel">Add Professional Courses</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form method="post" id="proQualificationForm">
-                    {% csrf_token %}
-                    <div class="row">
-
-                        <div class="col-md-6">
-                            <label class="form-label">Qualification</label>
-                            <select class="form-select" id="proQualificationCode" name="qualificationCode" required>
-                                <option selected disabled value="">Choose...</option>
-                                {% for res in Quo %}
-                                <option value="{{res.Code}}">{{res.Description}}</option>
-                                {% endfor %}
-                                <option value="Other">OTHER QUALIFICATION</option>
-                            </select>
-                        </div>
-                        <div class="col-md-6">
-                            <label class="form-label">Section Level</label>
-                            <select class="form-select" name="sectionLevel" id="pro_sectionLevel">
-                                <option selected value="0">Choose...</option>
-                                <option value="1">Level 1</option>
-                                <option value="2">Level 2</option>
-                                <option value="3">Level 3</option>
-                                <option value="4">Level 4</option>
-                                <option value="5">Level 5</option>
-                                <option value="6">Level 6</option>
-                                <option value="7">Level 7</option>
-                                <option value="8">Level 8</option>
-                                <option value="9">Level 9</option>
-                                <option value="10">Level 10</option>
-                            </select>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <label class="form-label">Other Qualification</label>
-                                <textarea class="form-control" name="otherQualification" id="proQulification" rows="3"
-                                    disabled></textarea>
-                            </div>
-                        </div>
-                    </div>
-                    <p id="proOutput" class="my-3" style="color:#e51e25;font-weight: bolder;"></p>
-                    <button type="submit" class="btn btn-primary my-3">Add</button>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <a href="{% url 'profile' %}" type="button" class="btn btn-success">Finish</a>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- End Modal -->
-<!-- Modal Professional Memberships -->
-<div class="modal fade" id="AddMemberships" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-    aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="staticBackdropLabel">Add Professional Memberships</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form method="post" id="professionalBodyForm">
-                    {% csrf_token %}
-                    <div class="row">
-                        <div class="col-md-6">
-                            <label class="form-label">Professional Body</label>
-                            <select class="form-select" name="professionalBody" id="ms_professionalBody" required>
-                                <option selected disabled value="">Choose...</option>
-                                {% for res in Pro %}
-                                <option value="{{res.Name}}">{{res.Description2}}</option>
-                                {% endfor %}
-                                <option value="Other">OTHER PROFESSIONAL BODY</option>
-                            </select>
-                        </div>
-                        <div class="col-md-6">
-                            <label class="form-label">Membership No</label>
-                            <input type="text" class="form-control" name="membershipNo" id="ms_membershipNo" required>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <label class="form-label">Other Professional Body</label>
-                                <textarea class="form-control" name="otherProfessionalBody" id="otherProfessionalBody"
-                                    rows="3" disabled></textarea>
-                            </div>
-                        </div>
-                    </div>
-                    <p id="msOutput" class="my-3" style="color:#e51e25;font-weight: bolder;"></p>
-
-                    <button type="submit" class="btn btn-primary my-3">Add</button>
-
-                </form>
-            </div>
-            <div class="modal-footer">
-                <a href="{% url 'profile' %}" type="button" class="btn btn-success">Finish</a>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- End Modal -->
-<!-- Modal Hobby -->
-<div class="modal fade" id="AddHobby" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-    aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="staticBackdropLabel">Add Hobby</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form method="post" id="hobbyForm">
-                    {% csrf_token %}
-                    <div class="row">
-                        <div class="col-md-12">
-                            <label class="form-label">Hobby</label>
-                            <textarea class="form-control" name="hobby" id="j_hobby" rows="3" required></textarea>
-                            <div class="invalid-feedback">
-                                Enter Your Membership No
-                            </div>
-                        </div>
-                    </div>
-                    <p id="hobbyOutput" class="my-3" style="color:#e51e25;font-weight: bolder;"></p>
-                    <button type="submit" class="btn btn-primary my-3">Add</button>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <a href="{% url 'profile' %}" type="button" class="btn btn-success">Finish</a>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- End Modal -->
-<!-- Modal Referee-->
-<div class="modal fade" id="AddReferee" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-    aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="staticBackdropLabel">Add Referee</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form method="post" id="refForm">
-                    {% csrf_token %}
-                    <div class="row">
-                        <div class="col-md-4">
-                            <label class="form-label">Full Name</label>
-                            <input type="text" class="form-control" name="names" id="j_names" required>
-                            <div class="invalid-feedback">
-                                Enter Referee Full Name
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <label class="form-label">Designation</label>
-                            <input type="text" class="form-control" name="designation" id="j_designation" required>
-                            <div class="invalid-feedback">
-                                Enter Referee Designation
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <label class="form-label">Company</label>
-                            <input type="text" class="form-control" name="company" id="j_company" required>
-                            <div class="invalid-feedback">
-                                Enter Referee Company
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-4">
-                            <label class="form-label">Address</label>
-                            <input type="text" class="form-control" name="address" id="j_address" required>
-                            <div class="invalid-feedback">
-                                Enter Referee Address
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <label class="form-label">Telephone No</label>
-                            <input type="text" class="form-control" name="telephoneNo" id="j_telephoneNo" required>
-                            <div class="invalid-feedback">
-                                Enter Referee Telephone No
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <label class="form-label">Email</label>
-                            <input type="email" class="form-control" name="email" id="j_email" required>
-                            <div class="invalid-feedback">
-                                Enter Referee Email
-                            </div>
-                        </div>
-                    </div>
-                    <p id="innerefree" class="my-3" style="color:#e51e25;font-weight: bolder;"></p>
-                    <button type="submit" class="btn btn-primary my-3">Add</button>
-                </form>
-
-            </div>
-            <div class="modal-footer">
-                <a href="{% url 'profile' %}" type="button" class="btn btn-success">Finish</a>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- End Modal -->
-<script>
-    // Academic Qualification JS
-    $(document).ready(function () {
-        $('#AcademicQualificationCode').on('change', function () {
-            if (this.value == "Other") {
-                $('#otherAcademic').prop('disabled', false);
-            } else {
-                $('#otherAcademic').prop('disabled', true);
-            }
-        });
-    })
-    $(document).on('submit', '#AcademicForm', function (e) {
-        e.preventDefault();
-        $.ajax({
-            type: 'POST',
-            url: '{% url "FnApplicantAcademicQualification" %}',
-            data: {
-                startDate: $("#Aca_startDate").val(),
-                endDate: $("#Aca_endDate").val(),
-                educationType: $("#Aca_educationType").val(),
-                educationLevel: $("#Aca_educationLevel").val(),
-                fieldOfStudy: $("#Aca_fieldOfStudy").val(),
-                qualificationCode: $("#AcademicQualificationCode").val(),
-                institutionName: $("#Aca_institutionName").val(),
-                proficiencyLevel: $("#Aca_proficiencyLevel").val(),
-                country: $("#Aca_country").val(),
-                region: $("#Aca_region").val(),
-                isHighestLevel: $("#isHighestLevel").val(),
-                grade: $("#Aca_grade").val(),
-                otherQualification: $("#otherAcademic").val(),
-                description: $("#Aca_description").val(),
-                csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
-            },
-            success: function () {
-                $("#Aca_startDate").val("")
-                $("#Aca_endDate").val("")
-                $("#Aca_educationType").val("")
-                $("#Aca_educationLevel").val("")
-                $("#Aca_fieldOfStudy").val("")
-                $("#AcademicQualificationCode").val("")
-                $("#Aca_institutionName").val("")
-                $("#Aca_proficiencyLevel").val("")
-                $("#Aca_country").val("")
-                $("#Aca_region").val("")
-                $("#isHighestLevel").val("")
-                $("#Aca_grade").val("")
-                $("#otherAcademic").val("")
-                $("#Aca_description").val("")
-                $("p#output").append('Saved. Add More Academic Qualifications')
-            }
-        })
-    });
-    // **** End****
-    // Job Experience JS
-    $(document).on('submit', '#JobExperienceForm', function (e) {
-        e.preventDefault();
-        $.ajax({
-            type: 'POST',
-            url: '{% url "JobExperience" %}',
-            data: {
-                startDate: $("#job_startDate").val(),
-                endDate: $("#job_endDate").val(),
-                employer: $("#job_employer").val(),
-                industry: $("#job_industry").val(),
-                hierarchyLevel: $("#job_hierarchyLevel").val(),
-                functionalArea: $("#job_functionalArea").val(),
-                jobTitle: $("#job_jobTitle").val(),
-                isPresentEmployment: $("#isPresentEmployment").val(),
-                country: $("#job_country").val(),
-                location: $("#job_location").val(),
-                employerEmail: $("#job_employerEmail").val(),
-                employerPostalAddress: $("#job_employerPostalAddress").val(),
-                description: $("#job_description").val(),
-                csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
-            },
-            success: function () {
-                $("#job_startDate").val("")
-                $("#job_endDate").val("")
-                $("#job_employer").val("")
-                $("#job_industry").val("")
-                $("#job_hierarchyLevel").val("")
-                $("#job_functionalArea").val("")
-                $("#job_jobTitle").val("")
-                $("#isPresentEmployment").val("")
-                $("#job_country").val("")
-                $("#job_location").val("")
-                $("#job_employerEmail").val("")
-                $("#job_employerPostalAddress").val("")
-                $("#job_description").val("")
-                $("p#jobOutput").append('Saved. Add More Job Experience')
-            }
-        })
-    });
-    // **** End****
-    // Professional Qualification JS
-    $(document).ready(function () {
-        $('#proQualificationCode').on('change', function () {
-            if (this.value == "Other") {
-                $('#proQulification').prop('disabled', false);
-            } else {
-                $('#proQulification').prop('disabled', true);
-            }
-        });
-    })
-    $(document).on('submit', '#proQualificationForm', function (e) {
-        e.preventDefault();
-        $.ajax({
-            type: 'POST',
-            url: '{% url "FnApplicantProfessionalCourse" %}',
-            data: {
-                qualificationCode: $("#proQualificationCode").val(),
-                sectionLevel: $("#pro_sectionLevel").val(),
-                otherQualification: $("#proQulification").val(),
-                csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
-            },
-            success: function () {
-                $("#proQualificationCode").val("")
-                $("#pro_sectionLevel").val("")
-                $("#proQulification").val("")
-                $("p#proOutput").append('Saved. Add More Professional Qualification')
-            }
-        })
-    });
-    // **** End****
-    // ProfessionalMembership JS
-    $(document).ready(function () {
-        $('#ms_professionalBody').on('change', function () {
-            if (this.value == "Other") {
-                $('#otherProfessionalBody').prop('disabled', false);
-            } else {
-                $('#otherProfessionalBody').prop('disabled', true);
-            }
-        });
-    })
-    $(document).on('submit', '#professionalBodyForm', function (e) {
-        e.preventDefault();
-        $.ajax({
-            type: 'POST',
-            url: '{% url "FnApplicantProfessionalMembership" %}',
-            data: {
-                professionalBody: $("#ms_professionalBody").val(),
-                membershipNo: $("#ms_membershipNo").val(),
-                otherProfessionalBody: $("#otherProfessionalBody").val(),
-                csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
-            },
-            success: function () {
-                $("#ms_professionalBody").val("")
-                $("#ms_membershipNo").val("")
-                $("#otherProfessionalBody").val("")
-                $("p#msOutput").append('Saved. Add More Professional Bodies')
-            }
-        })
-    });
-    // **** End****
-    // Hobby JS
-
-    $(document).on('submit', '#hobbyForm', function (e) {
-        e.preventDefault();
-        $.ajax({
-            type: 'POST',
-            url: '{% url "FnApplicantHobby" %}',
-            data: {
-                hobby: $("#j_hobby").val(),
-                csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
-            },
-            success: function () {
-                $("#j_hobby").val("")
-                $("p#hobbyOutput").append('Saved. Add More Hobbies')
-            }
-        })
-    });
-    // **** End****
-    // Hobby JS
-
-    $(document).on('submit', '#refForm', function (e) {
-        e.preventDefault();
-        $.ajax({
-            type: 'POST',
-            url: '{% url "FnApplicantReferee" %}',
-            data: {
-                names: $("#j_names").val(),
-                designation: $("#j_designation").val(),
-                company: $("#j_company").val(),
-                address: $("#j_address").val(),
-                telephoneNo: $("#j_telephoneNo").val(),
-                email: $("#j_email").val(),
-                csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
-            },
-            success: function () {
-                $("#j_hobby").val("")
-                $("#j_designation").val("")
-                $("#j_company").val("")
-                $("#j_address").val("")
-                $("#j_telephoneNo").val("")
-                $("#j_email").val("")
-                $("p#innerefree").append('Saved. Add More Referees')
-            }
-        })
-    });
-    // **** End****
-    document.getElementById('country').addEventListener('change', function () {
-        if (this.value == "KE") {
-            document.getElementById('county').disabled = false;
-        } else {
-            document.getElementById('county').disabled = true;
-        }
-    });
-    document.getElementById('disabled').addEventListener('change', function () {
-        if (this.value == "1") {
-            document.getElementById('disability').disabled = false;
-        } else {
-            document.getElementById('disability').disabled = true;
-        }
-    });
-</script>
-{% endblock %}
+                                    </div> -->

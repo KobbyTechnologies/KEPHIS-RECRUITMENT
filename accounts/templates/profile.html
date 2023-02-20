@@ -55,14 +55,16 @@
                                         <ul class="nav nav-tabs nav-justified" role="tablist">
                                             <div class="slider"></div>
                                             <li class="nav-item">
-                                                <a class="nav-link active" id="profile-tab" data-bs-toggle="tab" href="#profile"
-                                                    role="tab" aria-controls="profile" aria-selected="true"><i
-                                                        class="fas fa-id-card"></i> Personal Information</a>
+                                                <a class="nav-link active" id="profile-tab" data-bs-toggle="tab"
+                                                    href="#profile" role="tab" aria-controls="profile"
+                                                    aria-selected="true"><i class="fas fa-id-card"></i> Personal
+                                                    Information</a>
                                             </li>
                                             <li class="nav-item">
-                                                <a class="nav-link" id="academic-tab" data-bs-toggle="tab" href="#academic"
-                                                    role="tab" aria-controls="academic" aria-selected="false"><i
-                                                        class="fas fa-graduation-cap"></i> Academic Qualification</a>
+                                                <a class="nav-link" id="academic-tab" data-bs-toggle="tab"
+                                                    href="#academic" role="tab" aria-controls="academic"
+                                                    aria-selected="false"><i class="fas fa-graduation-cap"></i> Academic
+                                                    Qualification</a>
                                             </li>
                                             <li class="nav-item">
                                                 <a class="nav-link" id="work-tab" data-bs-toggle="tab" href="#work"
@@ -85,81 +87,441 @@
                                                         class="fas fa-biking"></i> Hobbies</a>
                                             </li>
                                             <li class="nav-item">
-                                                <a class="nav-link" id="referee-tab" data-bs-toggle="tab" href="#referee"
-                                                    role="tab" aria-controls="referee" aria-selected="false"><i
-                                                        class="fas fa-user-tag"></i>Referees</a>
+                                                <a class="nav-link" id="referee-tab" data-bs-toggle="tab"
+                                                    href="#referee" role="tab" aria-controls="referee"
+                                                    aria-selected="false"><i class="fas fa-user-tag"></i>Referees</a>
                                             </li>
-                                            
+
 
                                         </ul>
 
                                         <!-- Tab panes -->
                                         <div class="tab-content" id="nav-tabContent">
                                             <!-- Personal information -->
-                                            <div class="tab-pane fade show active" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                                            <div class="tab-pane fade show active" id="profile" role="tabpanel"
+                                                aria-labelledby="profile-tab">
                                                 <div class="container">
-                                                    <form class="row g-3">
-                                                        <div class="col-md-12">
-                                                            <label class="form-label">Name</label>
-                                                            <input type="text" class="form-control" placeholder="{{fullname}}" readonly>
+                                                    <form action="{% url 'FnApplicantDetails' %}" method="post" class="needs-validation" novalidate>
+                                                        {% csrf_token %}
+                                                        <div class="row">
+                                                            <div class="col-md-4">
+                                                                <label class="form-label">First Name</label>
+                                                                <input type="text" class="form-control" name="firstName"
+                                                                    placeholder="{{applicant.First_Name}}"
+                                                                    value="{{applicant.First_Name}}" required>
+                                                                <div class="invalid-feedback">
+                                                                    Enter Your First Name.
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-4">
+                                                                <label class="form-label">Middle Name</label>
+                                                                <input type="text" class="form-control"
+                                                                    name="middleName"
+                                                                    placeholder="{{applicant.Middle_Name}}"
+                                                                    value="{{applicant.Middle_Name}}" required>
+                                                                <div class="invalid-feedback">
+                                                                    Enter Your Middle Name.
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-4">
+                                                                <label class="form-label">Last Name</label>
+                                                                <input type="text" class="form-control" name="lastName"
+                                                                    placeholder="{{applicant.Last_Name}}"
+                                                                    value="{{applicant.Last_Name}}" required>
+                                                                <div class="invalid-feedback">
+                                                                    Enter Your Last Name.
+                                                                </div>
+                                                            </div>
                                                         </div>
-                                                        <div class="col-md-6">
-                                                            <label class="form-label">ID Number</label>
-                                                            <input type="text"  class="form-control" placeholder="{{applicant.ID_Number}}" readonly>
+                                                        <div class="row">
+                                                            <div class="col-md-4">
+                                                                <label class="form-label">Gender</label>
+                                                                <select class="form-select" name="gender" required>
+                                                                    <option selected disabled value="0">
+                                                                        {{applicant.Gender}}</option>
+                                                                    <option value="1">Male</option>
+                                                                    <option value="2">Female</option>
+                                                                </select>
+                                                                <i class="text-info small">Please Select it once more
+                                                                    for clarification.</i>
+                                                                <div class="invalid-feedback">
+                                                                    Select Your Gender.
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-4">
+                                                                <label class="form-label">Citizenship</label>
+                                                                <select class="form-select" id="country"
+                                                                    name="citizenship" required>
+                                                                    <option selected disabled
+                                                                        value="{{applicant.Citizenship}}">
+                                                                        
+                                                                    </option>
+                                                                    {% for res in country %}
+                                                                    <option value="{{res.Code}}">{{res.Name}}</option>
+                                                                    {% endfor %}
+                                                                </select>
+                                                                <i class="text-info small">Please Select it once more
+                                                                    for clarification.</i>
+                                                                <div class="invalid-feedback">
+                                                                    Select Your Citizenship.
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-4">
+                                                                <label class="form-label">Are You Kenyan</label>
+                                                                <select class="form-select" name="areYouKenyan"
+                                                                    required>
+                                                                    <option selected disabled value="0">
+                                                                        {{applicant.Are_You_Kenyan}}</option>
+                                                                    <option value="1">Yes</option>
+                                                                    <option value="2">No</option>
+                                                                </select>
+                                                                <i class="text-info small">Please Select it once more
+                                                                    for clarification.</i>
+                                                                <div class="invalid-feedback">
+                                                                    Please Confirm if you are Kenyan.
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-3">
+                                                                <label class="form-label">Citizenship By?</label>
+                                                                <select class="form-select" name="citizenshipBy"
+                                                                    required>
+                                                                    <option selected disabled >
+                                                                        {{applicant.Citizenship_By}}</option>
+                                                                    <option value="1">By Birth</option>
+                                                                    <option value="2">By Naturalization</option>
+                                                                    <option value="3">By Registration</option>
+                                                                </select>
+                                                                <i class="text-info small">Please Select it once more
+                                                                    for clarification.</i>
+                                                                <div class="invalid-feedback">
+                                                                    Please Confirm if you are Kenyan.
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="col-md-3">
+                                                                <label class="form-label">Certificate No.</label>
+                                                                <input type="text" class="form-control"
+                                                                    name="certificateNo"
+                                                                    placeholder="{{applicant.Certificate_No_}}"
+                                                                    value="{{applicant.Certificate_No_}}" required>
+                                                                <div class="invalid-feedback">
+                                                                    Enter Certificate Number.
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-3">
+                                                                <label class="form-label">State Nationality</label>
+                                                                <input type="text" class="form-control"
+                                                                    name="stateNationality" placeholder="Nationality"
+                                                                    value="" required>
+                                                                <div class="invalid-feedback">
+                                                                    Enter Nationality
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-3">
+                                                                <label class="form-label">ID Number</label>
+                                                                <input type="text" class="form-control" name="idNumber"
+                                                                    placeholder="{{applicant.ID_Number}}"
+                                                                    value="{{applicant.ID_Number}}" required>
+                                                                <div class="invalid-feedback">
+                                                                    Enter Your ID Number.
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-12">
+                                                                <label class="form-label" hidden>Country</label>
+                                                                <input type="text" class="form-control" name="country"
+                                                                    placeholder=""
+                                                                    value="" hidden>
+                                                                <div class="invalid-feedback">
+                                                                    Enter Your ID Number.
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="col-md-4">
+                                                                <label class="form-label">County</label>
+                                                                <select class="form-select" id="county"
+                                                                    name="countyCode" disabled>
+                                                                    <option selected value="0">{{applicant.County}}</option>
+                                                                    {% for res in county %}
+                                                                    <option value="{{res.CountyCode}}">
+                                                                        {{res.Description}}</option>
+                                                                    {% endfor %}
+                                                                </select>
+                                                                <i class="text-info small">Please Select it once more
+                                                                    for clarification.</i>
+                                                                <div class="invalid-feedback">
+                                                                    Select Your County.
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-4">
+                                                                <label class="form-label">Sub County</label>
+                                                                <input type="text" class="form-control" name="subCounty"
+                                                                    placeholder="Sub county" value="{{applicant.Sub_county}}">
+                                                                <div class="invalid-feedback">
+                                                                    Enter Your ID Number.
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-4">
+                                                                <label class="form-label">Constituency</label>
+                                                                <input type="text" class="form-control"
+                                                                    name="constituency" placeholder="Constituency"
+                                                                    value="{{applicant.Constituency}}" >
+                                                                <div class="invalid-feedback">
+                                                                    Enter Your ID Number.
+                                                                </div>
+                                                            </div>
                                                         </div>
-                                                        <div class="col-md-6">
-                                                            <label class="form-label">Gender</label>
-                                                            <input type="text" class="form-control" placeholder="{{applicant.Gender}}" readonly>
+                                                        <!-- Personal Details  -->
+                                                        <h4 class="mt-5">Personal Details</h4>
+                                                        <div class="row">
+                                                            <div class="col-md-4">
+                                                                <label for="" class="form-label">Date of Birth</label>
+                                                                <input type="date" name="dob" class="form-control" value="{{applicant.Date_Of_Birth}}"
+                                                                    placeholder="{{applicant.Date_Of_Birth}}" required>
+                                                                <div class="invalid-feedback">
+                                                                    Please select a valid Date of Birth.
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-4">
+                                                                <label class="form-label">Marital Status</label>
+                                                                <select class="form-select" name="maritalStatus" required>
+                                                                    <option selected disabled value="">{{applicant.Marital_Status}}</option>
+                                                                    <option value="1">Single</option>
+                                                                    <option value="2">Married</option>
+                                                                    <option value="3">Separated</option>
+                                                                    <option value="4">Divorced</option>
+                                                                    <option value="5">Widow(er)</option>
+                                                                    <option value="6">Other</option>
+                                                                </select>
+                                                                <i class="text-info small">Please Select it once more for clarification.</i>
+                                                                <div class="invalid-feedback">
+                                                                    Select Your Marital Status.
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-4">
+                                                                <label class="form-label">Ethnic Origin</label>
+                                                                <select class="form-select" name="ethnicOrigin" required>
+                                                                    <option selected disabled value="">{{applicant.Ethnic_Origin}}</option>
+                                                                    <option value="0">African</option>
+                                                                    <option value="1">Indian</option>
+                                                                    <option value="2">White</option>
+                                                                    <option value="3">Colored</option>
+                                                                </select>
+                                                                <i class="text-info small">Please Select it once more for clarification.</i>
+                                                                <div class="invalid-feedback">
+                                                                    Select Your Ethnic Origin.
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <label class="form-label">Disabled</label>
+                                                                <select class="form-select" name="disabled" id="disabled" required>
+                                                                    <option selected disabled value="">{{applicant.Disabled}}</option>
+                                                                    <option value="0">No</option>
+                                                                    <option value="1">Yes</option>
+                                                                </select>
+                                                                <i class="text-info small">Please Select it once more for clarification.</i>
+                                                                <div class="invalid-feedback">
+                                                                    Select a Valid Option.
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <label class="form-label">Disability
+                                                                    Reg No.</label>
+                                                                <input type="text" class="form-control" name="disabilityGrade" id="disability" placeholder="{{applicant.Disability_Grade}}" value=""
+                                                                    disabled>
+                                                            </div>     
+
                                                         </div>
-                                                        <div class="col-md-6">
-                                                            <label class="form-label">Citizenship</label>
-                                                            <input type="text" class="form-control" placeholder="{{applicant.Citizenship}}"  readonly>
+
+                                                        <h4 class="mt-5">Present Employment</h4>
+
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <label class="form-label">Terms of service</label>
+                                                                <select class="form-select" name="termsOfService" required>
+                                                                    <option selected disabled value="">{{applicant.Terms_Of_Service}}</option>
+                                                                    <option value="1">Contract</option>
+                                                                    <option value="2">Temporary</option>
+                                                                    <option value="3">Permanent & Pensionable</option>
+                                                                </select>
+                                                                <i class="text-info small">Please Select it once more
+                                                                    for clarification.</i>
+                                                                <div class="invalid-feedback">
+                                                                    Enter Your Residential Address
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <label class="form-label">Current Monthly Salary</label>
+                                                                <input type="number" class="form-control" name="currentMonthlySalary"
+                                                                    value="{{applicant.Current_Monthly_Salary}}"
+                                                                    placeholder="{{applicant.Current_Monthly_Salary}}">
+                                                                <div class="invalid-feedback">
+                                                                    Enter Your Residential Address
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <label class="form-label">Expected Salary</label>
+                                                                <input type="number" class="form-control" name="expectedSalary"
+                                                                    value="{{applicant.Expected_Salary}}"
+                                                                    placeholder="{{applicant.Expected_Salary}}">
+                                                                <div class="invalid-feedback">
+                                                                    Enter Your Residential Address
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <label class="form-label">How soon can you take this appointment?</label>
+                                                                <input type="text" class="form-control" name="howSoonCanYouTakeThisAppointment"
+                                                                    value="{{applicant.How_Soon_Can_You_Take_This_Appointment}}"
+                                                                    placeholder="{{applicant.How_Soon_Can_You_Take_This_Appointment}}">
+                                                                <div class="invalid-feedback">
+                                                                    Enter Your Residential Address
+                                                                </div>
+                                                            </div>
                                                         </div>
-                                                        <div class="col-md-6">
-                                                            <label class="form-label">Marital Status</label>
-                                                            <input type="text" class="form-control" placeholder="{{applicant.Marital_Status}}" readonly>
+
+
+                                                        <h4 class="mt-5">Communication</h4>
+
+                                                        <div class="row">
+                                                            <div class="col-md-3">
+                                                                <label class="form-label">Phone Number</label>
+                                                                <input type="text" class="form-control" name="phoneNumber"
+                                                                    value="{{applicant.Cellular_Phone_Number}}"
+                                                                    placeholder="{{applicant.Cellular_Phone_Number}}" required>
+                                                                <div class="invalid-feedback">
+                                                                    Enter Your Phone Number.
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-3">
+                                                                <label class="form-label">Postal Address</label>
+                                                                <input type="text" class="form-control" value="{{applicant.Postal_Address}}"
+                                                                    placeholder="{{applicant.Postal_Address}}" name="postalAddress">
+                                                                <div class="invalid-feedback">
+                                                                    Enter Your Postal Address
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-3">
+                                                                <label class="form-label">Postal Code</label>
+                                                                <input type="text" class="form-control" value="{{applicant.Post_Code}}"
+                                                                    placeholder="{{applicant.Post_Code}}" name="postalCode">
+                                                                <div class="invalid-feedback">
+                                                                    Enter Your Postal Code
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-3">
+                                                                <label class="form-label">Residential Address</label>
+                                                                <input type="text" class="form-control" name="residentialAddress"
+                                                                    value="{{applicant.Residential_Address}}"
+                                                                    placeholder="{{applicant.Residential_Address}}">
+                                                                <div class="invalid-feedback">
+                                                                    Enter Your Residential Address
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-12">
+                                                                <label class="form-label">Email Address</label>
+                                                                <input type="text" class="form-control" placeholder="{{applicant.E_Mail}}" disabled>
+                                                                
+                                                            </div>
                                                         </div>
-                                                        <div class="col-md-6">
-                                                            <label class="form-label">Ethnic Origin</label>
-                                                            <input type="text" class="form-control" placeholder="{{applicant.Ethnic_Origin}}" readonly>
+
+                                                        <h4 class="mt-5">Employment History</h4>
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <label class="form-label">Have you ever been Removed Or Dismissed from Employment?</label>
+                                                                <select class="form-select" name="haveYouEverBeenRemovedOrDismissedFromEmployment" id="employment-dismis" required>
+                                                                    <option selected disabled value="">{{applicant.Have_you_ever_been_removed_dismissed_from_employment}}</option>
+                                                                    <option value="0">No</option>
+                                                                    <option value="1">Yes</option>
+                                                                </select>
+                                                                <i class="text-info small">Please Select it once more
+                                                                    for clarification.</i>
+                                                                <div class="invalid-feedback">
+                                                                    Enter Your Residential Address
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <label class="form-label">Give Details</label>
+                                                                <input type="text" class="form-control" name="giveDetails" id="giveDetails"
+                                                                    value="{{applicant.Give_Details}}"
+                                                                    placeholder="{{applicant.Give_Details}}">
+                                                                <div class="invalid-feedback">
+                                                                    Enter Your Residential Address
+                                                                </div>
+                                                            </div>
                                                         </div>
-                                                        <div class="col-md-6">
-                                                            <label class="form-label">Disabled</label>
-                                                            <input type="text" class="form-control"
-                                                                placeholder="{{applicant.Disabled}}" readonly>
+
+                                                        <h4 class="mt-5">Offense Information</h4>
+
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <label class="form-label">Have you been Charged in a Court of Law?</label>
+                                                                <select class="form-select" name="haveYouBeenChargedInACourtOfLaw" required>
+                                                                    <option selected disabled value="">{{applicant.Have_you_been_charged_in_a_court_of_law}}</option>
+                                                                    <option value="0">No</option>
+                                                                    <option value="1">Yes</option>
+                                                                </select>
+                                                                <i class="text-info small">Please Select it once more
+                                                                    for clarification.</i>
+                                                                <div class="invalid-feedback">
+                                                                    Enter Your Residential Address
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <label class="form-label">Offense</label>
+                                                                <input type="text" class="form-control"
+                                                                    name="offence"
+                                                                    value="{{applicant.Offence}}"
+                                                                    placeholder="{{applicant.Offence}}">
+                                                                <div class="invalid-feedback">
+                                                                    Enter Your Residential Address
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-4">
+                                                                <label class="form-label">Date of Offense</label>
+                                                                <input type="date" class="form-control" name="dateOfOffence"
+                                                                    value="{{applicant.Date_Of_Offence}}">
+                                                                <div class="invalid-feedback">
+                                                                    Enter Your Residential Address
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-4">
+                                                                <label class="form-label">Place of Offense</label>
+                                                                <input type="text" class="form-control" name="placeOfOffence"
+                                                                    value="{{applicant.Place_Of_Offence}}"
+                                                                    placeholder="{{applicant.Place_Of_Offence}}">
+                                                                <div class="invalid-feedback">
+                                                                    Enter Your Residential Address
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-4">
+                                                                <label class="form-label">Sentence Imposed</label>
+                                                                <input type="text" class="form-control" name="sentenceImposed"
+                                                                    value="{{applicant.Sentence_Imposed}}"
+                                                                    placeholder="{{applicant.Sentence_Imposed}}">
+                                                                <div class="invalid-feedback">
+                                                                    Enter Your Residential Address
+                                                                </div>
+                                                            </div>
                                                         </div>
-                                                        <div class="col-md-6">
-                                                            <label class="form-label">Disability Reg No.</label>
-                                                            <input type="text"  class="form-control" placeholder="{{applicant.Disability_Grade}}"  readonly>
-                                                        </div>
-                                                        <div class="col-md-6">
-                                                            <label class="form-label">Date Of Birth</label>
-                                                            <input type="text" class="form-control" placeholder="{{applicant.Date_Of_Birth}}" readonly>
-                                                        </div>
-                                                        <div class="col-md-6">
-                                                            <label class="form-label">Phone Number</label>
-                                                            <input type="text"
-                                                                class="form-control" placeholder="{{applicant.Cellular_Phone_Number}}" readonly>
-                                                        </div>
-                                                        <div class="col-md-6">
-                                                            <label class="form-label">EMail</label>
-                                                            <input type="text"
-                                                                class="form-control" placeholder="{{E_Mail.E_Mail}}" readonly>
+                                                        <div class="my-3">
+                                                            <button type="submit" class="btn btn-primary my-3">Save changes</button>
                                                         </div>
                                                     </form>
-                                                    <div class="my-3">
-                                                        <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#EditPersonnal">
+                                                    <!-- <div class="my-3">
+                                                        <button type="button" class="btn btn-info"
+                                                            data-bs-toggle="modal" data-bs-target="#EditPersonnal">
                                                             Edit <i class="las la-edit"></i>
                                                         </button>
-                                                    </div>
+                                                    </div> -->
                                                 </div>
                                             </div>
 
                                             <!-- Academic Qualification -->
-                                            <div class="tab-pane fade " id="academic" role="tabpanel" aria-labelledby="academic-tab">
+                                            <div class="tab-pane fade " id="academic" role="tabpanel"
+                                                aria-labelledby="academic-tab">
                                                 <div class="d-flex justify-content-between">
                                                     <h4>Academic Qualification</h4>
-                                                    <button type="button" class="btn btn-info" data-bs-toggle="modal"data-bs-target="#AddAcademic">
+                                                    <button type="button" class="btn btn-info" data-bs-toggle="modal"
+                                                        data-bs-target="#AddAcademic">
                                                         Add Qualification <i class="las la-plus"></i>
                                                     </button>
                                                 </div>
@@ -201,13 +563,13 @@
                                                             <span><i> Grade:</i></span>
                                                             <p class="mt-1"><b>{{res.Grade}}</b></p>
                                                         </div>
-                                                        
+
                                                         <div class="col-md-4">
                                                             <span><i> Country:</i></span>
                                                             <p class="mt-1"><b>{{res.Country}}</b></p>
                                                         </div>
                                                         <div class="col-md-4">
-                                                            <span><i> Region:</i></span>
+                                                            <span><i> Examining Body</i></span>
                                                             <p class="mt-1"><b>{{res.Region}}</b></p>
                                                         </div>
                                                         <div class="col-md-12">
@@ -221,10 +583,12 @@
                                                 {% endif %}
                                             </div>
                                             <!-- Work Experience -->
-                                            <div class="tab-pane fade " id="work" role="tabpanel" aria-labelledby="work-tab">
+                                            <div class="tab-pane fade " id="work" role="tabpanel"
+                                                aria-labelledby="work-tab">
                                                 <div class="d-flex justify-content-between">
                                                     <h4>Work Experience</h4>
-                                                    <button type="button" class="btn btn-info" data-bs-toggle="modal"data-bs-target="#AddExperience">
+                                                    <button type="button" class="btn btn-info" data-bs-toggle="modal"
+                                                        data-bs-target="#AddExperience">
                                                         Add Experience<i class="las la-plus"></i>
                                                     </button>
                                                 </div>
@@ -242,7 +606,7 @@
                                                                 <div class="col-md-6">
                                                                     <span><i> Employer:</i></span>
                                                                     <h6 class="mt-1">{{res.Employer}}</h6>
-                                                                </div>  
+                                                                </div>
                                                             </div>
                                                         </div>
                                                         <hr class="border  border-1 opacity-75">
@@ -286,7 +650,7 @@
                                                             <span><i> No. of Years worked:</i></span>
                                                             <p class="mt-1"><b>{{res.No__of_Years}}</b></p>
                                                         </div>
-                                                        
+
                                                         <div class="col-md-4">
                                                             <span><i> Country:</i></span>
                                                             <p class="mt-1"><b>{{res.Country}}</b></p>
@@ -296,7 +660,7 @@
                                                             <p class="mt-1"><b>{{res.Location}}</b></p>
                                                         </div>
                                                         <div class="col-md-12">
-                                                            <span>Description:</span>
+                                                            <span>Duties and Responsibilities:</span>
                                                             <p class="mt-1">{{res.Description}}</p>
                                                         </div>
                                                     </div>
@@ -307,10 +671,12 @@
 
                                             </div>
                                             <!-- Proffesional courses-->
-                                            <div class="tab-pane fade " id="course" role="tabpanel" aria-labelledby="course-tab">
+                                            <div class="tab-pane fade " id="course" role="tabpanel"
+                                                aria-labelledby="course-tab">
                                                 <div class="d-flex justify-content-between">
                                                     <h4>Professional Courses</h4>
-                                                    <button type="button" class="btn btn-info" data-bs-toggle="modal"data-bs-target="#AddCourses">
+                                                    <button type="button" class="btn btn-info" data-bs-toggle="modal"
+                                                        data-bs-target="#AddCourses">
                                                         Add Course <i class="las la-plus"></i>
                                                     </button>
                                                 </div>
@@ -334,10 +700,12 @@
 
                                             </div>
                                             <!-- Prefessional Memberships -->
-                                            <div class="tab-pane fade " id="member" role="tabpanel" aria-labelledby="member-tab">
+                                            <div class="tab-pane fade " id="member" role="tabpanel"
+                                                aria-labelledby="member-tab">
                                                 <div class="d-flex justify-content-between">
                                                     <h4>Professional Memberships</h4>
-                                                    <button type="button" class="btn btn-info" data-bs-toggle="modal"data-bs-target="#AddMemberships">
+                                                    <button type="button" class="btn btn-info" data-bs-toggle="modal"
+                                                        data-bs-target="#AddMemberships">
                                                         Add Membership <i class="las la-plus"></i>
                                                     </button>
                                                 </div>
@@ -361,10 +729,12 @@
 
                                             </div>
                                             <!--Hobbies  -->
-                                            <div class="tab-pane fade " id="hobby" role="tabpanel" aria-labelledby="hobby-tab">
+                                            <div class="tab-pane fade " id="hobby" role="tabpanel"
+                                                aria-labelledby="hobby-tab">
                                                 <div class="d-flex justify-content-between">
                                                     <h4>Hobbies</h4>
-                                                    <button type="button" class="btn btn-info" data-bs-toggle="modal"data-bs-target="#AddHobby">
+                                                    <button type="button" class="btn btn-info" data-bs-toggle="modal"
+                                                        data-bs-target="#AddHobby">
                                                         Add Hobby <i class="las la-plus"></i>
                                                     </button>
                                                 </div>
@@ -382,15 +752,28 @@
                                                 </div>
                                             </div>
                                             <!-- Referees -->
-                                            <div class="tab-pane fade " id="referee" role="tabpanel" aria-labelledby="referee-tab">
+                                            <div class="tab-pane fade " id="referee" role="tabpanel"
+                                                aria-labelledby="referee-tab">
                                                 <div class="d-flex justify-content-between">
                                                     <h5>Referees</h5>
-                                                    <button type="button" class="btn btn-info" data-bs-toggle="modal"data-bs-target="#AddReferee">
+                                                    <button type="button" class="btn btn-info" data-bs-toggle="modal"
+                                                        data-bs-target="#AddReferee">
                                                         Add Referee <i class="las la-plus"></i>
                                                     </button>
                                                 </div>
                                                 {% if Referee %}
                                                 {% for res in Referee %}
+
+                                                <i class="text-info py-3">
+                                                    <b>Note:</b>
+                                                    <br>
+                                                    Give the names and addresses of two referees. They should be
+                                                    responsible persons who know you well, either in private or
+                                                    professional life, and one at least should be acquainted with your
+                                                    private life. The names of the distinguished persons should not be
+                                                    given unless they really know you well. Names of relatives, members
+                                                    of staff of KEPHIS or members of KEPHIS board should not be given.
+                                                </i>
                                                 <hr>
                                                 <div class="container">
                                                     <div class="row">
@@ -406,7 +789,7 @@
                                                             <span><i> Company</i></span>
                                                             <p class="mt-1"><b>{{res.Company}}</b></p>
                                                         </div>
-                                                        
+
                                                         <div class="col-md-4">
                                                             <span><i> Address</i></span>
                                                             <p class="mt-1"><b>{{res.Address}}</b></p>
@@ -425,7 +808,7 @@
                                                 {% endif %}
 
                                             </div>
-                                            
+
                                         </div>
 
                                     </div>
@@ -440,7 +823,7 @@
 
 
 <!--**********************************
-     Forms to populater the data above
+     Forms to populate the data above
  ***********************************-->
 
 
@@ -459,21 +842,24 @@
                     <div class="row">
                         <div class="col-md-4">
                             <label class="form-label">First Name</label>
-                            <input type="text" class="form-control" name="firstName" required>
+                            <input type="text" class="form-control" name="firstName"
+                                placeholder="{{applicant.First_Name}}" value="{{applicant.First_Name}}" required>
                             <div class="invalid-feedback">
                                 Enter Your First Name.
                             </div>
                         </div>
                         <div class="col-md-4">
                             <label class="form-label">Middle Name</label>
-                            <input type="text" class="form-control" name="middleName" required>
+                            <input type="text" class="form-control" name="middleName"
+                                placeholder="{{applicant.Middle_Name}}" value="{{applicant.Middle_Name}}" required>
                             <div class="invalid-feedback">
                                 Enter Your Middle Name.
                             </div>
                         </div>
                         <div class="col-md-4">
                             <label class="form-label">Last Name</label>
-                            <input type="text" class="form-control" name="lastName" required>
+                            <input type="text" class="form-control" name="lastName"
+                                placeholder="{{applicant.Last_Name}}" value="{{applicant.Last_Name}}" required>
                             <div class="invalid-feedback">
                                 Enter Your Last Name.
                             </div>
@@ -482,7 +868,8 @@
                     <div class="row">
                         <div class="col-md-4">
                             <label class="form-label">ID Number</label>
-                            <input type="text" class="form-control" name="idNumber" required>
+                            <input type="text" class="form-control" name="idNumber"
+                                placeholder="{{applicant.ID_Number}}" value="{{applicant.ID_Number}}" required>
                             <div class="invalid-feedback">
                                 Enter Your ID Number.
                             </div>
@@ -490,10 +877,11 @@
                         <div class="col-md-4">
                             <label class="form-label">Gender</label>
                             <select class="form-select" name="gender" required>
-                                <option selected disabled value="">Choose...</option>
+                                <option selected disabled value="0">{{applicant.Gender}}</option>
                                 <option value="1">Male</option>
                                 <option value="2">Female</option>
                             </select>
+                            <i class="text-info small">Please Select it once more for clarification.</i>
                             <div class="invalid-feedback">
                                 Select Your Gender.
                             </div>
@@ -501,13 +889,57 @@
                         <div class="col-md-4">
                             <label class="form-label">Citizenship</label>
                             <select class="form-select" id="country" name="citizenship" required>
-                                <option selected disabled value="">Choose...</option>
+                                <option selected disabled value="{{applicant.Citizenship}}">{{applicant.Citizenship}}
+                                </option>
                                 {% for res in country %}
                                 <option value="{{res.Code}}">{{res.Name}}</option>
                                 {% endfor %}
                             </select>
+                            <i class="text-info small">Please Select it once more for clarification.</i>
                             <div class="invalid-feedback">
                                 Select Your Citizenship.
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Are You Kenyan</label>
+                            <select class="form-select" name="areYouKenyan" required>
+                                <option selected disabled value="0">{{applicant.Are_You_Kenyan}}</option>
+                                <option value="1">Yes</option>
+                                <option value="2">No</option>
+                            </select>
+                            <i class="text-info small">Please Select it once more for clarification.</i>
+                            <div class="invalid-feedback">
+                                Please Confirm if you are Kenyan.
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Citizenship By?</label>
+                            <select class="form-select" name="citizenshipBy" required>
+                                <option selected disabled value="0">{{applicant.Citizenship_By}}</option>
+                                <option value="1">Birth</option>
+                                <option value="2">Registration</option>
+                            </select>
+                            <i class="text-info small">Please Select it once more for clarification.</i>
+                            <div class="invalid-feedback">
+                                Please Confirm if you are Kenyan.
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <label class="form-label">Certificate No.</label>
+                            <input type="text" class="form-control" name="certificateNo"
+                                placeholder="{{applicant.Certificate_No_}}" value="{{applicant.Certificate_No_}}"
+                                required>
+                            <div class="invalid-feedback">
+                                Enter Your ID Number.
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">State Nationality</label>
+                            <input type="text" class="form-control" name="stateNationality" placeholder="Nationality"
+                                value="" required>
+                            <div class="invalid-feedback">
+                                Enter Your ID Number.
                             </div>
                         </div>
                     </div>
@@ -515,7 +947,7 @@
                         <div class="col-md-4">
                             <label class="form-label">County</label>
                             <select class="form-select" id="county" name="countyCode" disabled>
-                                <option selected value="0">Choose...</option>
+                                <option selected value="0">Choose ......</option>
                                 {% for res in county %}
                                 <option value="{{res.CountyCode}}">{{res.Description}}</option>
                                 {% endfor %}
@@ -525,9 +957,25 @@
                             </div>
                         </div>
                         <div class="col-md-4">
+                            <label class="form-label">Sub County</label>
+                            <input type="text" class="form-control" name="subCounty" placeholder="Nationality"
+                                value="{{res.Sub_county}}" required>
+                            <div class="invalid-feedback">
+                                Enter Your ID Number.
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Constituency</label>
+                            <input type="text" class="form-control" name="constituency" placeholder="Constituency"
+                                value="{{res.Constituency}}" required>
+                            <div class="invalid-feedback">
+                                Enter Your ID Number.
+                            </div>
+                        </div>
+                        <div class="col-md-4">
                             <label class="form-label">Marital Status</label>
                             <select class="form-select" name="maritalStatus" required>
-                                <option selected disabled value="">Choose...</option>
+                                <option selected disabled value="">{{applicant.Marital_Status}}</option>
                                 <option value="1">Single</option>
                                 <option value="2">Married</option>
                                 <option value="3">Separated</option>
@@ -535,6 +983,7 @@
                                 <option value="5">Widow(er)</option>
                                 <option value="6">Other</option>
                             </select>
+                            <i class="text-info small">Please Select it once more for clarification.</i>
                             <div class="invalid-feedback">
                                 Select Your Marital Status.
                             </div>
@@ -548,6 +997,7 @@
                                 <option value="2">White</option>
                                 <option value="3">Colored</option>
                             </select>
+                            <i class="text-info small">Please Select it once more for clarification.</i>
                             <div class="invalid-feedback">
                                 Select Your Ethnic Origin.
                             </div>
@@ -557,10 +1007,11 @@
                         <div class="col-md-4">
                             <label class="form-label">Disabled</label>
                             <select class="form-select" name="disabled" id="disabled" required>
-                                <option selected disabled value="">Choose...</option>
+                                <option selected disabled value="">{{applicant.Disabled}}</option>
                                 <option value="0">No</option>
                                 <option value="1">Yes</option>
                             </select>
+                            <i class="text-info small">Please Select it once more for clarification.</i>
                             <div class="invalid-feedback">
                                 Select a Valid Option.
                             </div>
@@ -568,11 +1019,13 @@
                         <div class="col-md-4">
                             <label class="form-label">Disability
                                 Reg No.</label>
-                            <input type="number" class="form-control" name="disabilityGrade" id="disability" disabled>
+                            <input type="number" class="form-control" name="disabilityGrade" id="disability" value="N/A"
+                                disabled>
                         </div>
                         <div class="col-md-4">
                             <label for="" class="form-label">Date of Birth</label>
-                            <input type="date" name="dob" class="form-control" required>
+                            <input type="date" name="dob" class="form-control" value="{{applicant.Date_Of_Birth}}"
+                                placeholder="{{applicant.Date_Of_Birth}}" required>
                             <div class="invalid-feedback">
                                 Please select a valid Date of Birth.
                             </div>
@@ -582,21 +1035,25 @@
                     <div class="row">
                         <div class="col-md-4">
                             <label class="form-label">Phone Number</label>
-                            <input type="text" class="form-control" name="phoneNumber" required>
+                            <input type="text" class="form-control" name="phoneNumber"
+                                value="{{applicant.Cellular_Phone_Number}}"
+                                placeholder="{{applicant.Cellular_Phone_Number}}" required>
                             <div class="invalid-feedback">
                                 Enter Your Phone Number.
                             </div>
                         </div>
                         <div class="col-md-4">
                             <label class="form-label">Postal Address</label>
-                            <input type="text" class="form-control" name="postalAddress">
+                            <input type="text" class="form-control" value="{{applicant.Postal_Address}}"
+                                placeholder="{{applicant.Postal_Address}}" name="postalAddress">
                             <div class="invalid-feedback">
                                 Enter Your FPostal Address
                             </div>
                         </div>
                         <div class="col-md-4">
                             <label class="form-label">Postal Code</label>
-                            <input type="text" class="form-control" name="postalCode">
+                            <input type="text" class="form-control" value="{{applicant.Post_Code}}"
+                                placeholder="{{applicant.Post_Code}}" name="postalCode">
                             <div class="invalid-feedback">
                                 Enter Your Postal Code
                             </div>
@@ -605,7 +1062,120 @@
                     <div class="row">
                         <div class="col-md-4">
                             <label class="form-label">Residential Address</label>
-                            <input type="text" class="form-control" name="residentialAddress">
+                            <input type="text" class="form-control" name="residentialAddress"
+                                value="{{applicant.Residential_Address}}"
+                                placeholder="{{applicant.Residential_Address}}">
+                            <div class="invalid-feedback">
+                                Enter Your Residential Address
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label class="form-label">Terms of service</label>
+                            <input type="text" class="form-control" name="residentialAddress"
+                                value="{{applicant.Residential_Address}}"
+                                placeholder="{{applicant.Residential_Address}}">
+                            <div class="invalid-feedback">
+                                Enter Your Residential Address
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Current Monthly Salary</label>
+                            <input type="number" class="form-control" name="residentialAddress"
+                                value="{{applicant.Residential_Address}}"
+                                placeholder="{{applicant.Residential_Address}}">
+                            <div class="invalid-feedback">
+                                Enter Your Residential Address
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Expected Salary</label>
+                            <input type="number" class="form-control" name="residentialAddress"
+                                value="{{applicant.Residential_Address}}"
+                                placeholder="{{applicant.Residential_Address}}">
+                            <div class="invalid-feedback">
+                                Enter Your Residential Address
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label class="form-label">How soon can you take this appointment?</label>
+                            <input type="text" class="form-control" name="residentialAddress"
+                                value="{{applicant.Residential_Address}}"
+                                placeholder="{{applicant.Residential_Address}}">
+                            <div class="invalid-feedback">
+                                Enter Your Residential Address
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Have you ever been Removed Or Dismissed from Employment?</label>
+                            <select class="form-select" name="disabled" id="disabled" required>
+                                <option value="0">No</option>
+                                <option value="1">Yes</option>
+                            </select>
+                            <div class="invalid-feedback">
+                                Enter Your Residential Address
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <label class="form-label">Give Details</label>
+                            <input type="number" class="form-control" name="giveDetails"
+                                value="{{applicant.Residential_Address}}"
+                                placeholder="{{applicant.Residential_Address}}">
+                            <div class="invalid-feedback">
+                                Enter Your Residential Address
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label class="form-label">Have you been Charged in a Court of Law?</label>
+                            <select class="form-select" name="disabled" id="disabled" required>
+                                <option value="0">No</option>
+                                <option value="1">Yes</option>
+                            </select>
+                            <div class="invalid-feedback">
+                                Enter Your Residential Address
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Offense</label>
+                            <input type="number" class="form-control"
+                                name="haveYouEverBeenRemovedOrDismissedFromEmployment"
+                                value="{{applicant.Residential_Address}}"
+                                placeholder="{{applicant.Residential_Address}}">
+                            <div class="invalid-feedback">
+                                Enter Your Residential Address
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Date of Offense</label>
+                            <input type="number" class="form-control" name="giveDetails"
+                                value="{{applicant.Residential_Address}}"
+                                placeholder="{{applicant.Residential_Address}}">
+                            <div class="invalid-feedback">
+                                Enter Your Residential Address
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Place of Offense</label>
+                            <input type="number" class="form-control" name="giveDetails"
+                                value="{{applicant.Residential_Address}}"
+                                placeholder="{{applicant.Residential_Address}}">
+                            <div class="invalid-feedback">
+                                Enter Your Residential Address
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Sentence Imposed</label>
+                            <input type="number" class="form-control" name="giveDetails"
+                                value="{{applicant.Residential_Address}}"
+                                placeholder="{{applicant.Residential_Address}}">
                             <div class="invalid-feedback">
                                 Enter Your Residential Address
                             </div>
@@ -646,7 +1216,7 @@
                         <div class="col-md-4">
                             <label class="form-label">Education Type</label>
                             <select class="form-select" name="educationType" id="Aca_educationType" required>
-                                <option selected value="0">Choose...</option>
+                                <option selected disabled value="0">Choose...</option>
                                 <option value="1">Primary</option>
                                 <option value="2">High School</option>
                                 <option value="3">College</option>
@@ -657,10 +1227,10 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-4">
+                        <div class="col-md-4" id="AcaeducationLevel">
                             <label class="form-label">Education Level</label>
                             <select class="form-select" name="educationLevel" id="Aca_educationLevel" required>
-                                <option selected value="0">Choose...</option>
+                                <option selected disabled value="0">Choose...</option>
                                 <option value="1">Certificate</option>
                                 <option value="2">Diploma</option>
                                 <option value="3">Higher/Post Graduate Diploma</option>
@@ -669,7 +1239,7 @@
                                 <option value="6">Doctorate</option>
                             </select>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-4" id="AcafieldOfStudy">
                             <label class="form-label">Field Of Study</label>
                             <select class="form-select" name="fieldOfStudy" id="Aca_fieldOfStudy" required>
                                 <option selected disabled value="">Choose...</option>
@@ -678,7 +1248,7 @@
                                 {% endfor %}
                             </select>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-4" id="AcademicQualification">
                             <label class="form-label">Qualification</label>
                             <select class="form-select" name="qualificationCode" id="AcademicQualificationCode"
                                 required>
@@ -696,7 +1266,7 @@
                             <input type="text" class="form-control" name="institutionName" id="Aca_institutionName"
                                 required>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-4" id="AcaproficiencyLevel">
                             <label class="form-label">Proficiency Level</label>
                             <select class="form-select" name="proficiencyLevel" id="Aca_proficiencyLevel" required>
                                 <option selected disabled value="">Choose...</option>
@@ -724,11 +1294,12 @@
                     </div>
                     <div class="row">
                         <div class="col-md-4">
-                            <label class="form-label">Region</label>
-                            <input type="text" class="form-control" name="region" id="Aca_region" required>
+                            <label class="form-label">Examining Body</label>
+                            <input type="text" class="form-control" name="region" id="Aca_region" required
+                                placeholder="e.g. KNEC">
                         </div>
                         <div class="col-md-4">
-                            <label class="form-label">Highest Level</label>
+                            <label class="form-label">Is this your Highest Level of Education?</label>
                             <select class="form-select" name="isHighestLevel" id="isHighestLevel" required>
                                 <option selected disabled value="">Choose...</option>
                                 <option value="False">No</option>
@@ -742,9 +1313,9 @@
                     </div>
                     <div class="row">
                         <div class="col-md-12">
-                            <label class="form-label">Other Qualification</label>
+                            <label class="form-label" hidden>Other Qualification</label>
                             <textarea class="form-control" name="otherQualification" id="otherAcademic" rows="3"
-                                disabled></textarea>
+                                disabled hidden></textarea>
                         </div>
                     </div>
                     <div class="row">
@@ -867,7 +1438,7 @@
                     </div>
                     <div class="row">
                         <div class="col-md-12">
-                            <label class="form-label">Description</label>
+                            <label class="form-label">Duties and Responsibilities</label>
                             <textarea class="form-control" name="description" rows="3" id="job_description"></textarea>
                         </div>
                     </div>
@@ -931,7 +1502,7 @@
                             </div>
                         </div>
                     </div>
-                    <p id="proOutput" class="mt-3 mb-1" style="color:#e51e25;font-weight: bolder;"></p>
+                    <p id="proOutput" class="mt-5 mb-1" style="color:#e51e25;font-weight: bolder;"></p>
                     <button type="submit" class="btn btn-primary my-3">Save</button>
                 </form>
             </div>
@@ -1057,7 +1628,7 @@
                                 Enter Referee Company
                             </div>
                         </div>
-                    
+
                         <div class="col-md-6">
                             <label class="form-label">Address</label>
                             <input type="text" class="form-control" name="address" id="j_address" required>
@@ -1103,6 +1674,23 @@
             }
         });
     })
+
+    $(document).ready(function () {
+        $('#Aca_educationType').on('change', function () {
+            if (this.value == '1' || this.value == '2') {
+                $('#AcaeducationLevel').prop('hidden', true);
+                $('#AcafieldOfStudy').prop('hidden', true);
+                $('#AcaproficiencyLevel').prop('hidden', true);
+                $('#AcademicQualification').prop('hidden', true);
+            } else {
+                $('#AcaeducationLevel').prop('hidden', false);
+                $('#AcafieldOfStudy').prop('hidden', false);
+                $('#AcaproficiencyLevel').prop('hidden', false);
+                $('#AcademicQualification').prop('hidden', false);
+            }
+        });
+    })
+
     $(document).on('submit', '#AcademicForm', function (e) {
         e.preventDefault();
         $.ajax({
@@ -1292,6 +1880,7 @@
         })
     });
     // **** End****
+
     document.getElementById('country').addEventListener('change', function () {
         if (this.value == "KE") {
             document.getElementById('county').disabled = false;

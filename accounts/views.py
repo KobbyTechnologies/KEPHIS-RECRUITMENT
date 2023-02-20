@@ -13,7 +13,42 @@ from django.contrib import messages
 from cryptography.fernet import Fernet
 import re
 import enum
+import secrets
+import string
+from django.core.mail import EmailMessage
+import threading
+from django.contrib.sites.shortcuts import get_current_site
+from django.template.loader import render_to_string
 # Create your views here.
+
+def get_object(endpoint):
+    session = requests.Session()
+    session.auth = config.AUTHS
+    response = session.get(endpoint, timeout=10)
+    return response
+
+class EmailThread(threading.Thread):
+
+    def __init__(self, email):
+        self.email = email
+        threading.Thread.__init__(self)
+
+    def run(self):
+        self.email.send()
+
+
+def send_mail(email, verificationToken, request):
+    current_site = get_current_site(request)
+    email_subject = 'Activate Your Account'
+    email_body = render_to_string('activate.html', {
+        'domain': current_site,
+        'Secret': verificationToken,
+    })
+
+    email = EmailMessage(subject=email_subject, body=email_body,
+                         from_email=config.EMAIL_HOST_USER, to=[email])
+
+    EmailThread(email).start()
 
 
 def profile_request(request):
@@ -186,39 +221,91 @@ def register_request(request):
     email = ''
     password = ''
     confirm_password = ''
+    try:
+        if request.method == 'POST':
 
-    if request.method == 'POST':
-        try:
             email = request.POST.get('email').strip()
             my_password = str(request.POST.get('password'))
-            confirm_password = str(
-                request.POST.get('confirm_password')).strip()
-        except ValueError:
-            messages.error(request, "Invalid credentials, try again")
-            return redirect('register')
-        if len(my_password) < 6:
-            messages.error(request, "Password should be at least 6 characters")
-            return redirect('register')
-        if my_password != confirm_password:
-            messages.error(request, "Password mismatch")
-            return redirect('register')
-        cipher_suite = Fernet(config.ENCRYPT_KEY)
+            confirm_password = str(request.POST.get('confirm_password')).strip()
 
-        encrypted_text = cipher_suite.encrypt(my_password.encode('ascii'))
-        password = base64.urlsafe_b64encode(encrypted_text).decode("ascii")
+            if len(my_password) < 6:
+                messages.error(request, "Password should be at least 6 characters")
+                return redirect('register')
 
-        try:
-            response = config.CLIENT.service.FnApplicantRegister(
-                email, password)
-            messages.success(
-                request, "Account successfully created, you can now login")
-            print(response)
-            return redirect('login')
-        except Exception as e:
-            messages.error(request, e)
-            print(e)
+            if my_password != confirm_password:
+                messages.error(request, "Password mismatch")
+                return redirect('register')
+
+            if not email:
+                messages.error(request, "Kindly provide your email")
+                return redirect('register')
+
+            nameChars = ''.join(secrets.choice(string.ascii_uppercase + string.digits)
+                                for i in range(5))
+            verificationToken = str(nameChars)
+
+            cipher_suite = Fernet(config.ENCRYPT_KEY)
+            encrypted_text = cipher_suite.encrypt(my_password.encode('ascii'))
+            password = base64.urlsafe_b64encode(encrypted_text).decode("ascii")
+
+            # except ValueError:
+            #     messages.error(request, "Invalid credentials, try again")
+            #     return redirect('register')
+
+            try:
+                response = config.CLIENT.service.FnApplicantRegister(
+                    email, password)
+                print(response)
+
+                if response == True:
+                    send_mail(email, verificationToken, request)
+                messages.success(
+                    request, "'We sent you an email to verify your account")
+                return redirect('login')
+            
+            except Exception as e:
+                print(e)
+                messages.error(request, e)
+    except Exception as e:
+        print(e)
+        messages.error(request, e)
+        return redirect('register')
+    
     ctx = {"year": year}
     return render(request, "register.html", ctx)
+
+
+def verifyRequest(request):
+    if request.method == 'POST':
+        try:
+            email = request.POST.get('email')
+            secret = request.POST.get('secret')
+            verified = True
+            Access_Point = config.O_DATA.format(
+                f"/QyApplicants?$filter=E_Mail%20eq%20%27{email}%27")
+            response = get_object(Access_Point)
+
+            if response.status_code != 200:
+                messages.error(
+                    request, f"Failed with status code: {response.status_code}")
+                return redirect('login')
+            cleanedData = response.json()
+            for res in cleanedData['value']:
+                if res['Verification_Token'] == secret:
+                    response = config.CLIENT.service.FnVerified(
+                        verified, email)
+                    messages.success(request, "Verification Successful")
+                    return redirect('login')
+        except requests.exceptions.RequestException as e:
+            print(e)
+            messages.error(
+                request, "Not Verified. check Credentials or Register")
+            return redirect('verify')
+        except ValueError:
+            messages.error(request, 'Wrong Input')
+            return redirect('verify')
+    return render(request, "verify.html")
+
 
 
 def FnApplicantDetails(request):
@@ -239,6 +326,24 @@ def FnApplicantDetails(request):
     postalCode = ""
     residentialAddress = ""
     disabilityGrade = ''
+    areYouKenyan = ""
+    citizenshipBy = ""
+    certificateNo = ""
+    stateNationality = ""
+    country = ""
+    subCounty = ""
+    constituency = ""
+    termsOfService = ""
+    currentMonthlySalary = ""
+    expectedSalary = ""
+    howSoonCanYouTakeThisAppointment = ""
+    haveYouEverBeenRemovedOrDismissedFromEmployment = ""
+    giveDetails = ""
+    haveYouBeenChargedInACourtOfLaw = ""
+    offence = ""
+    dateOfOffence = ""
+    placeOfOffence = ""
+    sentenceImposed = ""
     if request.method == 'POST':
         try:
             firstName = request.POST.get('firstName')
@@ -256,7 +361,25 @@ def FnApplicantDetails(request):
             postalAddress = request.POST.get('postalAddress')
             postalCode = request.POST.get('postalCode')
             residentialAddress = request.POST.get('residentialAddress')
-            disabilityGrade = int(request.POST.get('disabilityGrade'))
+            disabilityGrade = request.POST.get('disabilityGrade')
+            areYouKenyan = request.POST.get('areYouKenyan')
+            citizenshipBy = request.POST.get('citizenshipBy')
+            certificateNo = request.POST.get('certificateNo')
+            stateNationality = request.POST.get('stateNationality')
+            country = request.POST.get('country')
+            subCounty = request.POST.get('subCounty')
+            constituency = request.POST.get('constituency')
+            termsOfService = request.POST.get('termsOfService')
+            currentMonthlySalary = request.POST.get('currentMonthlySalary')
+            expectedSalary = request.POST.get('expectedSalary')
+            howSoonCanYouTakeThisAppointment = request.POST.get('howSoonCanYouTakeThisAppointment')
+            haveYouEverBeenRemovedOrDismissedFromEmployment = request.POST.get('haveYouEverBeenRemovedOrDismissedFromEmployment')
+            giveDetails = request.POST.get('giveDetails')
+            haveYouBeenChargedInACourtOfLaw = request.POST.get('haveYouBeenChargedInACourtOfLaw')
+            offence = request.POST.get('offence')
+            dateOfOffence = request.POST.get('dateOfOffence')
+            placeOfOffence = request.POST.get('placeOfOffence')
+            sentenceImposed = request.POST.get('sentenceImposed')
         except ValueError:
             messages.error(request, "Not sent. Invalid Input, Try Again!!")
             return redirect('profile')
@@ -267,8 +390,13 @@ def FnApplicantDetails(request):
         values = genders
     gender = (Data.values).value
     try:
-        response = config.CLIENT.service.FnApplicantDetails(applicantNo, firstName, middleName, lastName, idNumber, gender, citizenship,
-                                                            countyCode, maritalStatus, ethnicOrigin, disabled, dob, phoneNumber, postalAddress, postalCode, residentialAddress, disabilityGrade)
+        response = config.CLIENT.service.FnApplicantDetails(
+            applicantNo, firstName, middleName, lastName, idNumber, gender, citizenship,
+            countyCode, maritalStatus, ethnicOrigin, disabled, dob, phoneNumber, postalAddress, postalCode, residentialAddress, disabilityGrade,
+            areYouKenyan,citizenshipBy, certificateNo, stateNationality, country, subCounty, constituency, termsOfService, currentMonthlySalary, 
+            expectedSalary, howSoonCanYouTakeThisAppointment, haveYouEverBeenRemovedOrDismissedFromEmployment, giveDetails, 
+            haveYouBeenChargedInACourtOfLaw, offence, dateOfOffence, placeOfOffence, sentenceImposed
+        )
         print(response)
         messages.success(request, "Successfully Added.")
         return redirect('profile')

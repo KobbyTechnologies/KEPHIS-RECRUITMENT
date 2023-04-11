@@ -19,13 +19,20 @@ from django.core.mail import EmailMessage
 import threading
 from django.contrib.sites.shortcuts import get_current_site
 from django.template.loader import render_to_string
+from myRequest.views import UserObjectMixins
+import asyncio
+import aiohttp
+from asgiref.sync import sync_to_async
+from django.views import View
 # Create your views here.
+
 
 def get_object(endpoint):
     session = requests.Session()
     session.auth = config.AUTHS
     response = session.get(endpoint, timeout=10)
     return response
+
 
 class EmailThread(threading.Thread):
 
@@ -167,6 +174,7 @@ def profile_request(request):
     return render(request, 'profile.html', ctx)
 
 
+
 def login_request(request):
     todays_date = date.today()
     year = todays_date.year
@@ -226,10 +234,12 @@ def register_request(request):
 
             email = request.POST.get('email').strip()
             my_password = str(request.POST.get('password'))
-            confirm_password = str(request.POST.get('confirm_password')).strip()
+            confirm_password = str(
+                request.POST.get('confirm_password')).strip()
 
             if len(my_password) < 6:
-                messages.error(request, "Password should be at least 6 characters")
+                messages.error(
+                    request, "Password should be at least 6 characters")
                 return redirect('register')
 
             if my_password != confirm_password:
@@ -262,7 +272,7 @@ def register_request(request):
                 messages.success(
                     request, "'We sent you an email to verify your account")
                 return redirect('login')
-            
+
             except Exception as e:
                 print(e)
                 messages.error(request, e)
@@ -270,7 +280,7 @@ def register_request(request):
         print(e)
         messages.error(request, e)
         return redirect('register')
-    
+
     ctx = {"year": year}
     return render(request, "register.html", ctx)
 
@@ -305,7 +315,6 @@ def verifyRequest(request):
             messages.error(request, 'Wrong Input')
             return redirect('verify')
     return render(request, "verify.html")
-
 
 
 def FnApplicantDetails(request):
@@ -372,10 +381,13 @@ def FnApplicantDetails(request):
             termsOfService = request.POST.get('termsOfService')
             currentMonthlySalary = request.POST.get('currentMonthlySalary')
             expectedSalary = request.POST.get('expectedSalary')
-            howSoonCanYouTakeThisAppointment = request.POST.get('howSoonCanYouTakeThisAppointment')
-            haveYouEverBeenRemovedOrDismissedFromEmployment = request.POST.get('haveYouEverBeenRemovedOrDismissedFromEmployment')
+            howSoonCanYouTakeThisAppointment = request.POST.get(
+                'howSoonCanYouTakeThisAppointment')
+            haveYouEverBeenRemovedOrDismissedFromEmployment = request.POST.get(
+                'haveYouEverBeenRemovedOrDismissedFromEmployment')
             giveDetails = request.POST.get('giveDetails')
-            haveYouBeenChargedInACourtOfLaw = request.POST.get('haveYouBeenChargedInACourtOfLaw')
+            haveYouBeenChargedInACourtOfLaw = request.POST.get(
+                'haveYouBeenChargedInACourtOfLaw')
             offence = request.POST.get('offence')
             dateOfOffence = request.POST.get('dateOfOffence')
             placeOfOffence = request.POST.get('placeOfOffence')
@@ -393,8 +405,8 @@ def FnApplicantDetails(request):
         response = config.CLIENT.service.FnApplicantDetails(
             applicantNo, firstName, middleName, lastName, idNumber, gender, citizenship,
             countyCode, maritalStatus, ethnicOrigin, disabled, dob, phoneNumber, postalAddress, postalCode, residentialAddress, disabilityGrade,
-            areYouKenyan,citizenshipBy, certificateNo, stateNationality, country, subCounty, constituency, termsOfService, currentMonthlySalary, 
-            expectedSalary, howSoonCanYouTakeThisAppointment, haveYouEverBeenRemovedOrDismissedFromEmployment, giveDetails, 
+            areYouKenyan, citizenshipBy, certificateNo, stateNationality, country, subCounty, constituency, termsOfService, currentMonthlySalary,
+            expectedSalary, howSoonCanYouTakeThisAppointment, haveYouEverBeenRemovedOrDismissedFromEmployment, giveDetails,
             haveYouBeenChargedInACourtOfLaw, offence, dateOfOffence, placeOfOffence, sentenceImposed
         )
         print(response)

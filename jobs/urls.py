@@ -10,4 +10,7 @@ urlpatterns = [
          views.FnWithdrawJobApplication, name='FnWithdrawJobApplication'),
     path('UploadAttachedDocument/<str:pk>/<str:no>',
          views.UploadAttachedDocument, name='UploadAttachedDocument'),
+
+    path('JobApplication/<str:pk>/<str:no>',
+         views.JobApplication, name='JobApplication')
 ]

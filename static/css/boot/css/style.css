@@ -1,12 +1,12 @@
 :root {
-  --first-color: #144a85;
+  --first-color: #02a552;
   --first-color-light: #6c8aaf;
   --red: #e51e25;
   --tan: #e1b382;
   --dark-color: #444a4a;
   --olive: #A3BCB6;
   --white-color: #F7F6FB;
-  --nav: #8e94a9;
+  --nav: #ffffff;
   --pink: #E91E63;
   --red: #f96868;
   --orange: #f2a654;
@@ -3235,10 +3235,13 @@ textarea.is-invalid.tt-hint {
   user-select: none;
   background-color: transparent;
   border: 1px solid transparent;
-  padding: 0.775rem 0.75rem;
+  /* padding: 0.775rem 0.75rem; */
+  padding: 7px 20px;
+  font-size: 17px;
+  border-radius: 40px;
   font-size: 0.875rem;
   line-height: 1;
-  border-radius: 0.1875rem;
+  /* border-radius: 0.1875rem; */
   -webkit-transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
   transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
   transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
@@ -7758,7 +7761,7 @@ a.close.disabled {
 }
 
 .bg-primary {
-  background-color: #0062ff !important;
+  background-color: var(--first-color) !important;
 }
 
 a.bg-primary:hover,
@@ -13385,10 +13388,10 @@ code {
 
 /* Buttons */
 .btn {
-  font-size: 12px;
+  font-size: 17px;
   line-height: 1;
-  font-family: "nunito-bold", sans-serif;
-  font-weight: 600;
+  /* font-family: "nunito-bold", sans-serif; */
+  font-weight: 700;
   /* Buttons with only icons */
   /* Buttons with icon and text */
 }
@@ -16213,7 +16216,7 @@ dl li {
   -webkit-transition: width 0.25s ease, background 0.25s ease;
   -moz-transition: width 0.25s ease, background 0.25s ease;
   -ms-transition: width 0.25s ease, background 0.25s ease;
-  background: #181824;
+  background: #010101;
   width: 291px;
   height: 64px;
 }
@@ -16651,7 +16654,7 @@ dl li {
 /* Sidebar */
 .sidebar {
   min-height: calc(100vh - 64px);
-  background: #181824;
+  background: #010101;
   font-family: "nunito-medium", sans-serif;
   padding: 0;
   width: 300px;
@@ -16694,8 +16697,8 @@ dl li {
   -ms-flex-align: center;
   align-items: center;
   white-space: nowrap;
-  margin-bottom: 1.6rem;
-  padding: 0.625rem 0 0.625rem 0;
+  /* margin-bottom: 1.6rem; */
+  padding: 1rem 0;
   color: var(--nav);
   -webkit-transition-duration: 0.45s;
   transition-duration: 0.45s;
@@ -16706,12 +16709,12 @@ dl li {
 
 .sidebar .nav .nav-item .nav-link .icon-bg {
   margin-right: 0.875rem;
-  background: rgba(194, 244, 219, 0.12);
+  /* background: rgba(194, 244, 219, 0.12); */
   height: 24px;
   width: 24px;
   position: relative;
   z-index: 2;
-  color: var(--green);
+  color: var(--nav);
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -16723,6 +16726,7 @@ dl li {
   justify-content: center;
   border-radius: 3px;
   text-align: center;
+  font-size: 1.5em;
 }
 
 .rtl .sidebar .nav .nav-item .nav-link .icon-bg {

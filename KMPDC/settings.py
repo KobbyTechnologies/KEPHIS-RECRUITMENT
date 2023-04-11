@@ -30,6 +30,8 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
+
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 MODE = config("MODE", default="dev")
 SECRET_KEY = config('SECRET_KEY')
 DEBUG = config('DEBUG', default=False, cast=bool)
@@ -78,7 +80,16 @@ INSTALLED_APPS = [
     'bootstrap5',
     'accounts',
     'jobs',
+    'myRequest',
 ]
+
+ASGI_APPLICATION = "KMPDC.asgi.application"
+
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels.layers.InMemoryChannelLayer"
+    }
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -179,10 +190,12 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTHS = Session()
 
-WEB_SERVICE_PWD = 'W3C0d3@llD@y'
+WEB_SERVICE_UID = config('WEB_SERVICE_UID')
+WEB_SERVICE_PWD = config('WEB_SERVICE_PWD')
+
 O_DATA = "http://20.231.15.166:7048/BC140/ODataV4/Company('CRONUS%20International%20Ltd.'){}"
 BASE_URL = 'http://20.231.15.166:7047/BC140/WS/CRONUS%20International%20Ltd./Codeunit/CuRecruitmentWebPortal'
-AUTHS.auth = HTTPBasicAuth('COKUNE', WEB_SERVICE_PWD)
+AUTHS.auth = HTTPBasicAuth(WEB_SERVICE_UID, WEB_SERVICE_PWD)
 
 CLIENT = Client(BASE_URL, transport=Transport(session=AUTHS))
-AUTHS = HTTPBasicAuth('COKUNE', WEB_SERVICE_PWD)
+AUTHS = HTTPBasicAuth(WEB_SERVICE_UID, WEB_SERVICE_PWD)

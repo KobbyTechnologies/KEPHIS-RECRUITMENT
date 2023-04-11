@@ -3,14 +3,13 @@
 {% load static %}
 {% block main %}
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
 <section class="dash2">
     <div class="content-wrapper general-bg">
         <div class="row" id="proBanner">
             <div class="col-12">
                 <span class="d-flex align-items-center purchase-popup">
                     <img src="../../../static/img/logo/fav.png" width="70px" class="img-fluid" alt="" srcset="">
-                    <h2 class="text-dark font-weight-bold ml-3"> User Profile </h2>
+                    <h2 class="text-dark font-weight-bold ml-3"> Appliction for {{res.Job_ID}} Position</h2>
                     <button class="btn btn-success align-items-center p-3"
                         style="margin-left: auto;margin-right:0;outline: none;border: none;">{{today}}</button>
                 </span>
@@ -39,8 +38,6 @@
         {% endif %}
         {% endfor %}
         {% endif %}
-
-
         <div class="row">
             <div class="col-md-12">
                 <div class="my-3">
@@ -87,6 +84,12 @@
                                                 <a class="nav-link" id="referee-tab" data-bs-toggle="tab"
                                                     href="#referee" role="tab" aria-controls="referee"
                                                     aria-selected="false">Referees</a>
+                                            </li>
+
+                                            <li class="nav-item">
+                                                <a class="nav-link" id="attachment-tab" data-bs-toggle="tab"
+                                                    href="#attachment" role="tab" aria-controls="referee"
+                                                    aria-selected="false">Attachments</a>
                                             </li>
 
 
@@ -881,7 +884,49 @@
                                                 {% endif %}
                                                 <div class="d-flex justify-content-between">
                                                     <a class="btn btn-primary btnPrevious">&larr; Previous</a>
-                                                    <a class="btn btn-primary" href="{% url 'profile' %}">Finish</a>
+                                                    <a class="btn btn-primary btnNext">Next &rarr;</a>
+                                                </div>
+                                            </div>
+                                            <!-- Attacment -->
+                                            <div class="tab-pane fade " id="attachment" role="tabpanel"
+                                                aria-labelledby="referee-tab">
+                                                <div class="d-flex justify-content-between">
+                                                    <h5>Attacment</h5>
+                                                    <button type="button" class="btn btn-info" data-bs-toggle="modal"
+                                                        data-bs-target="#attached">
+                                                        Add your Attachment <i class="las la-plus"></i>
+                                                    </button>
+                                                </div>
+
+                                                <i class="text-info py-3">
+                                                    <b>Note:</b>
+                                                    <br>
+                                                    Your attached document should be compiled into a single document not
+                                                    more than 2Mb in size, and named with your first and last name e.g
+                                                    (jane-doe.pdf).
+                                                    Also your document should be submitted in pdf format only.
+                                                </i>
+                                                <hr>
+                                                <div class="container">
+                                                    <div class="row">
+                                                        <div class="col-md-4">
+                                                            <span><i> My Attachment Document</i></span>
+                                                            <p class="mt-1"><b>{{res.Names}}</b></p>
+                                                        </div>
+                                                        <div class="col-md-12">
+                                                            <form action="{% url 'FnApplicantApplyJob' res.No_  res.Job_ID %}">
+                                                                <div class="actions my-3 mb-5">
+                                                                    <input type="submit" value="Submit Application"
+                                                                        class="hs-button btn btn-primary ">
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="d-flex justify-content-between">
+                                                    <a class="btn btn-primary btnPrevious">&larr; Previous</a>
+                                                    <a class="btn btn-primary" href="{% url 'profile' %}">Finnish</a>
                                                 </div>
                                             </div>
 
@@ -896,12 +941,42 @@
             </div>
         </div>
     </div>
+
 </section>
-
-
 <!--**********************************
      Forms to populate the data above
  ***********************************-->
+
+<!-- Modal -->
+<div class="modal fade" id="attached" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form action="{% url 'UploadAttachedDocument' res.No_  res.Job_ID %} " class="dropzone dz"
+                id="specialist-dropzone" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">Documents</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p class="text-dark">Select and Upload Your Attachment </p>
+                    <div class="fallback">
+                        <input name="file" class="form-control" name="attachment" type="file"
+                            accept="application/pdf" />
+                        <input type="number" name="lineNo" id="lineNo" value="1000" hidden>
+
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 
 
 <!-- Modals Personal Info Edit-->
@@ -1998,569 +2073,16 @@
         prevTab.show();
     });
 
+    $(".actions").prepend('<p class="text-info">Note: I hereby certify that the particulars I have given are correct to the best of my knowledge.</p><div class="form-check "><label class="ml-4"><input type="checkbox" id="checkbox" class="form-check-input"> <em>I agree to these terms.</em> </label></div>');
+
+    $('.hs-button').prop('disabled', true); // disabled by default
+
+    $('#checkbox').click(function () {
+        // change on checkbox click
+        $('.hs-button').prop('disabled', !$('#checkbox').prop('checked'));
+    });
+
+
+
 </script>
 {% endblock %}
-
-
-<!-- <div class="row">
-    <div class="col-md-12">
-        <div class="j-data">
-            <div class="row my-3">
-                <div class="col-md-12">
-                    <h5>Personal Information <button type="button" class="btn btn-info" data-bs-toggle="modal"
-                            data-bs-target="#EditPersonnal">Edit <i class="las la-edit"></i></button></h5>
-                    <div class="row my-4">
-                        <div class="col-md-12">
-                            {% if applicant %}
-                            <div class="accordion" id="accordionExample">
-                                <div class="item">
-                                    <div class="item-header" id="head{{applicant.ID_Number}}">
-                                        <h2 class="mb-0">
-                                            <button class="btn btn-link" type="button" data-toggle="collapse"
-                                                data-target="#co{{applicant.ID_Number}}" aria-expanded="true"
-                                                aria-controls="co{{applicant.ID_Number}}">
-                                                {{fullname}}
-                                                <i class="fa fa-angle-down"></i>
-                                            </button>
-                                        </h2>
-                                    </div>
-                                    <div id="co{{applicant.ID_Number}}" class="collapse"
-                                        aria-labelledby="head{{applicant.ID_Number}}" data-parent="#accordionExample">
-                                        <div class="t-p">
-                                            <form class="row g-3">
-
-                                                <div class="col-md-6">
-                                                    <label class="form-label">ID
-                                                        Number</label>
-                                                    <input type="text" class="form-control"
-                                                        placeholder="{{applicant.ID_Number}}" readonly>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <label class="form-label">Gender</label>
-                                                    <input type="text" class="form-control"
-                                                        placeholder="{{applicant.Gender}}" readonly>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <label class="form-label">Citizenship</label>
-                                                    <input type="text" class="form-control"
-                                                        placeholder="{{applicant.Citizenship}}" readonly>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <label class="form-label">Marital
-                                                        Status</label>
-                                                    <input type="text" class="form-control"
-                                                        placeholder="{{applicant.Marital_Status}}" readonly>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <label class="form-label">Ethnic
-                                                        Origin</label>
-                                                    <input type="text" class="form-control"
-                                                        placeholder="{{applicant.Ethnic_Origin}}" readonly>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <label class="form-label">Disabled</label>
-                                                    <input type="text" class="form-control"
-                                                        placeholder="{{applicant.Disabled}}" readonly>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <label class="form-label">Disability
-                                                        Reg No.</label>
-                                                    <input type="text" class="form-control"
-                                                        placeholder="{{applicant.Disability_Grade}}" readonly>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <label class="form-label">Date
-                                                        Of Birth</label>
-                                                    <input type="text" class="form-control"
-                                                        placeholder="{{applicant.Date_Of_Birth}}" readonly>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <label class="form-label">Phone
-                                                        Number</label>
-                                                    <input type="text" class="form-control"
-                                                        placeholder="{{applicant.Cellular_Phone_Number}}" readonly>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <label class="form-label">EMail</label>
-                                                    <input type="text" class="form-control"
-                                                        placeholder="{{E_Mail.E_Mail}}" readonly>
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            {% else %}
-                            <div class="alert alert-danger d-flex align-items-center alert-dismissible alert-warn"
-                                role="alert">
-                                <i class="las la-exclamation-triangle" style="color: white;font-size: 2rem"></i>
-                                <div class="a-icon mx-2">
-                                    <p style="color: white;">Please Fill Your
-                                        Personal Information </p>
-                                </div>
-                                <button type="button" class="btn-close" data-bs-dismiss="alert"
-                                    aria-label="Close"></button>
-                            </div>
-                            {% endif %}
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row my-3">
-                <div class="col-md-12">
-                    <h5>Academic Qualifications <button type="button" class="btn btn-info" data-bs-toggle="modal"
-                            data-bs-target="#AddAcademic">ADD <i class="las la-plus"></i></button>
-                    </h5>
-                    <div class="row my-4">
-                        <div class="col-md-12">
-                            {% if Qualify %}
-                            {% for res in Qualify %}
-                            <div class="accordion" id="accordionExample">
-                                <div class="item">
-                                    <div class="item-header" id="Qualify{{res.Line_No_}}">
-                                        <h2 class="mb-0">
-                                            <button class="btn btn-link" type="button" data-toggle="collapse"
-                                                data-target="#collapsed{{res.Line_No_}}" aria-expanded="true"
-                                                aria-controls="collapsed{{res.Line_No_}}">
-                                                {{res.Institution_Name}}
-
-                                                <i class="fa fa-angle-down"></i>
-                                            </button>
-                                        </h2>
-                                    </div>
-                                    <div id="collapsed{{res.Line_No_}}" class="collapse"
-                                        aria-labelledby="Qualify{{res.Line_No_}}" data-parent="#accordionExample">
-                                        <div class="t-p">
-                                            <form class="row g-3">
-                                                <div class="col-md-6">
-                                                    <label class="form-label">Education
-                                                        Type</label>
-                                                    <input type="text" class="form-control"
-                                                        placeholder="{{res.Education_Type}}" readonly>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <label class="form-label">Institution
-                                                        Name</label>
-                                                    <input type="text" class="form-control"
-                                                        placeholder="{{res.Institution_Name}}" readonly>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <label class="form-label">Start
-                                                        Date</label>
-                                                    <input type="text" class="form-control"
-                                                        placeholder="{{res.Start_Date}}" readonly>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <label class="form-label">End
-                                                        Date</label>
-                                                    <input type="text" class="form-control"
-                                                        placeholder="{{res.End_Date}}" readonly>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <label class="form-label">Proficiency
-                                                        Level</label>
-                                                    <input type="text" class="form-control"
-                                                        placeholder="{{res.Proficiency_Level}}" readonly>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <label class="form-label">Highest
-                                                        Level</label>
-                                                    <input type="text" class="form-control"
-                                                        placeholder="{{res.Highest_Level}}" readonly>
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            {% endfor %}
-                            {% else %}
-                            <div class="alert alert-danger d-flex align-items-center alert-dismissible alert-warn"
-                                role="alert">
-                                <i class="las la-exclamation-triangle" style="color: white;font-size: 2rem"></i>
-                                <div class="a-icon mx-2">
-                                    <p style="color: white;">Please Fill Your
-                                        Academic
-                                        Qualifications</p>
-                                </div>
-                                <button type="button" class="btn-close" data-bs-dismiss="alert"
-                                    aria-label="Close"></button>
-                            </div>
-                            {% endif %}
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <h5>Work Experience <span style="font-size:1rem;color:#000;">
-                            <button type="button" class="btn btn-info" data-bs-toggle="modal"
-                                data-bs-target="#AddExperience">ADD <i class="las la-plus"></i></button></h5>
-                    <div class="row my-4">
-                        <div class="col-md-12">
-                            {% if experience %}
-                            {% for res in experience %}
-                            <div class="accordion" id="accordionExample">
-                                <div class="item">
-                                    <div class="item-header" id="heading{{res.Line_No}}">
-                                        <h2 class="mb-0">
-                                            <button class="btn btn-link" type="button" data-toggle="collapse"
-                                                data-target="#collapse{{res.Line_No}}" aria-expanded="true"
-                                                aria-controls="collapse{{res.Line_No}}">
-                                                {{res.Employer}}
-                                                <i class="fa fa-angle-down"></i>
-                                            </button>
-                                        </h2>
-                                    </div>
-                                    <div id="collapse{{res.Line_No}}" class="collapse"
-                                        aria-labelledby="heading{{res.Line_No}}" data-parent="#accordionExample">
-                                        <div class="t-p">
-                                            <form class="row g-3">
-                                                <div class="col-md-6">
-                                                    <label class="form-label">Employer</label>
-                                                    <input type="text" class="form-control"
-                                                        placeholder="{{res.Employer}}" readonly>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <label class="form-label">Start
-                                                        Date</label>
-                                                    <input type="text" class="form-control"
-                                                        placeholder="{{res.Start_Date}}" readonly>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <label class="form-label">End
-                                                        Date</label>
-                                                    <input type="text" class="form-control"
-                                                        placeholder="{{res.End_Date}}" readonly>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <label class="form-label">Hierarchy
-                                                        Level</label>
-                                                    <input type="text" class="form-control"
-                                                        placeholder="{{res.Hierarchy_Level}}" readonly>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <label class="form-label">Functional
-                                                        Area</label>
-                                                    <input type="text" class="form-control"
-                                                        placeholder="{{res.Functional_Area}}" readonly>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <label class="form-label">Job
-                                                        Title</label>
-                                                    <input type="text" class="form-control"
-                                                        placeholder="{{res.Job_Title}}" readonly>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <label class="form-label">Present
-                                                        Employment</label>
-                                                    <input type="text" class="form-control"
-                                                        placeholder="{{res.Present_Employment}}" readonly>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <label class="form-label">No
-                                                        of
-                                                        Years</label>
-                                                    <input type="text" class="form-control"
-                                                        placeholder="{{res.No__of_Years}}" readonly>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <label class="form-label">Country</label>
-                                                    <input type="text" class="form-control"
-                                                        placeholder="{{res.Country}}" readonly>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <label class="form-label">Location</label>
-                                                    <input type="text" class="form-control"
-                                                        placeholder="{{res.Location}}" readonly>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <label class="form-label">Employer
-                                                        Email
-                                                        Address</label>
-                                                    <input type="text" class="form-control"
-                                                        placeholder="{{res.Employer_Email_Address}}" readonly>
-                                                </div>
-                                                <div class="col-md-12">
-                                                    <label class="form-label">Description</label>
-                                                    <textarea class="form-control" placeholder="{{res.Description}}"
-                                                        readonly></textarea>
-                                                </div>
-
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            {% endfor %}
-                            {% else %}
-                            <div class="alert alert-danger d-flex align-items-center alert-dismissible alert-warn"
-                                role="alert">
-                                <i class="las la-exclamation-triangle" style="color: white;font-size: 2rem"></i>
-                                <div class="a-icon mx-2">
-                                    <p style="color: white;">Please Fill Your
-                                        Experience information</p>
-                                </div>
-                                <button type="button" class="btn-close" data-bs-dismiss="alert"
-                                    aria-label="Close"></button>
-                            </div>
-                            {% endif %}
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row my-3">
-                <div class="col-md-12">
-                    <h5>Professional Courses <button type="button" class="btn btn-info" data-bs-toggle="modal"
-                            data-bs-target="#AddCourses">ADD <i class="las la-plus"></i></button>
-                    </h5>
-                    <div class="row my-4">
-                        <div class="col-md-12">
-                            {% if course %}
-                            {% for res in course %}
-                            <div class="accordion" id="accordionExample">
-                                <div class="item">
-                                    <div class="item-header" id="course{{res.Line_No_}}">
-                                        <h2 class="mb-0">
-                                            <button class="btn btn-link" type="button" data-toggle="collapse"
-                                                data-target="#coll{{res.Line_No_}}" aria-expanded="true"
-                                                aria-controls="coll{{res.Line_No_}}">
-                                                {{res.Qualification_Code}}
-                                                <i class="fa fa-angle-down"></i>
-                                            </button>
-                                        </h2>
-                                    </div>
-                                    <div id="coll{{res.Line_No_}}" class="collapse"
-                                        aria-labelledby="course{{res.Line_No_}}" data-parent="#accordionExample">
-                                        <div class="t-p">
-                                            <form class="row g-3">
-                                                <div class="col-md-6">
-                                                    <label class="form-label">Qualification
-                                                        Name</label>
-                                                    <input type="text" class="form-control"
-                                                        placeholder="{{res.Qualification_Code}}" readonly>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <label class="form-label">Section
-                                                        Level</label>
-                                                    <input type="text" class="form-control"
-                                                        placeholder="{{res.Section_Level}}" readonly>
-                                                </div>
-
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            {% endfor %}
-                            {% else %}
-                            <div class="alert alert-danger d-flex align-items-center alert-dismissible alert-warn"
-                                role="alert">
-                                <i class="las la-exclamation-triangle" style="color: white;font-size: 2rem"></i>
-                                <div class="a-icon mx-2">
-                                    <p style="color: white;">Please Fill Your
-                                        Professional Courses information</p>
-                                </div>
-                                <button type="button" class="btn-close" data-bs-dismiss="alert"
-                                    aria-label="Close"></button>
-                            </div>
-                            {% endif %}
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row my-3">
-                <div class="col-md-12">
-                    <h5>Professional Memberships <button type="button" class="btn btn-info" data-bs-toggle="modal"
-                            data-bs-target="#AddMemberships">ADD <i class="las la-plus"></i></button>
-                    </h5>
-                    <div class="row my-4">
-                        <div class="col-md-12">
-                            {% if membership %}
-                            {% for res in membership %}
-                            <div class="accordion" id="accordionExample">
-                                <div class="item">
-                                    <div class="item-header" id="pro{{res.Line_No_}}">
-                                        <h2 class="mb-0">
-                                            <button class="btn btn-link" type="button" data-toggle="collapse"
-                                                data-target="#collpro{{res.Line_No_}}" aria-expanded="true"
-                                                aria-controls="collpro{{res.Line_No_}}">
-                                                {{res.Professional_Body}}
-                                                <i class="fa fa-angle-down"></i>
-                                            </button>
-                                        </h2>
-                                    </div>
-                                    <div id="collpro{{res.Line_No_}}" class="collapse"
-                                        aria-labelledby="pro{{res.Line_No_}}" data-parent="#accordionExample">
-                                        <div class="t-p">
-                                            <form class="row g-3">
-                                                <div class="col-md-6">
-                                                    <label class="form-label">Professional
-                                                        Body</label>
-                                                    <input type="text" class="form-control"
-                                                        placeholder="{{res.Professional_Body}}" readonly>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <label class="form-label">Membership
-                                                        No</label>
-                                                    <input type="text" class="form-control"
-                                                        placeholder="{{res.MembershipNo}}" readonly>
-                                                </div>
-
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            {% endfor %}
-                            {% else %}
-                            <div class="alert alert-danger d-flex align-items-center alert-dismissible alert-warn"
-                                role="alert">
-                                <i class="las la-exclamation-triangle" style="color: white;font-size: 2rem"></i>
-                                <div class="a-icon mx-2">
-                                    <p style="color: white;">Please Fill Your
-                                        Professional Memberships information
-                                    </p>
-                                </div>
-                                <button type="button" class="btn-close" data-bs-dismiss="alert"
-                                    aria-label="Close"></button>
-                            </div>
-                            {% endif %}
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row my-3">
-                <div class="col-md-12">
-                    <h5>Hobbies <button type="button" class="btn btn-info" data-bs-toggle="modal"
-                            data-bs-target="#AddHobby">ADD <i class="las la-plus"></i></button>
-                    </h5>
-                    <div class="row my-4">
-                        <div class="col-md-12">
-                            {% if hobby %}
-                            {% for res in hobby %}
-                            <div class="accordion" id="accordionExample">
-                                <div class="item">
-                                    <div class="item-header" id="hobby{{res.Line_No}}">
-                                        <h2 class="mb-0">
-                                            <button class="btn btn-link" type="button" data-toggle="collapse"
-                                                data-target="#collprof{{res.Line_No}}" aria-expanded="true"
-                                                aria-controls="collprof{{res.Line_No}}">
-                                                {{res.Hobbies}}
-                                                <i class="fa fa-angle-down"></i>
-                                            </button>
-                                        </h2>
-                                    </div>
-                                    <div id="collprof{{res.Line_No}}" class="collapse"
-                                        aria-labelledby="hobby{{res.Line_No}}" data-parent="#accordionExample">
-                                        <div class="t-p">
-                                            <form class="row g-3">
-                                                <div class="col-md-12">
-                                                    <label class="form-label">Hobby</label>
-                                                    <input type="text" class="form-control"
-                                                        placeholder="{{res.Hobbies}}" readonly>
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            {% endfor %}
-                            {% else %}
-                            <div class="alert alert-danger d-flex align-items-center alert-dismissible alert-warn"
-                                role="alert">
-                                <i class="las la-exclamation-triangle" style="color: white;font-size: 2rem"></i>
-                                <div class="a-icon mx-2">
-                                    <p style="color: white;">Please add Your
-                                        Hobbies</p>
-                                </div>
-                                <button type="button" class="btn-close" data-bs-dismiss="alert"
-                                    aria-label="Close"></button>
-                            </div>
-                            {% endif %}
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row my-3">
-                <div class="col-md-12">
-                    <h5>Referees <button type="button" class="btn btn-info" data-bs-toggle="modal"
-                            data-bs-target="#AddReferee">ADD
-                            <i class="las la-plus"></i></button></h5>
-                    <div class="row my-4">
-                        <div class="col-md-12">
-                            {% if Referee %}
-                            {% for res in Referee %}
-                            <div class="accordion" id="accordionExample">
-                                <div class="item">
-                                    <div class="item-header" id="Referee{{res.Line_No}}">
-                                        <h2 class="mb-0">
-                                            <button class="btn btn-link" type="button" data-toggle="collapse"
-                                                data-target="#collprofe{{res.Line_No}}" aria-expanded="true"
-                                                aria-controls="collprofe{{res.Line_No}}">
-                                                {{res.Names}}
-                                                <i class="fa fa-angle-down"></i>
-                                            </button>
-                                        </h2>
-                                    </div>
-                                    <div id="collprofe{{res.Line_No}}" class="collapse"
-                                        aria-labelledby="Referee{{res.Line_No}}" data-parent="#accordionExample">
-                                        <div class="t-p">
-                                            <form class="row g-3">
-                                                <div class="col-md-6">
-                                                    <label class="form-label">Full
-                                                        Name</label>
-                                                    <input type="text" class="form-control" placeholder="{{res.Names}}"
-                                                        readonly>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <label class="form-label">Designation</label>
-                                                    <input type="text" class="form-control"
-                                                        placeholder="{{res.Designation}}" readonly>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <label class="form-label">Company</label>
-                                                    <input type="text" class="form-control"
-                                                        placeholder="{{res.Company}}" readonly>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <label class="form-label">Address</label>
-                                                    <input type="text" class="form-control"
-                                                        placeholder="{{res.Address}}" readonly>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <label class="form-label">Telephone
-                                                        No</label>
-                                                    <input type="text" class="form-control"
-                                                        placeholder="{{res.Telephone_No}}" readonly>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <label class="form-label">EMail</label>
-                                                    <input type="text" class="form-control" placeholder="{{res.E_Mail}}"
-                                                        readonly>
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            {% endfor %}
-                            {% else %}
-                            <div class="alert alert-danger d-flex align-items-center alert-dismissible alert-warn"
-                                role="alert">
-                                <i class="las la-exclamation-triangle" style="color: white;font-size: 2rem"></i>
-                                <div class="a-icon mx-2">
-                                    <p style="color: white;">Please add Your
-                                        Referees </p>
-                                </div>
-                                <button type="button" class="btn-close" data-bs-dismiss="alert"
-                                    aria-label="Close"></button>
-                            </div>
-                            {% endif %}
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div> -->

@@ -77,10 +77,9 @@
                                                 <td>{{res.Priority}}</td>
                                                 <td>
                                                     <a type="button" href="{% url 'jobDetail' res.Job_ID res.No_ %}"
-                                                        class="btn btn-success btn-icon-text" data-toggle="tooltip"
-                                                        data-placement="top" title="view"
-                                                        style="background: #25CC88;">View
-                                                        <i class="las la-external-link-alt" style="font-size: 1rem"></i>
+                                                        class="btn btn-primary btn-icon-text" data-toggle="tooltip"
+                                                        data-placement="top" title="view">View
+                                                        <i class="las la-eye" style="font-size: 1rem"></i>
                                                     </a>
                                                 </td>
 
@@ -116,8 +115,9 @@
                                                     <form action="{% url 'FnWithdrawJobApplication' %}" method="post">
                                                         {% csrf_token %}
                                                         <input type="hidden" name="needCode" value="{{res.Need_Code}}">
-                                                        <button type="submit"> <i class="las la-trash"
-                                                                style="font-size: 1.5rem;"></i> </button>
+                                                        <button type="submit" class="btn btn-danger"><i
+                                                                class="las la-times-circle" style="font-size: 1em;"></i> Cancel
+                                                            Application </button>
                                                     </form>
                                                 </td>
                                             </tr>

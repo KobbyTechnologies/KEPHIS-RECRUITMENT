@@ -52,7 +52,7 @@
                                     <div class="tile" id="tile-1">
 
                                         <!-- Nav tabs -->
-                                        <ul class="nav nav-tabs nav-justified" role="tablist">
+                                        <ul class="nav nav-tabs nav-justified" role="tablist" id="profileTabs">
                                             <div class="slider"></div>
                                             <li class="nav-item">
                                                 <a class="nav-link active" id="profile-tab" data-bs-toggle="tab"
@@ -91,6 +91,7 @@
 
 
                                         </ul>
+                                        
 
                                         <!-- Tab panes -->
                                         <div class="tab-content" id="nav-tabContent">
@@ -471,9 +472,9 @@
                                                             <div class="col-md-6">
                                                                 <label class="form-label">Give Details</label>
                                                                 <input type="text" class="form-control"
-                                                                    name="giveDetails" id="giveDetails"
+                                                                    name="giveDetails" id="giveDismisalDetails"
                                                                     value="{{applicant.Give_Details}}"
-                                                                    placeholder="{{applicant.Give_Details}}">
+                                                                    placeholder="{{applicant.Give_Details}}" disabled>
                                                                 <div class="invalid-feedback">
                                                                     Enter Your Residential Address
                                                                 </div>
@@ -487,7 +488,8 @@
                                                                 <label class="form-label">Have you been Charged in a
                                                                     Court of Law?</label>
                                                                 <select class="form-select"
-                                                                    name="haveYouBeenChargedInACourtOfLaw" required>
+                                                                    name="haveYouBeenChargedInACourtOfLaw"
+                                                                    id="haveYouBeenChargedInACourtOfLaw" required>
                                                                     <option selected disabled value="">
                                                                         {{applicant.Have_you_been_charged_in_a_court_of_law}}
                                                                     </option>
@@ -503,8 +505,8 @@
                                                             <div class="col-md-6">
                                                                 <label class="form-label">Offense</label>
                                                                 <input type="text" class="form-control" name="offence"
-                                                                    value="{{applicant.Offence}}"
-                                                                    placeholder="{{applicant.Offence}}">
+                                                                    id="offence" value="{{applicant.Offence}}"
+                                                                    placeholder="{{applicant.Offence}}" disabled>
                                                                 <div class="invalid-feedback">
                                                                     Enter Your Residential Address
                                                                 </div>
@@ -512,8 +514,8 @@
                                                             <div class="col-md-4">
                                                                 <label class="form-label">Date of Offense</label>
                                                                 <input type="date" class="form-control"
-                                                                    name="dateOfOffence"
-                                                                    value="{{applicant.Date_Of_Offence}}">
+                                                                    name="dateOfOffence" id="dateOfOffence"
+                                                                    value="{{applicant.Date_Of_Offence}}" disabled>
                                                                 <div class="invalid-feedback">
                                                                     Enter Your Residential Address
                                                                 </div>
@@ -521,9 +523,10 @@
                                                             <div class="col-md-4">
                                                                 <label class="form-label">Place of Offense</label>
                                                                 <input type="text" class="form-control"
-                                                                    name="placeOfOffence"
+                                                                    name="placeOfOffence" id="placeOfOffence"
                                                                     value="{{applicant.Place_Of_Offence}}"
-                                                                    placeholder="{{applicant.Place_Of_Offence}}">
+                                                                    placeholder="{{applicant.Place_Of_Offence}}"
+                                                                    disabled>
                                                                 <div class="invalid-feedback">
                                                                     Enter Your Residential Address
                                                                 </div>
@@ -531,9 +534,10 @@
                                                             <div class="col-md-4">
                                                                 <label class="form-label">Sentence Imposed</label>
                                                                 <input type="text" class="form-control"
-                                                                    name="sentenceImposed"
+                                                                    name="sentenceImposed" id="sentenceImposed"
                                                                     value="{{applicant.Sentence_Imposed}}"
-                                                                    placeholder="{{applicant.Sentence_Imposed}}">
+                                                                    placeholder="{{applicant.Sentence_Imposed}}"
+                                                                    disabled>
                                                                 <div class="invalid-feedback">
                                                                     Enter Your Residential Address
                                                                 </div>
@@ -1084,7 +1088,7 @@
                         <div class="col-md-4">
                             <label class="form-label">Disabled</label>
                             <select class="form-select" name="disabled" id="disabled" required>
-                                <option selected disabled value="">{{applicant.Disabled}}</option>
+                                <option selected disabled value="1">{{applicant.Disabled}}</option>
                                 <option value="0">No</option>
                                 <option value="1">Yes</option>
                             </select>
@@ -1741,6 +1745,36 @@
 </div>
 <!-- End Modal -->
 <script>
+    // Profile
+    $(document).ready(function () {
+        $('#employment-dismis').on('change', function () {
+            if (this.value == 1) {
+                $('#giveDismisalDetails').prop('disabled', false);
+            } else {
+                $('#giveDismisalDetails').prop('disabled', true);
+            }
+        });
+    })
+
+
+    $(document).ready(function () {
+        $('#haveYouBeenChargedInACourtOfLaw').on('change', function () {
+            if (this.value == 1) {
+                $('#offence').prop('disabled', false);
+                $('#dateOfOffence').prop('disabled', false);
+                $('#placeOfOffence').prop('disabled', false);
+                $('#sentenceImposed').prop('disabled', false);
+
+            } else {
+                $('#offence').prop('disabled', true);
+                $('#dateOfOffence').prop('disabled', true);
+                $('#placeOfOffence').prop('disabled', true);
+                $('#sentenceImposed').prop('disabled', true);
+            }
+        });
+    })
+
+
     // Academic Qualification JS
     $(document).ready(function () {
         $('#AcademicQualificationCode').on('change', function () {
@@ -2000,567 +2034,3 @@
 
 </script>
 {% endblock %}
-
-
-<!-- <div class="row">
-    <div class="col-md-12">
-        <div class="j-data">
-            <div class="row my-3">
-                <div class="col-md-12">
-                    <h5>Personal Information <button type="button" class="btn btn-info" data-bs-toggle="modal"
-                            data-bs-target="#EditPersonnal">Edit <i class="las la-edit"></i></button></h5>
-                    <div class="row my-4">
-                        <div class="col-md-12">
-                            {% if applicant %}
-                            <div class="accordion" id="accordionExample">
-                                <div class="item">
-                                    <div class="item-header" id="head{{applicant.ID_Number}}">
-                                        <h2 class="mb-0">
-                                            <button class="btn btn-link" type="button" data-toggle="collapse"
-                                                data-target="#co{{applicant.ID_Number}}" aria-expanded="true"
-                                                aria-controls="co{{applicant.ID_Number}}">
-                                                {{fullname}}
-                                                <i class="fa fa-angle-down"></i>
-                                            </button>
-                                        </h2>
-                                    </div>
-                                    <div id="co{{applicant.ID_Number}}" class="collapse"
-                                        aria-labelledby="head{{applicant.ID_Number}}" data-parent="#accordionExample">
-                                        <div class="t-p">
-                                            <form class="row g-3">
-
-                                                <div class="col-md-6">
-                                                    <label class="form-label">ID
-                                                        Number</label>
-                                                    <input type="text" class="form-control"
-                                                        placeholder="{{applicant.ID_Number}}" readonly>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <label class="form-label">Gender</label>
-                                                    <input type="text" class="form-control"
-                                                        placeholder="{{applicant.Gender}}" readonly>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <label class="form-label">Citizenship</label>
-                                                    <input type="text" class="form-control"
-                                                        placeholder="{{applicant.Citizenship}}" readonly>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <label class="form-label">Marital
-                                                        Status</label>
-                                                    <input type="text" class="form-control"
-                                                        placeholder="{{applicant.Marital_Status}}" readonly>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <label class="form-label">Ethnic
-                                                        Origin</label>
-                                                    <input type="text" class="form-control"
-                                                        placeholder="{{applicant.Ethnic_Origin}}" readonly>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <label class="form-label">Disabled</label>
-                                                    <input type="text" class="form-control"
-                                                        placeholder="{{applicant.Disabled}}" readonly>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <label class="form-label">Disability
-                                                        Reg No.</label>
-                                                    <input type="text" class="form-control"
-                                                        placeholder="{{applicant.Disability_Grade}}" readonly>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <label class="form-label">Date
-                                                        Of Birth</label>
-                                                    <input type="text" class="form-control"
-                                                        placeholder="{{applicant.Date_Of_Birth}}" readonly>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <label class="form-label">Phone
-                                                        Number</label>
-                                                    <input type="text" class="form-control"
-                                                        placeholder="{{applicant.Cellular_Phone_Number}}" readonly>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <label class="form-label">EMail</label>
-                                                    <input type="text" class="form-control"
-                                                        placeholder="{{E_Mail.E_Mail}}" readonly>
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            {% else %}
-                            <div class="alert alert-danger d-flex align-items-center alert-dismissible alert-warn"
-                                role="alert">
-                                <i class="las la-exclamation-triangle" style="color: white;font-size: 2rem"></i>
-                                <div class="a-icon mx-2">
-                                    <p style="color: white;">Please Fill Your
-                                        Personal Information </p>
-                                </div>
-                                <button type="button" class="btn-close" data-bs-dismiss="alert"
-                                    aria-label="Close"></button>
-                            </div>
-                            {% endif %}
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row my-3">
-                <div class="col-md-12">
-                    <h5>Academic Qualifications <button type="button" class="btn btn-info" data-bs-toggle="modal"
-                            data-bs-target="#AddAcademic">ADD <i class="las la-plus"></i></button>
-                    </h5>
-                    <div class="row my-4">
-                        <div class="col-md-12">
-                            {% if Qualify %}
-                            {% for res in Qualify %}
-                            <div class="accordion" id="accordionExample">
-                                <div class="item">
-                                    <div class="item-header" id="Qualify{{res.Line_No_}}">
-                                        <h2 class="mb-0">
-                                            <button class="btn btn-link" type="button" data-toggle="collapse"
-                                                data-target="#collapsed{{res.Line_No_}}" aria-expanded="true"
-                                                aria-controls="collapsed{{res.Line_No_}}">
-                                                {{res.Institution_Name}}
-
-                                                <i class="fa fa-angle-down"></i>
-                                            </button>
-                                        </h2>
-                                    </div>
-                                    <div id="collapsed{{res.Line_No_}}" class="collapse"
-                                        aria-labelledby="Qualify{{res.Line_No_}}" data-parent="#accordionExample">
-                                        <div class="t-p">
-                                            <form class="row g-3">
-                                                <div class="col-md-6">
-                                                    <label class="form-label">Education
-                                                        Type</label>
-                                                    <input type="text" class="form-control"
-                                                        placeholder="{{res.Education_Type}}" readonly>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <label class="form-label">Institution
-                                                        Name</label>
-                                                    <input type="text" class="form-control"
-                                                        placeholder="{{res.Institution_Name}}" readonly>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <label class="form-label">Start
-                                                        Date</label>
-                                                    <input type="text" class="form-control"
-                                                        placeholder="{{res.Start_Date}}" readonly>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <label class="form-label">End
-                                                        Date</label>
-                                                    <input type="text" class="form-control"
-                                                        placeholder="{{res.End_Date}}" readonly>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <label class="form-label">Proficiency
-                                                        Level</label>
-                                                    <input type="text" class="form-control"
-                                                        placeholder="{{res.Proficiency_Level}}" readonly>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <label class="form-label">Highest
-                                                        Level</label>
-                                                    <input type="text" class="form-control"
-                                                        placeholder="{{res.Highest_Level}}" readonly>
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            {% endfor %}
-                            {% else %}
-                            <div class="alert alert-danger d-flex align-items-center alert-dismissible alert-warn"
-                                role="alert">
-                                <i class="las la-exclamation-triangle" style="color: white;font-size: 2rem"></i>
-                                <div class="a-icon mx-2">
-                                    <p style="color: white;">Please Fill Your
-                                        Academic
-                                        Qualifications</p>
-                                </div>
-                                <button type="button" class="btn-close" data-bs-dismiss="alert"
-                                    aria-label="Close"></button>
-                            </div>
-                            {% endif %}
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <h5>Work Experience <span style="font-size:1rem;color:#000;">
-                            <button type="button" class="btn btn-info" data-bs-toggle="modal"
-                                data-bs-target="#AddExperience">ADD <i class="las la-plus"></i></button></h5>
-                    <div class="row my-4">
-                        <div class="col-md-12">
-                            {% if experience %}
-                            {% for res in experience %}
-                            <div class="accordion" id="accordionExample">
-                                <div class="item">
-                                    <div class="item-header" id="heading{{res.Line_No}}">
-                                        <h2 class="mb-0">
-                                            <button class="btn btn-link" type="button" data-toggle="collapse"
-                                                data-target="#collapse{{res.Line_No}}" aria-expanded="true"
-                                                aria-controls="collapse{{res.Line_No}}">
-                                                {{res.Employer}}
-                                                <i class="fa fa-angle-down"></i>
-                                            </button>
-                                        </h2>
-                                    </div>
-                                    <div id="collapse{{res.Line_No}}" class="collapse"
-                                        aria-labelledby="heading{{res.Line_No}}" data-parent="#accordionExample">
-                                        <div class="t-p">
-                                            <form class="row g-3">
-                                                <div class="col-md-6">
-                                                    <label class="form-label">Employer</label>
-                                                    <input type="text" class="form-control"
-                                                        placeholder="{{res.Employer}}" readonly>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <label class="form-label">Start
-                                                        Date</label>
-                                                    <input type="text" class="form-control"
-                                                        placeholder="{{res.Start_Date}}" readonly>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <label class="form-label">End
-                                                        Date</label>
-                                                    <input type="text" class="form-control"
-                                                        placeholder="{{res.End_Date}}" readonly>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <label class="form-label">Hierarchy
-                                                        Level</label>
-                                                    <input type="text" class="form-control"
-                                                        placeholder="{{res.Hierarchy_Level}}" readonly>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <label class="form-label">Functional
-                                                        Area</label>
-                                                    <input type="text" class="form-control"
-                                                        placeholder="{{res.Functional_Area}}" readonly>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <label class="form-label">Job
-                                                        Title</label>
-                                                    <input type="text" class="form-control"
-                                                        placeholder="{{res.Job_Title}}" readonly>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <label class="form-label">Present
-                                                        Employment</label>
-                                                    <input type="text" class="form-control"
-                                                        placeholder="{{res.Present_Employment}}" readonly>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <label class="form-label">No
-                                                        of
-                                                        Years</label>
-                                                    <input type="text" class="form-control"
-                                                        placeholder="{{res.No__of_Years}}" readonly>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <label class="form-label">Country</label>
-                                                    <input type="text" class="form-control"
-                                                        placeholder="{{res.Country}}" readonly>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <label class="form-label">Location</label>
-                                                    <input type="text" class="form-control"
-                                                        placeholder="{{res.Location}}" readonly>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <label class="form-label">Employer
-                                                        Email
-                                                        Address</label>
-                                                    <input type="text" class="form-control"
-                                                        placeholder="{{res.Employer_Email_Address}}" readonly>
-                                                </div>
-                                                <div class="col-md-12">
-                                                    <label class="form-label">Description</label>
-                                                    <textarea class="form-control" placeholder="{{res.Description}}"
-                                                        readonly></textarea>
-                                                </div>
-
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            {% endfor %}
-                            {% else %}
-                            <div class="alert alert-danger d-flex align-items-center alert-dismissible alert-warn"
-                                role="alert">
-                                <i class="las la-exclamation-triangle" style="color: white;font-size: 2rem"></i>
-                                <div class="a-icon mx-2">
-                                    <p style="color: white;">Please Fill Your
-                                        Experience information</p>
-                                </div>
-                                <button type="button" class="btn-close" data-bs-dismiss="alert"
-                                    aria-label="Close"></button>
-                            </div>
-                            {% endif %}
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row my-3">
-                <div class="col-md-12">
-                    <h5>Professional Courses <button type="button" class="btn btn-info" data-bs-toggle="modal"
-                            data-bs-target="#AddCourses">ADD <i class="las la-plus"></i></button>
-                    </h5>
-                    <div class="row my-4">
-                        <div class="col-md-12">
-                            {% if course %}
-                            {% for res in course %}
-                            <div class="accordion" id="accordionExample">
-                                <div class="item">
-                                    <div class="item-header" id="course{{res.Line_No_}}">
-                                        <h2 class="mb-0">
-                                            <button class="btn btn-link" type="button" data-toggle="collapse"
-                                                data-target="#coll{{res.Line_No_}}" aria-expanded="true"
-                                                aria-controls="coll{{res.Line_No_}}">
-                                                {{res.Qualification_Code}}
-                                                <i class="fa fa-angle-down"></i>
-                                            </button>
-                                        </h2>
-                                    </div>
-                                    <div id="coll{{res.Line_No_}}" class="collapse"
-                                        aria-labelledby="course{{res.Line_No_}}" data-parent="#accordionExample">
-                                        <div class="t-p">
-                                            <form class="row g-3">
-                                                <div class="col-md-6">
-                                                    <label class="form-label">Qualification
-                                                        Name</label>
-                                                    <input type="text" class="form-control"
-                                                        placeholder="{{res.Qualification_Code}}" readonly>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <label class="form-label">Section
-                                                        Level</label>
-                                                    <input type="text" class="form-control"
-                                                        placeholder="{{res.Section_Level}}" readonly>
-                                                </div>
-
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            {% endfor %}
-                            {% else %}
-                            <div class="alert alert-danger d-flex align-items-center alert-dismissible alert-warn"
-                                role="alert">
-                                <i class="las la-exclamation-triangle" style="color: white;font-size: 2rem"></i>
-                                <div class="a-icon mx-2">
-                                    <p style="color: white;">Please Fill Your
-                                        Professional Courses information</p>
-                                </div>
-                                <button type="button" class="btn-close" data-bs-dismiss="alert"
-                                    aria-label="Close"></button>
-                            </div>
-                            {% endif %}
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row my-3">
-                <div class="col-md-12">
-                    <h5>Professional Memberships <button type="button" class="btn btn-info" data-bs-toggle="modal"
-                            data-bs-target="#AddMemberships">ADD <i class="las la-plus"></i></button>
-                    </h5>
-                    <div class="row my-4">
-                        <div class="col-md-12">
-                            {% if membership %}
-                            {% for res in membership %}
-                            <div class="accordion" id="accordionExample">
-                                <div class="item">
-                                    <div class="item-header" id="pro{{res.Line_No_}}">
-                                        <h2 class="mb-0">
-                                            <button class="btn btn-link" type="button" data-toggle="collapse"
-                                                data-target="#collpro{{res.Line_No_}}" aria-expanded="true"
-                                                aria-controls="collpro{{res.Line_No_}}">
-                                                {{res.Professional_Body}}
-                                                <i class="fa fa-angle-down"></i>
-                                            </button>
-                                        </h2>
-                                    </div>
-                                    <div id="collpro{{res.Line_No_}}" class="collapse"
-                                        aria-labelledby="pro{{res.Line_No_}}" data-parent="#accordionExample">
-                                        <div class="t-p">
-                                            <form class="row g-3">
-                                                <div class="col-md-6">
-                                                    <label class="form-label">Professional
-                                                        Body</label>
-                                                    <input type="text" class="form-control"
-                                                        placeholder="{{res.Professional_Body}}" readonly>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <label class="form-label">Membership
-                                                        No</label>
-                                                    <input type="text" class="form-control"
-                                                        placeholder="{{res.MembershipNo}}" readonly>
-                                                </div>
-
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            {% endfor %}
-                            {% else %}
-                            <div class="alert alert-danger d-flex align-items-center alert-dismissible alert-warn"
-                                role="alert">
-                                <i class="las la-exclamation-triangle" style="color: white;font-size: 2rem"></i>
-                                <div class="a-icon mx-2">
-                                    <p style="color: white;">Please Fill Your
-                                        Professional Memberships information
-                                    </p>
-                                </div>
-                                <button type="button" class="btn-close" data-bs-dismiss="alert"
-                                    aria-label="Close"></button>
-                            </div>
-                            {% endif %}
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row my-3">
-                <div class="col-md-12">
-                    <h5>Hobbies <button type="button" class="btn btn-info" data-bs-toggle="modal"
-                            data-bs-target="#AddHobby">ADD <i class="las la-plus"></i></button>
-                    </h5>
-                    <div class="row my-4">
-                        <div class="col-md-12">
-                            {% if hobby %}
-                            {% for res in hobby %}
-                            <div class="accordion" id="accordionExample">
-                                <div class="item">
-                                    <div class="item-header" id="hobby{{res.Line_No}}">
-                                        <h2 class="mb-0">
-                                            <button class="btn btn-link" type="button" data-toggle="collapse"
-                                                data-target="#collprof{{res.Line_No}}" aria-expanded="true"
-                                                aria-controls="collprof{{res.Line_No}}">
-                                                {{res.Hobbies}}
-                                                <i class="fa fa-angle-down"></i>
-                                            </button>
-                                        </h2>
-                                    </div>
-                                    <div id="collprof{{res.Line_No}}" class="collapse"
-                                        aria-labelledby="hobby{{res.Line_No}}" data-parent="#accordionExample">
-                                        <div class="t-p">
-                                            <form class="row g-3">
-                                                <div class="col-md-12">
-                                                    <label class="form-label">Hobby</label>
-                                                    <input type="text" class="form-control"
-                                                        placeholder="{{res.Hobbies}}" readonly>
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            {% endfor %}
-                            {% else %}
-                            <div class="alert alert-danger d-flex align-items-center alert-dismissible alert-warn"
-                                role="alert">
-                                <i class="las la-exclamation-triangle" style="color: white;font-size: 2rem"></i>
-                                <div class="a-icon mx-2">
-                                    <p style="color: white;">Please add Your
-                                        Hobbies</p>
-                                </div>
-                                <button type="button" class="btn-close" data-bs-dismiss="alert"
-                                    aria-label="Close"></button>
-                            </div>
-                            {% endif %}
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row my-3">
-                <div class="col-md-12">
-                    <h5>Referees <button type="button" class="btn btn-info" data-bs-toggle="modal"
-                            data-bs-target="#AddReferee">ADD
-                            <i class="las la-plus"></i></button></h5>
-                    <div class="row my-4">
-                        <div class="col-md-12">
-                            {% if Referee %}
-                            {% for res in Referee %}
-                            <div class="accordion" id="accordionExample">
-                                <div class="item">
-                                    <div class="item-header" id="Referee{{res.Line_No}}">
-                                        <h2 class="mb-0">
-                                            <button class="btn btn-link" type="button" data-toggle="collapse"
-                                                data-target="#collprofe{{res.Line_No}}" aria-expanded="true"
-                                                aria-controls="collprofe{{res.Line_No}}">
-                                                {{res.Names}}
-                                                <i class="fa fa-angle-down"></i>
-                                            </button>
-                                        </h2>
-                                    </div>
-                                    <div id="collprofe{{res.Line_No}}" class="collapse"
-                                        aria-labelledby="Referee{{res.Line_No}}" data-parent="#accordionExample">
-                                        <div class="t-p">
-                                            <form class="row g-3">
-                                                <div class="col-md-6">
-                                                    <label class="form-label">Full
-                                                        Name</label>
-                                                    <input type="text" class="form-control" placeholder="{{res.Names}}"
-                                                        readonly>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <label class="form-label">Designation</label>
-                                                    <input type="text" class="form-control"
-                                                        placeholder="{{res.Designation}}" readonly>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <label class="form-label">Company</label>
-                                                    <input type="text" class="form-control"
-                                                        placeholder="{{res.Company}}" readonly>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <label class="form-label">Address</label>
-                                                    <input type="text" class="form-control"
-                                                        placeholder="{{res.Address}}" readonly>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <label class="form-label">Telephone
-                                                        No</label>
-                                                    <input type="text" class="form-control"
-                                                        placeholder="{{res.Telephone_No}}" readonly>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <label class="form-label">EMail</label>
-                                                    <input type="text" class="form-control" placeholder="{{res.E_Mail}}"
-                                                        readonly>
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            {% endfor %}
-                            {% else %}
-                            <div class="alert alert-danger d-flex align-items-center alert-dismissible alert-warn"
-                                role="alert">
-                                <i class="las la-exclamation-triangle" style="color: white;font-size: 2rem"></i>
-                                <div class="a-icon mx-2">
-                                    <p style="color: white;">Please add Your
-                                        Referees </p>
-                                </div>
-                                <button type="button" class="btn-close" data-bs-dismiss="alert"
-                                    aria-label="Close"></button>
-                            </div>
-                            {% endif %}
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div> -->

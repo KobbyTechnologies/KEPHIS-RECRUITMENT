@@ -9,7 +9,7 @@ urlpatterns = [
     path('FnWithdrawJobApplication',
          views.FnWithdrawJobApplication, name='FnWithdrawJobApplication'),
     path('UploadAttachedDocument/<str:pk>/<str:no>',
-         views.UploadAttachedDocument, name='UploadAttachedDocument'),
+         views.UploadAttachedDocument.as_view(), name='UploadAttachedDocument'),
 
     path('JobApplication/<str:pk>/<str:no>',
          views.JobApplication, name='JobApplication')

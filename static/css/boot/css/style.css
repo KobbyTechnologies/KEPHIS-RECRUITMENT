@@ -16216,7 +16216,7 @@ dl li {
   -webkit-transition: width 0.25s ease, background 0.25s ease;
   -moz-transition: width 0.25s ease, background 0.25s ease;
   -ms-transition: width 0.25s ease, background 0.25s ease;
-  background: #010101;
+  background: #02a552;
   width: 291px;
   height: 64px;
 }
@@ -16654,7 +16654,7 @@ dl li {
 /* Sidebar */
 .sidebar {
   min-height: calc(100vh - 64px);
-  background: #010101;
+  background: #02a552;
   font-family: "nunito-medium", sans-serif;
   padding: 0;
   width: 300px;
@@ -16698,7 +16698,7 @@ dl li {
   align-items: center;
   white-space: nowrap;
   /* margin-bottom: 1.6rem; */
-  padding: 1rem 0;
+  padding: 0.7rem 0;
   color: var(--nav);
   -webkit-transition-duration: 0.45s;
   transition-duration: 0.45s;
@@ -16810,18 +16810,18 @@ dl li {
 }
 
 .sidebar .nav .nav-item.active {
-  background: transparent;
+  background: #F7941D;
 }
 
 .sidebar .nav .nav-item.active>.nav-link:before {
   content: "";
   position: absolute;
   left: 0;
-  top: .5rem;
+  top: 0;
   bottom: 0;
-  background: #44ce42;
-  height: 24px;
-  width: 4px;
+  background: #ffffff;
+  /* height: 24px; */
+  width: 8px;
 }
 
 .rtl .sidebar .nav .nav-item.active>.nav-link:before {
@@ -16830,7 +16830,8 @@ dl li {
 }
 
 .sidebar .nav .nav-item.active>.nav-link .menu-title {
-  color: #44ce42;
+  color: #ffffff;
+  font-weight: 700;
   font-family: "nunito-medium", sans-serif;
 }
 
@@ -16898,12 +16899,12 @@ dl li {
 }
 
 .sidebar .nav .nav-item.nav-category {
-  color: #001737;
+  color: #ffffff;
   font-size: 0.8125rem;
   line-height: 16px;
   margin: 25px 0px 10px 0px;
-  color: #8e94a9;
   font-family: "nunito-bold", sans-serif;
+  font-weight: 900;
 }
 
 .sidebar .nav .nav-item.nav-category .nav-link {

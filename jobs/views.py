@@ -203,40 +203,76 @@ def FnWithdrawJobApplication(request):
     return redirect('job')
 
 
-def UploadAttachedDocument(request, pk, no):
-    docNo = request.session['No_']
-    response = ""
-    fileName = ""
-    attachment = ""
-    tableID = 52177558  #52177607
+# def UploadAttachedDocument(request, pk, no):
+#     docNo = request.session['No_']
+#     response = ""
+#     fileName = ""
+#     attachment = ""
+#     tableID = 52177558  #52177607
 
-    if request.method == "POST":
-        try:
-            attach = request.FILES.getlist('attachment')
-        except Exception as e:
-            print("Not Working")
-            return redirect('JobApplication', pk=pk, no=no)
+#     if request.method == "POST":
+#         try:
+#             attach = request.FILES.getlist('attachment')
+#         except Exception as e:
+#             print("Not Working")
+#             return redirect('JobApplication', pk=pk, no=no)
         
-        for files in attach:
-            fileName = request.FILES['attachment'].name
-            attachment = base64.b64encode(files.read())
+#         for files in attach:
+#             fileName = request.FILES['attachment'].name
+#             attachment = base64.b64encode(files.read())
 
+#             try:
+#                 response = config.CLIENT.service.FnUploadAttachedDocument(
+#                     docNo, fileName, attachment, tableID)
+#                 print(response)
+#                 print(docNo)
+#             except Exception as e:
+#                 messages.error(request, e)
+#                 print(e)
+
+#         if response == True:
+#             messages.success(request, "Successfully Sent !!")
+#             return redirect('JobApplication', pk=pk, no=no)
+#         else:
+#             messages.error(request, "OooPs!!! something went Wrong.")
+#             return redirect('JobApplication', pk=pk, no=no)
+
+#     return redirect('JobApplication', pk=pk, no=no)
+
+
+class UploadAttachedDocument(UserObjectMixin, View):
+
+    def post(self, request, pk, no):
+        response = ''
+        if request.method == "POST":
             try:
-                response = config.CLIENT.service.FnUploadAttachedDocument(
-                    docNo, fileName, attachment, tableID)
-                print(response)
+                attach = request.FILES.getlist('attachment')
+                tableID = 50033  #52177430
+
+                for files in attach:
+
+                    fileName = request.FILES['attachment'].name
+                    attachment = base64.b64encode(files.read())
+
+                    response = config.CLIENT.service.FnUploadAttachedDocument(
+                       pk, fileName, attachment, tableID,request.session['N0_']
+                        )
+                    print(response)
+
+                    if response == True:
+                        messages.success(request, "File(s) Upload Successful")
+                        return redirect('JobApplication', pk=pk, no=no)
+
+                    else:
+                        messages.error(request, "Failed, Try Again")
+                        return redirect('JobApplication', pk=pk, no=no)
+
             except Exception as e:
-                messages.error(request, e)
+                messages.error(request, "Oooops!!! something went Wrong!!!")
                 print(e)
 
-        if response == True:
-            messages.success(request, "Successfully Sent !!")
-            return redirect('JobApplication', pk=pk, no=no)
-        else:
-            messages.error(request, "OooPs!!! something went Wrong.")
-            return redirect('JobApplication', pk=pk, no=no)
+        return redirect('JobApplication', pk=pk, no=no)
 
-    return redirect('JobApplication', pk=pk, no=no)
 
 
 # class JobApplication(UserObjectMixins, View):

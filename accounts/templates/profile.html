@@ -148,6 +148,21 @@
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-4">
+                                                                <label class="form-label">Are You Kenyan</label>
+                                                                <select class="form-select" name="areYouKenyan"
+                                                                    required>
+                                                                    <option selected disabled value="0">
+                                                                        {{applicant.Are_You_Kenyan}}</option>
+                                                                    <option value="1">Yes</option>
+                                                                    <option value="2">No</option>
+                                                                </select>
+                                                                <i class="text-info small">Please Select it once more
+                                                                    for clarification.</i>
+                                                                <div class="invalid-feedback">
+                                                                    Please Confirm if you are Kenyan.
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-4">
                                                                 <label class="form-label">Citizenship</label>
                                                                 <select class="form-select" id="country"
                                                                     name="citizenship" required>
@@ -165,21 +180,7 @@
                                                                     Select Your Citizenship.
                                                                 </div>
                                                             </div>
-                                                            <div class="col-md-4">
-                                                                <label class="form-label">Are You Kenyan</label>
-                                                                <select class="form-select" name="areYouKenyan"
-                                                                    required>
-                                                                    <option selected disabled value="0">
-                                                                        {{applicant.Are_You_Kenyan}}</option>
-                                                                    <option value="1">Yes</option>
-                                                                    <option value="2">No</option>
-                                                                </select>
-                                                                <i class="text-info small">Please Select it once more
-                                                                    for clarification.</i>
-                                                                <div class="invalid-feedback">
-                                                                    Please Confirm if you are Kenyan.
-                                                                </div>
-                                                            </div>
+                                                            
                                                             <div class="col-md-3">
                                                                 <label class="form-label">Citizenship By?</label>
                                                                 <select class="form-select" name="citizenshipBy"
@@ -196,7 +197,16 @@
                                                                     Please Confirm if you are Kenyan.
                                                                 </div>
                                                             </div>
-
+                                                           
+                                                            <div class="col-md-3" id="nationalityName">
+                                                                <label class="form-label">State Nationality</label>
+                                                                <input type="text" class="form-control"
+                                                                    name="stateNationality" placeholder="Nationality"
+                                                                    value="" required>
+                                                                <div class="invalid-feedback">
+                                                                    Enter Nationality
+                                                                </div>
+                                                            </div>
                                                             <div class="col-md-3">
                                                                 <label class="form-label">Certificate No.</label>
                                                                 <input type="text" class="form-control"
@@ -205,15 +215,6 @@
                                                                     value="{{applicant.Certificate_No_}}" required>
                                                                 <div class="invalid-feedback">
                                                                     Enter Certificate Number.
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-md-3">
-                                                                <label class="form-label">State Nationality</label>
-                                                                <input type="text" class="form-control"
-                                                                    name="stateNationality" placeholder="Nationality"
-                                                                    value="" required>
-                                                                <div class="invalid-feedback">
-                                                                    Enter Nationality
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-3">
@@ -567,10 +568,12 @@
                                                 aria-labelledby="academic-tab">
                                                 <div class="d-flex justify-content-between">
                                                     <h4>Academic Qualification</h4>
-                                                    <button type="button" class="btn btn-info" data-bs-toggle="modal"
-                                                        data-bs-target="#AddAcademic">
-                                                        Add Qualification <i class="las la-plus"></i>
-                                                    </button>
+                                                    <form>
+                                                        <button type="button" class="btn btn-info" data-bs-toggle="modal"
+                                                            data-bs-target="#AddAcademic">
+                                                            Add Qualification <i class="las la-plus"></i>
+                                                        </button>
+                                                    </form>
                                                 </div>
                                                 {% if Qualify %}
                                                 {% for res in Qualify %}
@@ -584,9 +587,175 @@
                                                                     <h5 class="mt-1">{{res.Institution_Name}}</h5>
                                                                 </div>
                                                                 <div class="d-flex justify-content-end gap-2">
-                                                                    <button class="btn btn-primary">Edit</button>
-                                                                    <button class="btn btn-danger"> Delete
-                                                                        Entry</button>
+                                                                    <form>
+                                                                        <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                                                        data-bs-target="#EditAcademic">Edit</button>
+                                                                    </form>
+
+                                                                    <div class="modal fade" id="EditAcademic" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+                                                                        aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                                                        <div class="modal-dialog modal-lg">
+                                                                            <div class="modal-content">
+                                                                                <div class="modal-header">
+                                                                                    <h5 class="modal-title" id="staticBackdropLabel">Edit Academic Qualifications: {{res.Line_No_}}</h5>
+                                                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                                </div>
+                                                                                <div class="modal-body">
+                                                                                    <form method="post" id="AcademicForm" action="{% url 'FnApplicantAcademicQualification' %}">
+                                                                                        {% csrf_token %}
+                                                                                        <input type="hidden" name="myAction" value="modify">
+                                                                                        <input type="hidden" name="lineNo" value={{res.Line_No_}}>
+                                                                                        <div class="row">
+                                                                                            <div class="col-md-4">
+                                                                                                <label class="form-label">Start Date</label>
+                                                                                                <input type="date" name="startDate" id="Aca_startDate" class="form-control" required value="{{res.Start_Date}}">
+                                                                                            </div>
+                                                                                            <div class="col-md-4">
+                                                                                                <label class="form-label">End Date</label>
+                                                                                                <input type="date" name="endDate" id="Aca_endDate" class="form-control" required  value="{{res.End_Date}}">
+                                                                                            </div>
+                                                                                            <div class="col-md-4">
+                                                                                                <label class="form-label">Education Type</label>
+                                                                                                <select class="form-select" name="educationType" id="Aca_educationType" required>
+                                                                                                    <option selected disabled value="0">Choose...</option>
+                                                                                                    <option value="1">Primary</option>
+                                                                                                    <option value="2">High School</option>
+                                                                                                    <option value="3">College</option>
+                                                                                                    <option value="4">University</option>
+                                                                                                    <option value="5">Professional</option>
+                                                                                                    <option value="6">Vocational</option>
+                                                                                                </select>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="row">
+                                                                                            <div class="col-md-4" id="AcaeducationLevel">
+                                                                                                <label class="form-label">Education Level</label>
+                                                                                                <select class="form-select" name="educationLevel" id="Aca_educationLevel" required>
+                                                                                                    <option selected disabled value="0">Choose...</option>
+                                                                                                    <option value="1">Certificate</option>
+                                                                                                    <option value="2">Diploma</option>
+                                                                                                    <option value="3">Higher/Post Graduate Diploma</option>
+                                                                                                    <option value="4">Bachelors Degree</option>
+                                                                                                    <option value="5">Masters Degree</option>
+                                                                                                    <option value="6">Doctorate</option>
+                                                                                                </select>
+                                                                                            </div>
+                                                                                            <div class="col-md-4" id="AcafieldOfStudy">
+                                                                                                <label class="form-label">Field Of Study</label>
+                                                                                                <select class="form-select" name="fieldOfStudy" id="Aca_fieldOfStudy" required>
+                                                                                                    <option selected disabled value="">Choose...</option>
+                                                                                                    {% for res in Study %}
+                                                                                                    <option value="{{res.Code}}">{{res.Description}}</option>
+                                                                                                    {% endfor %}
+                                                                                                </select>
+                                                                                            </div>
+                                                                                            <div class="col-md-4" id="AcademicQualification">
+                                                                                                <label class="form-label">Qualification</label>
+                                                                                                <select class="form-select" name="qualificationCode" id="AcademicQualificationCode"
+                                                                                                    required>
+                                                                                                    <option selected disabled value="">Choose...</option>
+                                                                                                    {% for res in Quo %}
+                                                                                                    <option value="{{res.Code}}">{{res.Description}}</option>
+                                                                                                    {% endfor %}
+                                                                                                    <option value="Other">OTHER QUALIFICATION</option>
+                                                                                                </select>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="row">
+                                                                                            <div class="col-md-4">
+                                                                                                <label class="form-label">Institution Name</label>
+                                                                                                <input type="text" class="form-control" name="institutionName" id="Aca_institutionName"
+                                                                                                    required value="{{res.Institution_Name}}">
+                                                                                            </div>
+                                                                                            <div class="col-md-4" id="AcaproficiencyLevel">
+                                                                                                <label class="form-label">Proficiency Level</label>
+                                                                                                <select class="form-select" name="proficiencyLevel" id="Aca_proficiencyLevel" required>
+                                                                                                    <option selected disabled value="">Choose...</option>
+                                                                                                    <option value="1">Not Rated</option>
+                                                                                                    <option value="2">First Class</option>
+                                                                                                    <option value="3">Second Class(Upper)</option>
+                                                                                                    <option value="4">Second Class(Lower)</option>
+                                                                                                    <option value="5">Second Class</option>
+                                                                                                    <option value="6">Pass</option>
+                                                                                                    <option value="7">Distinction</option>
+                                                                                                    <option value="8">Credit</option>
+                                                                                                    <option value="9">MBA</option>
+                                                                                                    <option value="10">PhD</option>
+                                                                                                </select>
+                                                                                            </div>
+                                                                                            <div class="col-md-4">
+                                                                                                <label class="form-label">Country</label>
+                                                                                                <select class="form-select" name="country" id="Aca_country" required>
+                                                                                                    <option selected disabled value="">Choose...</option>
+                                                                                                    {% for res in country %}
+                                                                                                    <option value="{{res.Code}}">{{res.Name}}</option>
+                                                                                                    {% endfor %}
+                                                                                                </select>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="row">
+                                                                                            <div class="col-md-4">
+                                                                                                <label class="form-label">Examining Body</label>
+                                                                                                <input type="text" class="form-control" name="region" id="Aca_region" required
+                                                                                                    placeholder="e.g. KNEC" >
+                                                                                            </div>
+                                                                                            <div class="col-md-4">
+                                                                                                <label class="form-label">Is this your Highest Level of Education?</label>
+                                                                                                <select class="form-select" name="isHighestLevel" id="isHighestLevel" required>
+                                                                                                    <option selected disabled value="">Choose...</option>
+                                                                                                    <option value="False">No</option>
+                                                                                                    <option value="True">Yes</option>
+                                                                                                </select>
+                                                                                            </div>
+                                                                                            <div class="col-md-4">
+                                                                                                <label class="form-label">Grade</label>
+                                                                                                <input type="text" class="form-control" name="grade" id="Aca_grade">
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="row">
+                                                                                            <div class="col-md-12">
+                                                                                                <label class="form-label" hidden>Other Qualification</label>
+                                                                                                <textarea class="form-control" name="otherQualification" id="otherAcademic" rows="3"
+                                                                                                    disabled hidden>{{res.Start_Date}}</textarea>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="row">
+                                                                                            <div class="col-md-12">
+                                                                                                <label class="form-label">Description</label>
+                                                                                                <textarea class="form-control" name="description" id="Aca_description" rows="3">{{res.Description}}</textarea>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <p id="output" class="my-3" style="color:#e51e25;font-weight: bolder;"></p>
+                                                                                        <button type="submit" class="btn btn-primary my-3">Save</button>
+                                                                                    </form>
+                                                                                </div>
+                                                                                <div class="modal-footer">
+                                                                                    <a href="{% url 'profile' %}" type="button" class="btn btn-success">Finish</a>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <form action="{% url 'FnApplicantAcademicQualification' %}">
+                                                                        <input type="hidden" name="myAction" value = 'delete'>
+                                                                        <input type="hidden" name="lineNo" value = '{{res.Line_No_}}'>
+                                                                        <input type="hidden" name="startDate" value = ''>
+                                                                        <input type="hidden" name="endDate" value = ''>
+                                                                        <input type="hidden" name="educationType" value = ''>
+                                                                        <input type="hidden" name="educationLevel" value = ''>
+                                                                        <input type="hidden" name="fieldOfStudy" value = ''>
+                                                                        <input type="hidden" name="qualificationCode" value = ''>
+                                                                        <input type="hidden" name="institutionName" value = ''>
+                                                                        <input type="hidden" name="proficiencyLevel" value = ''>
+                                                                        <input type="hidden" name="country" value = ''>
+                                                                        <input type="hidden" name="region" value = ''>
+                                                                        <input type="hidden" name="isHighestLevel" value = ''>
+                                                                        <input type="hidden" name="grade" value = ''>
+                                                                        <input type="hidden" name="otherQualification" value = ''>
+                                                                        <input type="hidden" name="description" value = ''>
+                                                                        <button type="submit" class="btn btn-danger"> Delete
+                                                                            Entry</button>
+                                                                    </form>
                                                                     <hr>
                                                                 </div>
                                                             </div>
@@ -658,14 +827,144 @@
                                                 <div class="container">
                                                     <div class="row g-1">
                                                         <div class="col-md-12">
-                                                            <div class="row">
-                                                                <div class="col-md-6">
-                                                                    <span><i> Job Title:</i></span>
-                                                                    <h5 class="my-1">{{res.Job_Title}}</h5>
+                                                            <div class="d-flex justify-content-between">
+                                                                <div class="col-md-6 row">
+                                                                    <div class="col-md-6">
+                                                                        <span><i> Job Title:</i></span>
+                                                                        <h5 class="my-1">{{res.Job_Title}}</h5>
+                                                                    </div>
+                                                                    <div class="col-md-6">
+                                                                        <span><i> Employer:</i></span>
+                                                                        <h6 class="mt-1">{{res.Employer}}</h6>
+                                                                    </div>
                                                                 </div>
-                                                                <div class="col-md-6">
-                                                                    <span><i> Employer:</i></span>
-                                                                    <h6 class="mt-1">{{res.Employer}}</h6>
+                                                                <div class="d-flex justify-content-end gap-2">
+                                                                    <form>
+                                                                        <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                                                        data-bs-target="#EditExperience">Edit</button>
+                                                                    </form>
+                                                                    <div class="modal fade" id="EditExperience" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+                                                                        aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                                                        <div class="modal-dialog modal-lg">
+                                                                            <div class="modal-content">
+                                                                                <div class="modal-header">
+                                                                                    <h5 class="modal-title" id="staticBackdropLabel">Edit Job Experience: {{res.Line_No}}</h5>
+                                                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                                </div>
+                                                                                <div class="modal-body">
+                                                                                    <form method="POST" id="JobExperienceForm">
+                                                                                        {% csrf_token %}
+                                                                                        
+                                                                                        <div class="row">
+                                                                                            <div class="col-md-4">
+                                                                                                <label class="form-label">Start Date</label>
+                                                                                                <input type="date" name="startDate" id="job_startDate" class="form-control" required>
+                                                                                            </div>
+                                                                                            <div class="col-md-4">
+                                                                                                <label class="form-label">End Date</label>
+                                                                                                <input type="date" name="endDate" id="job_endDate" class="form-control" required>
+                                                                                            </div>
+                                                                                            <div class="col-md-4">
+                                                                                                <label class="form-label">Employer</label>
+                                                                                                <input type="text" class="form-control" name="employer" id="job_employer" required>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="row">
+                                                                                            <div class="col-md-4">
+                                                                                                <label class="form-label">Industry</label>
+                                                                                                <select class="form-select" name="industry" id="job_industry" required>
+                                                                                                    <option selected disabled value="">Choose...</option>
+                                                                                                    {% for res in industry %}
+                                                                                                    <option value="{{res.Code}}">{{res.Description}}</option>
+                                                                                                    {% endfor %}
+                                                                                                </select>
+                                                                                            </div>
+                                                                                            <div class="col-md-4">
+                                                                                                <label class="form-label">Hierarchy Level</label>
+                                                                                                <select class="form-select" name="hierarchyLevel" id="job_hierarchyLevel" required>
+                                                                                                    <option selected disabled value="">Choose...</option>
+                                                                                                    <option value="1">Executive/Director</option>
+                                                                                                    <option value="2">Senior-Level Manager</option>
+                                                                                                    <option value="3">Middle-Level Manager</option>
+                                                                                                    <option value="4">First-Level Manager</option>
+                                                                                                    <option value="5">Supervisor</option>
+                                                                                                    <option value="6">Consultant</option>
+                                                                                                    <option value="7">Support Staff</option>
+                                                                                                    <option value="8">Intern</option>
+                                                                                                    <option value="9">Trainee/Attachee</option>
+                                                                                                </select>
+                                                                                            </div>
+                                                                                            <div class="col-md-4">
+                                                                                                <label class="form-label">Functional Area</label>
+                                                                                                <input type="text" class="form-control" name="functionalArea" id="job_functionalArea"
+                                                                                                    required>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="row">
+                                                                                            <div class="col-md-4">
+                                                                                                <label class="form-label">Job Title</label>
+                                                                                                <input type="text" class="form-control" name="jobTitle" id="job_jobTitle" required>
+                                                                                            </div>
+                                                                                            <div class="col-md-4">
+                                                                                                <label class="form-label">Present Employment</label>
+                                                                                                <select class="form-select" name="isPresentEmployment" id="isPresentEmployment" required>
+                                                                                                    <option selected disabled value="">Choose...</option>
+                                                                                                    <option value="False">No</option>
+                                                                                                    <option value="True">Yes</option>
+                                                                                                </select>
+                                                                                            </div>
+                                                                                            <div class="col-md-4">
+                                                                                                <label class="form-label">Country</label>
+                                                                                                <select class="form-select" id="job_country" name="country" required>
+                                                                                                    <option selected disabled value="">Choose...</option>
+                                                                                                    {% for res in country %}
+                                                                                                    <option value="{{res.Code}}">{{res.Name}}</option>
+                                                                                                    {% endfor %}
+                                                                                                </select>
+                                                                                            </div>
+
+                                                                                        </div>
+                                                                                        <div class="row">
+                                                                                            <div class="col-md-4">
+                                                                                                <label class="form-label">Location</label>
+                                                                                                <input type="text" class="form-control" name="location" id="job_location">
+                                                                                                <div class="invalid-feedback">
+                                                                                                    Enter Job Location
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <div class="col-md-4">
+                                                                                                <label class="form-label">Employer Email</label>
+                                                                                                <input type="email" class="form-control" name="employerEmail" id="job_employerEmail">
+                                                                                            </div>
+                                                                                            <div class="col-md-4">
+                                                                                                <label class="form-label">Employer Postal Address</label>
+                                                                                                <input type="text" class="form-control" name="employerPostalAddress"
+                                                                                                    id="job_employerPostalAddress">
+                                                                                            </div>
+
+                                                                                        </div>
+                                                                                        <div class="row">
+                                                                                            <div class="col-md-12">
+                                                                                                <label class="form-label">Duties and Responsibilities</label>
+                                                                                                <textarea class="form-control" name="description" rows="3" id="job_description"></textarea>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <p id="jobOutput" class="my-3" style="color:#e51e25;font-weight: bolder;"></p>
+                                                                                        <button type="submit" class="btn btn-primary my-3">Save</button>
+                                                                                    </form>
+                                                                                </div>
+                                                                                <div class="modal-footer">
+                                                                                    <a href="{% url 'profile' %}" type="button" class="btn btn-success">Finish</a>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <form action="{% url 'FnApplicantAcademicQualification' %}">
+                                                                        <button type="submit" class="btn btn-danger"> Delete
+                                                                            Entry</button>
+                                                                    </form>
+                                                                    <hr>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -749,6 +1048,7 @@
                                                 {% for res in course %}
                                                 <hr>
                                                 <div class="container">
+                                                    
                                                     <div class="row">
                                                         <div class="col-md-6">
                                                             <span><i> Qualification Name:</i></span>
@@ -758,6 +1058,75 @@
                                                             <span><i> Section Level:</i></span>
                                                             <p class="mt-1"><b>{{res.Section_Level}}</b></p>
                                                         </div>
+                                                    </div>
+                                                    <div class="d-flex justify-content-end gap-2 pb-3">
+                                                        <form>
+                                                            <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                                            data-bs-target="#EditCourses">Edit</button>
+                                                        </form>
+                                                        <div class="modal fade" id="EditCourses" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+                                                            aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                                            <div class="modal-dialog modal-lg">
+                                                                <div class="modal-content">
+                                                                    <div class="modal-header">
+                                                                        <h5 class="modal-title" id="staticBackdropLabel">Edit Professional Course: {{res.Line_No_}}</h5>
+                                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                    </div>
+                                                                    <div class="modal-body">
+                                                                        <form method="post" id="proQualificationForm">
+                                                                            {% csrf_token %}
+                                                                            <div class="row">
+
+                                                                                <div class="col-md-6">
+                                                                                    <label class="form-label">Qualification</label>
+                                                                                    <select class="form-select" id="proQualificationCode" name="qualificationCode" required>
+                                                                                        <option selected disabled value="">Choose...</option>
+                                                                                        {% for res in Quo %}
+                                                                                        <option value="{{res.Code}}">{{res.Description}}</option>
+                                                                                        {% endfor %}
+                                                                                        <option value="Other">OTHER QUALIFICATION</option>
+                                                                                    </select>
+                                                                                </div>
+                                                                                <div class="col-md-6">
+                                                                                    <label class="form-label">Section Level</label>
+                                                                                    <select class="form-select" name="sectionLevel" id="pro_sectionLevel">
+                                                                                        <option selected value="0">Choose...</option>
+                                                                                        <option value="1">Level 1</option>
+                                                                                        <option value="2">Level 2</option>
+                                                                                        <option value="3">Level 3</option>
+                                                                                        <option value="4">Level 4</option>
+                                                                                        <option value="5">Level 5</option>
+                                                                                        <option value="6">Level 6</option>
+                                                                                        <option value="7">Level 7</option>
+                                                                                        <option value="8">Level 8</option>
+                                                                                        <option value="9">Level 9</option>
+                                                                                        <option value="10">Level 10</option>
+                                                                                    </select>
+                                                                                </div>
+                                                                                <div class="row">
+                                                                                    <div class="col-md-12">
+                                                                                        <label class="form-label">Other Qualification</label>
+                                                                                        <textarea class="form-control" name="otherQualification" id="proQulification" rows="3"
+                                                                                            disabled></textarea>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <p id="proOutput" class="mt-5 mb-1" style="color:#e51e25;font-weight: bolder;"></p>
+                                                                            <button type="submit" class="btn btn-primary my-3">Save</button>
+                                                                        </form>
+                                                                    </div>
+                                                                    <div class="modal-footer">
+                                                                        <a href="{% url 'profile' %}" type="button" class="btn btn-success">Finish</a>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <form action="{% url 'FnApplicantAcademicQualification' %}">
+                                                            <button type="submit" class="btn btn-danger"> Delete
+                                                                Entry</button>
+                                                        </form>
+                                                        <hr>
                                                     </div>
                                                 </div>
                                                 {% endfor %}
@@ -792,6 +1161,64 @@
                                                             <p class="mt-1"><b>{{res.MembershipNo}}</b></p>
                                                         </div>
                                                     </div>
+                                                    <div class="d-flex justify-content-end gap-2 pb-3">
+                                                        <form>
+                                                            <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                                            data-bs-target="#EditMemberships">Edit</button>
+                                                        </form>
+                                                        <div class="modal fade" id="EditMemberships" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+                                                            aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                                            <div class="modal-dialog modal-dialog-centered modal-md">
+                                                                <div class="modal-content">
+                                                                    <div class="modal-header">
+                                                                        <h5 class="modal-title" id="staticBackdropLabel"> Edit Professional Memberships {{res.Line_No_}}</h5>
+                                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                    </div>
+                                                                    <div class="modal-body">
+                                                                        <form method="post" id="professionalBodyForm">
+                                                                            {% csrf_token %}
+                                                                            <div class="row">
+                                                                                <div class="col-md-6">
+                                                                                    <label class="form-label">Professional Body</label>
+                                                                                    <select class="form-select" name="professionalBody" id="ms_professionalBody" required>
+                                                                                        <option selected disabled value="">Choose...</option>
+                                                                                        {% for res in Pro %}
+                                                                                        <option value="{{res.Name}}">{{res.Description2}}</option>
+                                                                                        {% endfor %}
+                                                                                        <option value="Other">OTHER PROFESSIONAL BODY</option>
+                                                                                    </select>
+                                                                                </div>
+                                                                                <div class="col-md-6">
+                                                                                    <label class="form-label">Membership No</label>
+                                                                                    <input type="text" class="form-control" name="membershipNo" id="ms_membershipNo" required value="{{res.MembershipNo}}">
+                                                                                </div>
+                                                                                <div class="row">
+                                                                                    <div class="col-md-12">
+                                                                                        <label class="form-label">Other Professional Body</label>
+                                                                                        <textarea class="form-control" name="otherProfessionalBody" id="otherProfessionalBody"
+                                                                                            rows="3" disabled></textarea>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <p id="msOutput" class="my-3" style="color:#e51e25;font-weight: bolder;"></p>
+
+                                                                            <button type="submit" class="btn btn-primary my-3">Save</button>
+
+                                                                        </form>
+                                                                    </div>
+                                                                    <div class="modal-footer">
+                                                                        <a href="{% url 'profile' %}" type="button" class="btn btn-success">Finish</a>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <form action="{% url 'FnApplicantAcademicQualification' %}">
+                                                            <button type="submit" class="btn btn-danger"> Delete
+                                                                Entry</button>
+                                                        </form>
+                                                        <hr>
+                                                    </div>
                                                 </div>
                                                 {% endfor %}
                                                 {% endif %}
@@ -819,6 +1246,53 @@
                                                         <div class="col-md-3">
                                                             <p><strong>{{res.Hobbies}}</strong></p>
                                                         </div>
+                                                        <div class="d-flex justify-content-end gap-2 pb-3">
+                                                            <form>
+                                                                <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                                                data-bs-target="#EditHobby">Edit</button>
+                                                            </form>
+                                                            <div class="modal fade" id="EditHobby" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+                                                                aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                                                <div class="modal-dialog modal-dialog-centered modal-md">
+                                                                    <div class="modal-content">
+                                                                        <div class="modal-header">
+                                                                            <h5 class="modal-title" id="staticBackdropLabel">Edit hobby: {{res.Line_No}}</h5>
+                                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                        </div>
+                                                                        <div class="modal-body">
+                                                                            <form method="post" id="hobbyForm">
+                                                                                {% csrf_token %}
+                                                                                <input type="hidden" name="myAction" value="modify" id="h_myAction">
+                                                                                <input type="hidden" name="lineNo" value='{{res.Line_No}}' id="h_lineNo">
+                                                                                <div class="row">
+                                                                                    <div class="col-md-12">
+                                                                                        <label class="form-label">Hobby</label>
+                                                                                        <textarea class="form-control" name="hobby" id="j_hobby" rows="3" required >{{res.Hobbies}}</textarea>
+                                                                                        <div class="invalid-feedback">
+                                                                                            Enter Your Hobby
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <p id="hobbyOutput" class="my-3" style="color:#e51e25;font-weight: bolder;"></p>
+                                                                                <button type="submit" class="btn btn-primary my-3">Save</button>
+                                                                            </form>
+                                                                        </div>
+                                                                        <div class="modal-footer">
+                                                                            <a href="{% url 'profile' %}" type="button" class="btn btn-success">Finish</a>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+    
+                                                            <form method="post" id="hobbyForm">
+                                                                <input type="hidden" name="myAction" value="delete" id="h_myAction">
+                                                                <input type="hidden" name="lineNo" value='{{res.Line_No}}' id="h_lineNo">
+                                                                <input type="hidden" name="hobby" value='' id="j_hobby">
+                                                                <button type="submit" class="btn btn-danger"> Delete
+                                                                    Entry</button>
+                                                            </form>
+                                                            <hr>
+                                                        </div>
                                                         {% endfor %}
                                                         {% endif %}
                                                     </div>
@@ -838,9 +1312,6 @@
                                                         Add Referee <i class="las la-plus"></i>
                                                     </button>
                                                 </div>
-                                                {% if Referee %}
-                                                {% for res in Referee %}
-
                                                 <i class="text-info py-3">
                                                     <b>Note:</b>
                                                     <br>
@@ -851,6 +1322,8 @@
                                                     given unless they really know you well. Names of relatives, members
                                                     of staff of KEPHIS or members of KEPHIS board should not be given.
                                                 </i>
+                                                {% if Referee %}
+                                                {% for res in Referee %}
                                                 <hr>
                                                 <div class="container">
                                                     <div class="row">
@@ -879,6 +1352,97 @@
                                                             <span><i> Email</i></span>
                                                             <p class="mt-1"><b>{{res.E_Mail}}</b></p>
                                                         </div>
+                                                    </div>
+                                                    <div class="d-flex justify-content-end gap-2 pb-3">
+                                                        <form>
+                                                            <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                                            data-bs-target="#EditReferee{{res.Line_No_}}">Edit</button>
+                                                        </form>
+                                                        <div class="modal fade" id="EditReferee{{res.Line_No_}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+                                                            aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                                            <div class="modal-dialog modal-dialog-centered modal-md">
+                                                                <div class="modal-content">
+                                                                    <div class="modal-header">
+                                                                        <h5 class="modal-title" id="staticBackdropLabel">Edit Referee: {{res.Line_No_}}</h5>
+                                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                    </div>
+                                                                    <div class="modal-body">
+                                                                        <form action="{% url 'FnApplicantReferee' %}" method="post" id="refForm">
+                                                                            {% csrf_token %}
+                                                                            <input type="hidden" name="myAction" value="modify" id="j_myAction">
+                                                                            <input type="hidden" name="lineNo" value='{{res.Line_No_}}' id="j_lineNo">
+                                                                            <div class="row">
+                                                                                <div class="col-md-6">
+                                                                                    <label class="form-label">Full Name</label>
+                                                                                    <input type="text" class="form-control" name="names" id="j_names" required value="{{res.Names}}">
+                                                                                    <div class="invalid-feedback">
+                                                                                        Enter Referee Full Name
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="col-md-6">
+                                                                                    <label class="form-label">Designation</label>
+                                                                                    <input type="text" class="form-control" name="designation" id="j_designation" required value="{{res.Designation}}">
+                                                                                    <div class="invalid-feedback">
+                                                                                        Enter Referee Designation
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="col-md-6">
+                                                                                    <label class="form-label">Company</label>
+                                                                                    <input type="text" class="form-control" name="company" id="j_company" required value="{{res.Company}}">
+                                                                                    <div class="invalid-feedback">
+                                                                                        Enter Referee Company
+                                                                                    </div>
+                                                                                </div>
+
+                                                                                <div class="col-md-6">
+                                                                                    <label class="form-label">Address</label>
+                                                                                    <input type="text" class="form-control" name="address" id="j_address" required value="{{res.Address}}">
+                                                                                    <div class="invalid-feedback">
+                                                                                        Enter Referee Address
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="col-md-6">
+                                                                                    <label class="form-label">Telephone No</label>
+                                                                                    <input type="text" class="form-control" name="telephoneNo" id="j_telephoneNo" required value="{{res.Telephone_No}}">
+                                                                                    <div class="invalid-feedback">
+                                                                                        Enter Referee Telephone No
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="col-md-6">
+                                                                                    <label class="form-label">Email</label>
+                                                                                    <input type="email" class="form-control" name="email" id="j_email" required value="{{res.E_Mail}}">
+                                                                                    <div class="invalid-feedback">
+                                                                                        Enter Referee Email
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <p id="innerefree" class="my-3" style="color:#e51e25;font-weight: bolder;"></p>
+                                                                            <button type="submit" class="btn btn-primary my-3">Save</button>
+                                                                        </form>
+
+                                                                    </div>
+                                                                    <div class="modal-footer">
+                                                                        <a href="{% url 'profile' %}" type="button" class="btn btn-success">Finish</a>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <form method="post" id="refForm">
+                                                            {% csrf_token %}
+                                                            <input type="hidden" name="myAction" value="modify" id="j_myAction">
+                                                            <input type="hidden" name="lineNo" value='{{res.Line_No_}}' id="j_lineNo">
+                                                            <input type="hidden" name="names" value='' id="j_names">
+                                                            <input type="hidden" name="designation" value='' id="j_designation">
+                                                            <input type="hidden" name="company" value='' id="j_company">
+                                                            <input type="hidden" name="address" value='' id="j_address">
+                                                            <input type="hidden" name="telephoneNo" value='' id="j_telephoneNo">
+                                                            <input type="hidden" name="email" value='' id="j_email">
+
+                                                            <button type="submit" class="btn btn-danger"> Delete
+                                                                Entry</button>
+                                                        </form>
+                                                        <hr>
                                                     </div>
                                                 </div>
                                                 {% endfor %}
@@ -1274,6 +1838,7 @@
 <!-- End Modal -->
 
 <!-- Modal Academic Qualification -->
+<!-- Add -->
 <div class="modal fade" id="AddAcademic" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
     aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
@@ -1285,6 +1850,8 @@
             <div class="modal-body">
                 <form method="post" id="AcademicForm">
                     {% csrf_token %}
+                    <input type="hidden" name="myAction" value="insert">
+                    <input type="hidden" name="lineNo" value='1000'>
                     <div class="row">
                         <div class="col-md-4">
                             <label class="form-label">Start Date</label>
@@ -1429,6 +1996,7 @@
             <div class="modal-body">
                 <form method="POST" id="JobExperienceForm">
                     {% csrf_token %}
+                    
                     <div class="row">
                         <div class="col-md-4">
                             <label class="form-label">Start Date</label>
@@ -1607,6 +2175,8 @@
             <div class="modal-body">
                 <form method="post" id="professionalBodyForm">
                     {% csrf_token %}
+                    <input type="hidden" name="myAction" value="insert" id="ms_myAction">
+                    <input type="hidden" name="lineNo" value='0' id="ms_lineNo">
                     <div class="row">
                         <div class="col-md-6">
                             <label class="form-label">Professional Body</label>
@@ -1655,6 +2225,8 @@
             <div class="modal-body">
                 <form method="post" id="hobbyForm">
                     {% csrf_token %}
+                    <input type="hidden" name="myAction" value="insert" id="h_myAction">
+                    <input type="hidden" name="lineNo" value='0' id="h_lineNo">
                     <div class="row">
                         <div class="col-md-12">
                             <label class="form-label">Hobby</label>
@@ -1687,6 +2259,8 @@
             <div class="modal-body">
                 <form method="post" id="refForm">
                     {% csrf_token %}
+                    <input type="hidden" name="myAction" value="insert" id="j_myAction">
+                    <input type="hidden" name="lineNo" value='1000' id="j_lineNo">
                     <div class="row">
                         <div class="col-md-6">
                             <label class="form-label">Full Name</label>
@@ -1953,7 +2527,9 @@
             type: 'POST',
             url: '{% url "FnApplicantHobby" %}',
             data: {
+                lineNo: $("#h_lineNo").val(),
                 hobby: $("#j_hobby").val(),
+                myAction: $("#h_myAction").val(),
                 csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
             },
             success: function () {
@@ -1963,7 +2539,7 @@
         })
     });
     // **** End****
-    // Hobby JS
+    // Referee JS
 
     $(document).on('submit', '#refForm', function (e) {
         e.preventDefault();
@@ -1971,12 +2547,14 @@
             type: 'POST',
             url: '{% url "FnApplicantReferee" %}',
             data: {
+                lineNo: $("#j_lineNo").val(),
                 names: $("#j_names").val(),
                 designation: $("#j_designation").val(),
                 company: $("#j_company").val(),
                 address: $("#j_address").val(),
                 telephoneNo: $("#j_telephoneNo").val(),
                 email: $("#j_email").val(),
+                myAction: $("#j_myAction").val(),
                 csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
             },
             success: function () {

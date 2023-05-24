@@ -174,7 +174,6 @@ def profile_request(request):
     return render(request, 'profile.html', ctx)
 
 
-
 def login_request(request):
     todays_date = date.today()
     year = todays_date.year
@@ -434,7 +433,7 @@ def JobExperience(request):
     location = ""
     employerEmail = ""
     employerPostalAddress = ""
-    myAction = "insert"
+    myAction = ""
 
     if request.method == 'POST':
         try:
@@ -451,6 +450,7 @@ def JobExperience(request):
             location = request.POST.get('location')
             employerEmail = request.POST.get('employerEmail')
             employerPostalAddress = request.POST.get('employerPostalAddress')
+            myAction = request.POST.get('myAction')
         except ValueError:
             messages.error(request, "Not sent. Invalid Input, Try Again!!")
             return redirect('profile')
@@ -499,25 +499,27 @@ def FnApplicantProfessionalCourse(request):
 
 
 def FnApplicantAcademicQualification(request):
-    applicantNo = request.session['No_']
-    lineNo = 0
-    startDate = ""
-    endDate = ""
-    educationTypes = ""
-    educationLevels = ""
-    fieldOfStudy = ""
-    qualificationCode = ""
-    institutionName = ""
-    proficiencyLevels = ""
-    country = ""
-    region = ""
-    isHighestLevel = ""
-    description = ""
-    grade = ""
-    myAction = "insert"
-    otherQualification = ""
-    if request.method == 'POST':
-        try:
+    # applicantNo = request.session['No_']
+    # lineNo = ""
+    # startDate = ""
+    # endDate = ""
+    # educationTypes = ""
+    # educationLevels = ""
+    # fieldOfStudy = ""
+    # qualificationCode = ""
+    # institutionName = ""
+    # proficiencyLevels = ""
+    # country = ""
+    # region = ""
+    # isHighestLevel = ""
+    # description = ""
+    # grade = ""
+    # myAction = "insert"
+    # otherQualification = ""
+    try:
+        if request.method == 'POST':
+            applicantNo = request.session['No_']
+            lineNo = request.POST.get('lineNo')
             startDate = request.POST.get('startDate')
             endDate = request.POST.get('endDate')
             educationTypes = request.POST.get('educationType')
@@ -532,28 +534,31 @@ def FnApplicantAcademicQualification(request):
             description = request.POST.get('description')
             grade = request.POST.get('grade')
             otherQualification = request.POST.get('otherQualification')
-        except ValueError:
-            messages.error(request, "Not sent. Invalid Input, Try Again!!")
-            return redirect('profile')
+            myAction = request.POST.get('myAction')
+    
+            print(lineNo)
+            class Data(enum.Enum):
+                values = educationTypes
+                education = educationLevels
+                proficiency = proficiencyLevels
 
-        class Data(enum.Enum):
-            values = educationTypes
-            education = educationLevels
-            proficiency = proficiencyLevels
+            educationType = (Data.values).value
+            educationLevel = (Data.education).value
+            proficiencyLevel = (Data.proficiency).value
 
-        educationType = (Data.values).value
-        educationLevel = (Data.education).value
-        proficiencyLevel = (Data.proficiency).value
-
-        try:
-            response = config.CLIENT.service.FnApplicantAcademicQualification(applicantNo, lineNo, startDate, endDate, educationType, educationLevel, fieldOfStudy, qualificationCode, institutionName,
-                                                                              proficiencyLevel, country, region, isHighestLevel, description, grade, myAction, otherQualification)
-            print(response)
-            messages.success(request, "Successfully Added.")
-            return redirect('profile')
-        except Exception as e:
-            messages.error(request, e)
-            print(e)
+            try:
+                response = config.CLIENT.service.FnApplicantAcademicQualification(applicantNo, lineNo, startDate, endDate, educationType, educationLevel, fieldOfStudy, qualificationCode, institutionName,
+                                                                                proficiencyLevel, country, region, isHighestLevel, description, grade, myAction, otherQualification)
+                print(response)
+                print(response)
+                messages.success(request, "Request Successfully")
+                return redirect('profile')
+            except Exception as e:
+                messages.error(request, e)
+                print(e)
+    except ValueError:
+        messages.error(request, "Not sent. Invalid Input, Try Again!!")
+        return redirect('profile')
     return redirect('profile')
 
 
@@ -588,12 +593,14 @@ def FnApplicantProfessionalMembership(request):
 def FnApplicantHobby(request):
     applicantNo = request.session['No_']
     # print(request.session['No_'])
-    lineNo = 0
+    lineNo = ""
     hobby = ""
-    myAction = "insert"
+    myAction = ""
     if request.method == 'POST':
         try:
+            lineNo = request.POST.get('lineNo')
             hobby = request.POST.get('hobby')
+            myAction = request.POST.get('myAction')
 
         except ValueError:
             messages.error(request, "Not sent. Invalid Input, Try Again!!")
@@ -613,20 +620,22 @@ def FnApplicantHobby(request):
 
 def FnApplicantReferee(request):
     applicantNo = request.session['No_']
-    lineNo = 0
+    lineNo = ""
     names = ""
     company = ""
     telephoneNo = ""
     email = ""
-    myAction = "insert"
+    myAction = ""
     if request.method == 'POST':
         try:
+            lineNo = request.POST.get('lineNo')
             names = request.POST.get('names')
             designation = request.POST.get('designation')
             company = request.POST.get('company')
             address = request.POST.get('address')
             telephoneNo = request.POST.get('telephoneNo')
             email = request.POST.get('email')
+            myAction = request.POST.get('myAction')
         except ValueError:
             messages.error(request, "Not sent. Invalid Input, Try Again!!")
             return redirect('profile')

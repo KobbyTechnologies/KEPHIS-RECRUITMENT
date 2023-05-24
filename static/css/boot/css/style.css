@@ -3236,9 +3236,9 @@ textarea.is-invalid.tt-hint {
   background-color: transparent;
   border: 1px solid transparent;
   /* padding: 0.775rem 0.75rem; */
-  padding: 7px 20px;
+  padding: 10px 25px;
   font-size: 17px;
-  border-radius: 40px;
+  /* border-radius: 40px; */
   font-size: 0.875rem;
   line-height: 1;
   /* border-radius: 0.1875rem; */

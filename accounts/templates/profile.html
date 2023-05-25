@@ -589,10 +589,10 @@
                                                                 <div class="d-flex justify-content-end gap-2">
                                                                     <form>
                                                                         <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                                                        data-bs-target="#EditAcademic">Edit</button>
+                                                                        data-bs-target="#EditAcademic{{res.Line_No_}}">Edit</button>
                                                                     </form>
 
-                                                                    <div class="modal fade" id="EditAcademic" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+                                                                    <div class="modal fade" id="EditAcademic{{res.Line_No_}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
                                                                         aria-labelledby="staticBackdropLabel" aria-hidden="true">
                                                                         <div class="modal-dialog modal-lg">
                                                                             <div class="modal-content">
@@ -841,9 +841,9 @@
                                                                 <div class="d-flex justify-content-end gap-2">
                                                                     <form>
                                                                         <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                                                        data-bs-target="#EditExperience">Edit</button>
+                                                                        data-bs-target="#EditExperience{{res.Line_No}}">Edit</button>
                                                                     </form>
-                                                                    <div class="modal fade" id="EditExperience" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+                                                                    <div class="modal fade" id="EditExperience{{res.Line_No}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
                                                                         aria-labelledby="staticBackdropLabel" aria-hidden="true">
                                                                         <div class="modal-dialog modal-lg">
                                                                             <div class="modal-content">
@@ -854,7 +854,8 @@
                                                                                 <div class="modal-body">
                                                                                     <form method="POST" id="JobExperienceForm">
                                                                                         {% csrf_token %}
-                                                                                        
+                                                                                        <input type="hidden" name="myAction" value="modify" id="job_myAction">
+                                                                                        <input type="hidden" name="lineNo" value='{{res.Line_No}}' id="job_lineNo">
                                                                                         <div class="row">
                                                                                             <div class="col-md-4">
                                                                                                 <label class="form-label">Start Date</label>
@@ -1062,9 +1063,9 @@
                                                     <div class="d-flex justify-content-end gap-2 pb-3">
                                                         <form>
                                                             <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                                            data-bs-target="#EditCourses">Edit</button>
+                                                            data-bs-target="#EditCourses{{res.Line_No_}}">Edit</button>
                                                         </form>
-                                                        <div class="modal fade" id="EditCourses" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+                                                        <div class="modal fade" id="EditCourses{{res.Line_No_}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
                                                             aria-labelledby="staticBackdropLabel" aria-hidden="true">
                                                             <div class="modal-dialog modal-lg">
                                                                 <div class="modal-content">
@@ -1075,8 +1076,9 @@
                                                                     <div class="modal-body">
                                                                         <form method="post" id="proQualificationForm">
                                                                             {% csrf_token %}
+                                                                            <input type="hidden" name="myAction" value="modify" id="pro_myAction">
+                                                                            <input type="hidden" name="lineNo" value='{{res.Line_No_}}' id="pro_lineNo">
                                                                             <div class="row">
-
                                                                                 <div class="col-md-6">
                                                                                     <label class="form-label">Qualification</label>
                                                                                     <select class="form-select" id="proQualificationCode" name="qualificationCode" required>
@@ -1157,16 +1159,16 @@
                                                             <p class="mt-1"><b>{{res.Professional_Body}}</b></p>
                                                         </div>
                                                         <div class="col-md-6">
-                                                            <span><i> Section Level:</i></span>
+                                                            <span><i> Membership No:</i></span>
                                                             <p class="mt-1"><b>{{res.MembershipNo}}</b></p>
                                                         </div>
                                                     </div>
                                                     <div class="d-flex justify-content-end gap-2 pb-3">
                                                         <form>
                                                             <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                                            data-bs-target="#EditMemberships">Edit</button>
+                                                            data-bs-target="#EditMemberships{{res.Line_No_}}">Edit</button>
                                                         </form>
-                                                        <div class="modal fade" id="EditMemberships" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+                                                        <div class="modal fade" id="EditMemberships{{res.Line_No_}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
                                                             aria-labelledby="staticBackdropLabel" aria-hidden="true">
                                                             <div class="modal-dialog modal-dialog-centered modal-md">
                                                                 <div class="modal-content">
@@ -1177,6 +1179,8 @@
                                                                     <div class="modal-body">
                                                                         <form method="post" id="professionalBodyForm">
                                                                             {% csrf_token %}
+                                                                            <input type="hidden" name="myAction" value="modify" id="ms_myAction">
+                                                                            <input type="hidden" name="lineNo" value='{{res.Line_No_}}' id="ms_lineNo">
                                                                             <div class="row">
                                                                                 <div class="col-md-6">
                                                                                     <label class="form-label">Professional Body</label>
@@ -1850,8 +1854,8 @@
             <div class="modal-body">
                 <form method="post" id="AcademicForm">
                     {% csrf_token %}
-                    <input type="hidden" name="myAction" value="insert">
-                    <input type="hidden" name="lineNo" value='1000'>
+                    <input type="hidden" name="myAction" value="insert" id="Aca_myAction">
+                    <input type="hidden" name="lineNo" value='1000' id="Aca_lineNo">
                     <div class="row">
                         <div class="col-md-4">
                             <label class="form-label">Start Date</label>
@@ -1996,7 +2000,8 @@
             <div class="modal-body">
                 <form method="POST" id="JobExperienceForm">
                     {% csrf_token %}
-                    
+                    <input type="hidden" name="myAction" value="insert" id="job_myAction">
+                    <input type="hidden" name="lineNo" value='0' id="job_lineNo">
                     <div class="row">
                         <div class="col-md-4">
                             <label class="form-label">Start Date</label>
@@ -2115,8 +2120,9 @@
             <div class="modal-body">
                 <form method="post" id="proQualificationForm">
                     {% csrf_token %}
+                    <input type="hidden" name="myAction" value="insert" id="pro_myAction">
+                    <input type="hidden" name="lineNo" value='0' id="pro_lineNo">
                     <div class="row">
-
                         <div class="col-md-6">
                             <label class="form-label">Qualification</label>
                             <select class="form-select" id="proQualificationCode" name="qualificationCode" required>
@@ -2382,6 +2388,9 @@
             type: 'POST',
             url: '{% url "FnApplicantAcademicQualification" %}',
             data: {
+                
+                lineNo: $("#Aca_lineNo").val(),
+                myAction: $("#Aca_myAction").val(),
                 startDate: $("#Aca_startDate").val(),
                 endDate: $("#Aca_endDate").val(),
                 educationType: $("#Aca_educationType").val(),
@@ -2425,6 +2434,8 @@
             type: 'POST',
             url: '{% url "JobExperience" %}',
             data: {
+                myAction: $("#job_myAction").val(),
+                lineNo: $("#job_lineNo").val(),
                 startDate: $("#job_startDate").val(),
                 endDate: $("#job_endDate").val(),
                 employer: $("#job_employer").val(),
@@ -2475,6 +2486,8 @@
             type: 'POST',
             url: '{% url "FnApplicantProfessionalCourse" %}',
             data: {
+                myAction: $("#pro_myAction").val(),
+                lineNo: $("#pro_lineNo").val(),
                 qualificationCode: $("#proQualificationCode").val(),
                 sectionLevel: $("#pro_sectionLevel").val(),
                 otherQualification: $("#proQulification").val(),
@@ -2489,6 +2502,8 @@
         })
     });
     // **** End****
+
+    
     // ProfessionalMembership JS
     $(document).ready(function () {
         $('#ms_professionalBody').on('change', function () {
@@ -2505,6 +2520,8 @@
             type: 'POST',
             url: '{% url "FnApplicantProfessionalMembership" %}',
             data: {
+                myAction: $("#ms_myAction").val(),
+                lineNo: $("#ms_lineNo").val(),
                 professionalBody: $("#ms_professionalBody").val(),
                 membershipNo: $("#ms_membershipNo").val(),
                 otherProfessionalBody: $("#otherProfessionalBody").val(),

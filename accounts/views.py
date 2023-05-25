@@ -419,7 +419,7 @@ def FnApplicantDetails(request):
 
 def JobExperience(request):
     applicantNo = request.session['No_']
-    lineNo = 0
+    lineNo = ""
     startDate = ""
     endDate = ""
     employer = ""
@@ -437,6 +437,7 @@ def JobExperience(request):
 
     if request.method == 'POST':
         try:
+            lineNo = request.POST.get('lineNo')
             startDate = request.POST.get('startDate')
             endDate = request.POST.get('endDate')
             employer = request.POST.get('employer')
@@ -473,13 +474,15 @@ def JobExperience(request):
 
 def FnApplicantProfessionalCourse(request):
     applicantNo = request.session['No_']
-    lineNo = 0
+    lineNo = ''
     qualificationCode = ""
     sectionLevel = ""
-    myAction = "insert"
+    myAction = ""
     otherQualification = ''
     if request.method == 'POST':
         try:
+            lineNo = request.POST.get('lineNo')
+            myAction = request.POST.get('myAction')
             qualificationCode = request.POST.get('qualificationCode')
             sectionLevel = int(request.POST.get('sectionLevel'))
             otherQualification = request.POST.get('otherQualification')
@@ -499,23 +502,23 @@ def FnApplicantProfessionalCourse(request):
 
 
 def FnApplicantAcademicQualification(request):
-    # applicantNo = request.session['No_']
-    # lineNo = ""
-    # startDate = ""
-    # endDate = ""
-    # educationTypes = ""
-    # educationLevels = ""
-    # fieldOfStudy = ""
-    # qualificationCode = ""
-    # institutionName = ""
-    # proficiencyLevels = ""
-    # country = ""
-    # region = ""
-    # isHighestLevel = ""
-    # description = ""
-    # grade = ""
-    # myAction = "insert"
-    # otherQualification = ""
+    applicantNo = request.session['No_']
+    lineNo = ""
+    startDate = ""
+    endDate = ""
+    educationTypes = ""
+    educationLevels = ""
+    fieldOfStudy = ""
+    qualificationCode = ""
+    institutionName = ""
+    proficiencyLevels = ""
+    country = ""
+    region = ""
+    isHighestLevel = ""
+    description = ""
+    grade = ""
+    myAction = ""
+    otherQualification = ""
     try:
         if request.method == 'POST':
             applicantNo = request.session['No_']
@@ -564,13 +567,15 @@ def FnApplicantAcademicQualification(request):
 
 def FnApplicantProfessionalMembership(request):
     applicantNo = request.session['No_']
-    lineNo = 0
+    lineNo = ''
     professionalBody = ""
     membershipNo = ""
-    myAction = "insert"
+    myAction = ""
     otherProfessionalBody = ''
     if request.method == 'POST':
         try:
+            lineNo = request.POST.get('lineNo')
+            myAction = request.POST.get('myAction')
             professionalBody = request.POST.get('professionalBody')
             membershipNo = request.POST.get('membershipNo')
             otherProfessionalBody = request.POST.get('otherProfessionalBody')
